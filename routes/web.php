@@ -21,3 +21,6 @@ Route::get('/dashboard', function () {
 Route::get('/user/create', function () {
     return view('admin.userCreate');
 });
+Route::get('/config', function () {
+    return view('admin.configuration');
+});
