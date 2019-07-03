@@ -18,9 +18,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
-Route::get('/user/create', function () {
-    return view('admin.userCreate');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('countries','CountryController');
 });
-Route::get('/config', function () {
-    return view('admin.configuration');
-});
+// disabled registration
+Auth::routes(['register' => false]);
+
+Route::get('/home', 'HomeController@index')->name('home');
