@@ -21,8 +21,10 @@ Route::get('/dashboard', function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('countries','CountryController');
+    Route::resource('property','PropertyController');
 });
 // disabled registration
-Auth::routes(['register' => false]);
+//Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
