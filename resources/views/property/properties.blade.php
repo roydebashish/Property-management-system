@@ -73,7 +73,6 @@
                                     <option value="{{ $item->id }}">{{ $item->country_name }}</option>
                                 @endforeach
                             @endif
-                            <?php ?>
                         </select>
                     </div>
                     <div class="col-lg-6 mb-4">

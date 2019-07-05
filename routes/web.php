@@ -22,6 +22,8 @@ Route::get('/dashboard', function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('countries','CountryController');
     Route::resource('property','PropertyController');
+    Route::resource('expenses','ExpenseTypeController');
+    Route::resource('units','UnitController');
 });
 // disabled registration
 //Auth::routes(['register' => false]);
