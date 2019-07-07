@@ -14,19 +14,20 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
+Route::get('/login2', function () {
+    return view('auth.login2');
 });
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::resource('dashboard', 'DashboardController');
+    //Route::resource('dashboard','DashboardController');
     Route::resource('countries','CountryController');
     Route::resource('property','PropertyController');
     Route::resource('expenses','ExpenseTypeController');
     Route::resource('units','UnitController');
 });
 // disabled registration
-//Auth::routes(['register' => false]);
-Auth::routes();
+Auth::routes(['register' => false]);
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

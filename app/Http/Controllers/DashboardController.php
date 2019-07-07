@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Unit;
-use App\Property;
 use Illuminate\Http\Request;
 
-class UnitController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +13,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-       // dd(Unit::all()->load('property'));
-        return view('unit.units')->with(['units' => Unit::all()->load('property'), 'properties' => Property::all()]);
+        return view('dashboard');
     }
 
     /**
@@ -37,17 +34,16 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        Unit::create($request->all());
-        return back()->with('success', "New Unit added");
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Unit  $unit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Unit $unit)
+    public function show($id)
     {
         //
     }
@@ -55,10 +51,10 @@ class UnitController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Unit  $unit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Unit $unit)
+    public function edit($id)
     {
         //
     }
@@ -67,10 +63,10 @@ class UnitController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Unit  $unit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Unit $unit)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -78,10 +74,10 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Unit  $unit
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Unit $unit)
+    public function destroy($id)
     {
         //
     }
