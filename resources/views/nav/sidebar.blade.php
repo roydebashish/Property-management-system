@@ -18,14 +18,39 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
-
+   
+    <div class="sidebar-heading">Sales & Expense</div>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-sale" aria-expanded="true"
+            aria-controls="collapseTwo">
+            <i class="fas fa-dollar-sign"></i>
+            <span>Sale</span>
+        </a>
+        <div id="menu-sale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('sales.create') }}">Sales Entry</a>
+                <a class="collapse-item" href="{{ route('sales.index') }}">Sales</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-expense" aria-expanded="true"
+            aria-controls="collapseTwo">
+            <i class="fas fa-file-invoice"></i>
+            <span>Expense</span>
+        </a>
+        <div id="menu-expense" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('expenses.create') }}">Expense Entry</a>
+                <a class="collapse-item" href="{{ route('expenses.index') }}">Expenses</a>
+            </div>
+        </div>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
-    <div class="sidebar-heading">
-        Manage
-    </div>
+    <div class="sidebar-heading">Manage</div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -39,19 +64,39 @@
                 <h6 class="collapse-header">Manage</h6>
                 <a class="collapse-item" href="{{ route('countries.index') }}">Country</a>
                 <a class="collapse-item" href="{{ route('property.index') }}">Property</a>
-                <a class="collapse-item" href="{{ route('expenses.index') }}">Expense Type</a>
+                <a class="collapse-item" href="{{ route('expenseType.index') }}">Expense Type</a>
                 <a class="collapse-item" href="{{ route('units.index') }}">Units</a>
             </div>
         </div>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
-    <div class="sidebar-heading">Clients & Employees</div>
-   <li class="nav-item">
-        <a class="nav-link" href="##">
-            <i class="fas fa-users"></i>
-            <span>Client</span></a>
+    <div class="sidebar-heading">Users & Members</div>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-user" aria-expanded="true"
+            aria-controls="collapseTwo">
+            <i class="fas fa-user-friends"></i>
+            <span>Users</span>
+        </a>
+        <div id="menu-user" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('users.create') }}">Add User</a>
+                <a class="collapse-item" href="{{ route('users.index') }}">Users</a>
+            </div>
+        </div>
     </li>
-
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-member" aria-expanded="true"
+            aria-controls="collapseTwo">
+            <i class="fas fa-users"></i>
+            <span>Members</span>
+        </a>
+        <div id="menu-member" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('members.create') }}">Add Member</a>
+                <a class="collapse-item" href="{{ route('members.index') }}">Members</a>
+            </div>
+        </div>
+    </li>
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->

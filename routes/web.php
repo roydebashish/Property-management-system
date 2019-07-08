@@ -11,23 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/login2', function () {
-    return view('auth.login2');
-});
+
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('dashboard');
+    });
     Route::resource('dashboard', 'DashboardController');
     //Route::resource('dashboard','DashboardController');
     Route::resource('countries','CountryController');
     Route::resource('property','PropertyController');
-    Route::resource('expenses','ExpenseTypeController');
+    Route::resource('expenseType','ExpenseTypeController');
+    Route::resource('expenses','ExpenseController');
     Route::resource('units','UnitController');
+    Route::resource('sales','SaleController');
+    Route::resource('users','UserController');
+    Route::resource('members','MemberController');
 });
 // disabled registration
 Auth::routes(['register' => false]);
 //Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

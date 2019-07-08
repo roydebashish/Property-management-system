@@ -17,7 +17,7 @@
 
   <!-- Custom styles for this template-->
   <link href="{{ asset('admin/css/sb-admin-2.min.css') }} " rel="stylesheet">
-
+  @yield('ps_style')
 </head>
 
 <body id="page-top">

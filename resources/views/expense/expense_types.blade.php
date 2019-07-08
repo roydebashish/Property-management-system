@@ -63,7 +63,7 @@
                 </button>
 
             </div>
-            <form action="{{ route("expenses.store") }}" method="POST">
+            <form action="{{ route("expenseType.store") }}" method="POST">
             @csrf
             <div class="modal-body">
                 <div class="row">
