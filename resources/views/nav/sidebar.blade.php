@@ -23,7 +23,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-sale" aria-expanded="true"
             aria-controls="collapseTwo">
-            <i class="fas fa-dollar-sign"></i>
+            <i class="fas fa-handshake"></i>
             <span>Sale</span>
         </a>
         <div id="menu-sale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -36,7 +36,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-expense" aria-expanded="true"
             aria-controls="collapseTwo">
-            <i class="fas fa-file-invoice"></i>
+            <i class="fas fa-money-bill-wave"></i>
             <span>Expense</span>
         </a>
         <div id="menu-expense" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -56,7 +56,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
             aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-wrench"></i>
             <span>Configuraltion</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
