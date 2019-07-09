@@ -14,13 +14,13 @@
         User Form
     </div>
     <div class="card-body">
-        <form class="user" method="post" action="">
+    <form class="user" method="post" action="{{ route('users.store') }}">
             @csrf
             <div class="form-group row">
                 <div class="col-sm-6 mb-3">
-                    <input type="text" class="form-control" name="full_name" value="{{ old('full_name') }}"
+                    <input type="text" class="form-control" name="name" value="{{ old('name') }}"
                         placeholder="Full Name">
-                    @error('full_name')
+                    @error('name')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
@@ -31,13 +31,19 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
+                    <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" placeholder="Phone">
+                    @error('phone')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col-sm-6 mb-3">
                     <select class="form-control" name="user_role">
                         <option value="">User Role</option>
-                        <option value="" @if(old('user_role')=='user_role' ) {{ 'selected' }} @endif>Admin
+                        <option value="admin" @if(old('user_role')=='admin' ) {{ 'selected' }} @endif>Admin
                         </option>
-                        <option value="" @if(old('user_role')=='user_role' ) {{ 'selected' }} @endif>Account
+                        <option value="account" @if(old('user_role')=='account' ) {{ 'selected' }} @endif>Account
                         </option>
-                        <option value="" @if(old('user_role')=='user_role' ) {{ 'selected' }} @endif>User
+                        <option value="user" @if(old('user_role')=='user' ) {{ 'selected' }} @endif>User
                         </option>
                     </select>
                     @error('user_role')
