@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\user;
 
 class UserController extends Controller
 {
@@ -46,7 +47,7 @@ class UserController extends Controller
             'password.min'=> 'Minimum 6 characters',
             'password.same'=> 'Comfirm password does not match',
             'confirm.required' => 'Confirm password'
-        ];
+        ]; 
         $this->validate($request,[
             'name' => 'required',
             'email' => 'required|unique:users|email',
@@ -55,6 +56,13 @@ class UserController extends Controller
             'password'=> 'required|min:6|same:confirm',
             'confirm' => 'required'
         ], $messages);
+        
+        $data = $request->all();
+        $data['password'] = bcrypt($request->password);
+        $user = User::create($data);
+       
+        return back()->with('success', "New User <b>$user->name</b> Created");
+        
     }
 
     /**
