@@ -14,7 +14,7 @@
         Member Create Form
     </div>
     <div class="card-body">
-        <form class="user" method="post" action="">
+        <form class="user" method="post" action="{{ route('members.store') }}">
             @csrf
             <div class="form-group row">
                 <div class="col-sm-6 mb-3">
@@ -33,10 +33,12 @@
                 <div class="col-sm-6 mb-3">
                     <select class="form-control" name="country_id">
                         <option value="">Country</option>
-                        <option value="" @if(old('country_id')=='country_id' ) {{ 'selected' }} @endif>Bangladesh
-                        </option>
-                        <option value="" @if(old('country_id')=='country_id' ) {{ 'selected' }} @endif>Malayasia
-                        </option>
+                        @if(!$countries->isEmpty())
+                        @foreach($countries as $item)
+                            <option value="{{ $item->id }}" @if(old('country_id')== $item->id ) {{ 'selected' }} @endif >{{$item->country_name}}
+                            </option>
+                        @endforeach
+                        @endif
                     </select>
                     @error('country_id')
                     <small class="text-danger">{{ $message }}</small>
