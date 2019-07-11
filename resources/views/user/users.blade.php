@@ -46,7 +46,7 @@
                         <td>{{ $item->phone }}</td>
                         <td>{{ $item->user_role }}</td>
                         <td>
-                            <a href="{{ route('users.edit',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
+                            <a href="{{ route('users.show',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
                                 <i class="fas fa-eye"></i>
                             </a>
                             <a href="{{ route('users.edit',['id' => $item->id]) }}" class="btn btn-primary btn-circle btn-sm">

@@ -15,7 +15,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = Member::all();
+        $members = Member::all()->load('country');
         return view('member.members')->with('members', $members);
     }
 
@@ -38,7 +38,6 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         $messages = [
             'member_name.required' => 'Enter member name',
             'email.email' => 'Invalid email address',
@@ -59,9 +58,9 @@ class MemberController extends Controller
             'address' => 'required',
             'country_id' => 'required|exists:countries,id'
         ], $messages);
+        #create
         Member::create($request->all());
         return back()->with('success','New Member Created');
-        
     }
 
     /**

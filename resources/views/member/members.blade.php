@@ -26,7 +26,6 @@
                     <tr>
                         <th>Name</th>
                         <th>Phone</th>
-                        <th>Email</th>
                         <th>Country</th>
                         <th>Action</th>
                     </tr>
@@ -35,112 +34,31 @@
                     <tr>
                         <th>Name</th>
                         <th>Phone</th>
-                        <th>Email</th>
                         <th>Country</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                   
-                    <tr>
-                        <td>Serge Baldwin</td>
-                        <td>Data Coordinator</td>
-                        <td>Singapore</td>
-                        <td>example@gmail.com</td>
-                        <td>
-                            <a href="#" class="btn btn-info btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Zenaida Frank</td>
-                        <td>01746603766</td>
-                        <td>New York</td>
-                        <td>example@gmail.com</td>
-                        <td>
-                            <a href="#" class="btn btn-info btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Zorita Serrano</td>
-                        <td>01746603766</td>
-                        <td>San Francisco</td>
-                        <td>example@gmail.com</td>
-                        <td>
-                            <a href="#" class="btn btn-info btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jennifer Acosta</td>
-                        <td>01746603766</td>
-                        <td>Edinburgh</td>
-                        <td>example@gmail.com</td>
-                       <td>
-                            <a href="#" class="btn btn-info btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Cara Stevens</td>
-                        <td>01746603766</td>
-                        <td>New York</td>
-                        <td>example@gmail.com</td>
-                       <td>
-                            <a href="#" class="btn btn-info btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>01746603766</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>example@gmail.com</td>
-                        <td>
-                            <a href="#" class="btn btn-info btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                   
-                    <tr>
-                        <td>Donna Snider</td>
-                        <td>01746603766</td>
-                        <td>New York</td>
-                        <td>example@gmail.com</td>
-                        <td>
-                            <a href="#" class="btn btn-info btn-circle btn-sm">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    @if($members)
+                    @foreach ($members as $item)
+                        <tr>
+                            <td>{{ $item->member_name }}</td>
+                            <td>{{ $item->phone }}</td>
+                            <td>{{ $item->country->country_name}}</td>
+                            <td>
+                                <a href="{{ route('members.show',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ route('members.edit',['id' => $item->id]) }}" class="btn btn-primary btn-circle btn-sm">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                <a href="{{ route('members.destroy', ['id' => $item->id]) }}" class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                   @endif
                 </tbody>
             </table>
         </div>

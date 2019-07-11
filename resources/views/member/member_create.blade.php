@@ -60,6 +60,8 @@
                     <input type="date" class="form-control" name="dob" value="{{ old('dob') }}" placeholder="Address">
                     @error('dob')
                     <small class="text-danger">{{ $message }}</small>
+                    @else
+                    <small class="text-info text-grey">Date of Birth</small>
                     @enderror
                 </div>
             </div>

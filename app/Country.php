@@ -15,6 +15,12 @@ class Country extends Model
     {
         return $this->hasMany('App\Property');
     }
+    /**
+     * relation country to member
+     **/
+    public function members(){
+        return $this->hasMany('App\Member');
+    }
 
 }
 
