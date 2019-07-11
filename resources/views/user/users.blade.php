@@ -27,7 +27,7 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Role</th>
-                    <th>Action</th>
+                    <th width="15%">Action</th>
                 </tr>
             </thead>
             <tfoot>
@@ -45,7 +45,7 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->phone }}</td>
                         <td>{{ $item->user_role }}</td>
-                        <td>
+                        <td class="text-center">
                             <a href="{{ route('users.show',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
                                 <i class="fas fa-eye"></i>
                             </a>
