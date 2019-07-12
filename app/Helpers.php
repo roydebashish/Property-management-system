@@ -1,10 +1,13 @@
 <?php 
 namespace App;
+
 use Auth;
+
+/**@Debashish Roy */
 class Helper
 {
     /**
-     * param string $key
+     * @param string $key
      * return requested user data.  
      */
     public static function current_user($key=null)

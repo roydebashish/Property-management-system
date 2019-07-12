@@ -27,9 +27,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('sales','SaleController');
     Route::resource('users','UserController');
     Route::resource('members','MemberController');
+    //Route::resource('ajaxRequests','AjaxRequestController');
+    
 });
 // disabled registration
 Auth::routes(['register' => false]);
 //Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/properties/{country_id}','AjaxRequestController@properties');
+Route::get('/get_units_property/{property_id}','AjaxRequestController@units');

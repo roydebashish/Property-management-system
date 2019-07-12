@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sale;
 use App\Country;
+use App\Member;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -27,7 +28,8 @@ class SaleController extends Controller
     public function create()
     {
         $countries = Country::orderby('country_name', 'asc')->get();
-         return view('sale.sale_create')->with('countries', $countries);
+        $members = Member::all();
+        return view('sale.sale_create')->with(['countries'=> $countries,'members' => $members]);
     }
 
     /**
@@ -38,7 +40,8 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Sale::create($request->all());
+        return back()->with('success', 'Sale creted');
     }
 
     /**
