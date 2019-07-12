@@ -81,6 +81,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        dd('destroyed');
+        $country->delete();
+        return back()->with('success', "Country deleted");
     }
 }

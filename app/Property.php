@@ -20,6 +20,6 @@ class Property extends Model
     */
     public function units()
     {
-        return $this->belongsTo('App\Unit');
+        return $this->hasMany('App\Unit');
     }
 }

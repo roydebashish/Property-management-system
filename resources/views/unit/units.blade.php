@@ -1,4 +1,11 @@
 @extends('master')
+
+@section('title', 'Units')
+
+@section('ps_style')
+<link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -37,14 +44,18 @@
                     <tr>
                     
                         <td width="">{{ $item->unit_no }}</td>
-                        <td width="">{{ $item->property->property_name }}</td>
+                        <td width="">{{ @$item->property->property_name }}</td>
                         <td>
                             <a href="{{ route('units.edit',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="{{ route('units.destroy', ['id' => $item->id]) }}" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            <form class="d-md-inline-block" action="{{ route('units.destroy', ['id' => $item->id]) }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button type='submit' class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -71,7 +82,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6 mb-4">
-                        <select required name="property_id" class="form-control form-control-user" >
+                        <select required name="property_id" class="form-control form-control-user" required >
                         <option value="">Select property</option>
                         @if(!$properties->isEmpty())
                             @foreach ($properties as $item)
@@ -81,7 +92,7 @@
                         </select>
                     </div>
                     <div class="col-lg-6 mb-4">
-                        <input type="text" required name="unit_no" class="form-control form-control-user" placeholder="Unit Number">
+                        <input type="text" required name="unit_no" class="form-control form-control-user" placeholder="Unit Number" required />
                     </div>
                 </div>
             </div>
@@ -92,4 +103,12 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('ps_script')
+<!-- Page level plugins -->
+<script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+<!-- Page level custom scripts -->
+<script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
 @endsection

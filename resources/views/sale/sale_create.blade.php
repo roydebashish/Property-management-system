@@ -19,30 +19,29 @@
             <div class="form-group row">
                 <div class="col-sm-6 mb-3">
                     {{-- <label>Choose Country</label> --}}
-                    <select class="form-control" name="country_id">
+                    <select class="form-control" id='country_id' name="country_id">
                         <option value="">Country</option>
-                        <option value="" @if(old('country_id')=='country_id' ) {{ 'selected' }} @endif>Bangladesh</option>
-                        <option value="" @if(old('country_id')=='country_id' ) {{ 'selected' }} @endif>Malayasia</option>
+                        @if(!$countries->isEmpty())
+                            @foreach ($countries as $country)
+                                <option value="{{ $country->id }}" @if(old('country_id')== $country->id ) {{ 'selected' }} @endif>{{ $country->country_name }}</option>                            
+                            @endforeach
+                        @endif
                     </select>
                     @error('country_id')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <select class="form-control" name="property_id">
+                    <select class="form-control" id="property_id name="property_id">
                         <option value="">Property</option>
-                        <option value="" @if(old('property_id')=='property_id' ) {{ 'selected' }} @endif>Property 1</option>
-                        <option value="" @if(old('property_id')=='property_id' ) {{ 'selected' }} @endif>Property 2</option>
                     </select>
                     @error('property_id')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <select class="form-control" name="unit_id">
+                    <select class="form-control" id="unit_id" name="unit_id">
                         <option value="">Unit</option>
-                        <option value="" @if(old('unit_id')=='unit_id' ) {{ 'selected' }} @endif>Unit 1</option>
-                        <option value="" @if(old('unit_id')=='unit_id' ) {{ 'selected' }} @endif>Unit 2</option>
                     </select>
                     @error('unit_id')
                     <small class="text-danger">{{ $message }}</small>

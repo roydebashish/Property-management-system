@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sale;
+use App\Country;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -14,6 +15,7 @@ class SaleController extends Controller
      */
     public function index()
     {
+        
         return view('sale.sales');
     }
 
@@ -24,7 +26,8 @@ class SaleController extends Controller
      */
     public function create()
     {
-         return view('sale.sale_create');
+        $countries = Country::orderby('country_name', 'asc')->get();
+         return view('sale.sale_create')->with('countries', $countries);
     }
 
     /**

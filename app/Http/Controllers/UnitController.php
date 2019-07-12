@@ -15,8 +15,15 @@ class UnitController extends Controller
      */
     public function index()
     {
-       // dd(Unit::all()->load('property'));
-        return view('unit.units')->with(['units' => Unit::all()->load('property'), 'properties' => Property::all()]);
+        // $units = Unit::join('properties',function($join){
+        //             $join->on('properties.id','units.property_id');
+        //         })
+        //         ->select('units.*','properties.property_name')
+        //         ->get();
+        
+        //$units = Unit::all()->load('property');
+        
+        return view('unit.units')->with(['units' => Unit::all()->load('property'), 'properties' => Property::orderBy('property_name','asc')->get()]);
     }
 
     /**
@@ -83,6 +90,7 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
-        //
+        $unit->delete();
+        return back()->with('success', "Unit deleted");
     }
 }

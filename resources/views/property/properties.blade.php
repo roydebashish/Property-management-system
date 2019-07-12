@@ -1,4 +1,11 @@
 @extends('master')
+
+@section('title','Properties')
+
+@section('ps_style')
+    <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -35,16 +42,19 @@
                     @if(!$properties->isEmpty())
                         @foreach($properties as $property)
                         <tr>
-                            
                             <td width="">{{ $property->property_name }}</td>
-                            <td width="">{{ $property->country->country_name }}</td>
+                            <td width="">{{ $property->country['country_name'] }}</td>
                             <td>
                             <a href="{{ route('property.edit',['id' => $property->id]) }}" class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="{{ route('property.destroy', ['id' => $property->id]) }}" class="btn btn-danger btn-circle btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                <form class="d-md-inline-block" action="{{ route('property.destroy', ['id' => $property->id]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type='submit' class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -81,7 +91,7 @@
                         </select>
                     </div>
                     <div class="col-lg-6 mb-4">
-                        <input type="text" name="property_name" class="form-control form-control-user" placeholder="Property Name">
+                        <input type="text" name="property_name" class="form-control form-control-user" placeholder="Property Name" required />
                     </div>
 
                 </div>
@@ -94,8 +104,11 @@
     </div>
 </div>
 @endsection
+
 @section('ps_script')
-{{-- <script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('admin/js/demo/datatables-demo.js') }}"></script> --}}
+<!-- Page level plugins -->
+<script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+<!-- Page level custom scripts -->
+<script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
 @endsection

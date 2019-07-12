@@ -81,6 +81,7 @@ class ExpenseTypeController extends Controller
      */
     public function destroy(ExpenseType $expenseType)
     {
-        //
+        $expenseType->delete();
+        return back()->with('success', "Expense type deleted");
     }
 }

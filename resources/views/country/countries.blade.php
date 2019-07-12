@@ -1,4 +1,11 @@
 @extends('master')
+
+@section('title','Countries')
+
+@section('ps_style')
+<link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -35,12 +42,16 @@
                         <tr>
                             <td>{{ $country->country_name }}</td>
                             <td>
-                            <a href="{{ route('countries.edit',['id' => $country->id]) }}" class="btn btn-info btn-circle btn-sm">
+                                <a href="{{ route('countries.edit',['id' => $country->id]) }}" class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="{{ route('countries.destroy', ['id' => $country->id]) }}" class="btn btn-danger btn-circle btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                <form class="d-md-inline-block" action="{{ route('countries.destroy', ['id' => $country->id]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type='submit' class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -67,7 +78,7 @@
             <div class="modal-body">
                 <div class="row">
                         <div class="col-lg-8 mb-4">
-                            <input type="text" name="country_name" class="form-control form-control-user" placeholder="Add Country">
+                            <input type="text" name="country_name" class="form-control form-control-user" placeholder="Add Country" required>
                         </div>
                         <div class="col-lg-4 mb-4">
                             <button type="submit" class="btn btn-primary btn-block" type="button">Add</button>
@@ -78,4 +89,12 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('ps_script')
+<!-- Page level plugins -->
+<script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+<!-- Page level custom scripts -->
+<script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
 @endsection
