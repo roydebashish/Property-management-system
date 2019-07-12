@@ -27,7 +27,7 @@
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Country</th>
-                        <th>Action</th>
+                        <th width="15%">Action</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -52,9 +52,13 @@
                                 <a href="{{ route('members.edit',['id' => $item->id]) }}" class="btn btn-primary btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="{{ route('members.destroy', ['id' => $item->id]) }}" class="btn btn-danger btn-circle btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                <form class="d-md-inline-block" action="{{ route('members.destroy', ['id' => $item->id]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type='submit' class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

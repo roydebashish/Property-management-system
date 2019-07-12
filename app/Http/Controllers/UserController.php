@@ -14,8 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        
-        return view('user.users')->with('users', User::all());
+        $users = User::where('user_role', '!=', 'system')->get();
+        return view('user.users')->with('users', $users);
     }
 
     /**
@@ -107,8 +107,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return back()->with('success', "User deleted");
     }
 }

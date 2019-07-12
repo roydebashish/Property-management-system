@@ -1,5 +1,7 @@
 @extends('master')
 
+@section('title', 'Users')
+
 @section('ps_style')
 <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endsection
@@ -52,9 +54,13 @@
                             <a href="{{ route('users.edit',['id' => $item->id]) }}" class="btn btn-primary btn-circle btn-sm">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="{{ route('users.destroy', ['id' => $item->id]) }}" class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            <form class="d-md-inline-block" action="{{ route('users.destroy', ['id' => $item->id]) }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button type='submit' class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
