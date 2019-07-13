@@ -72,8 +72,8 @@
                 <div class="col-sm-6 mb-3">
                     <select class="form-control" name="payment_method">
                         <option value="">Payment Method</option>
-                        <option value="Method 1" @if(old('payment_method')=='payment_method' ) {{ 'selected' }} @endif>Method 1</option>
-                        <option value="Method 2" @if(old('payment_method')=='payment_method' ) {{ 'selected' }} @endif>Method 2</option>
+                        <option value="Method 1" @if(old('payment_method')=='cash' ) {{ 'selected' }} @endif>Cash</option>
+                        <option value="Method 2" @if(old('payment_method')=='cheque' ) {{ 'selected' }} @endif>Cheque</option>
                     </select>
                     @error('payment_method')
                     <small class="text-danger">{{ $message }}</small>
@@ -101,7 +101,7 @@ jQuery('document').ready(function(e)
        $.ajax({
          method:'GET',
          //data:['country_id':> this.val()] ,
-         url:'http://127.0.0.1:8000/properties/'+country_id,
+         url:'http://173.230.138.250:8000/properties/'+country_id,
          success:function(data){
             $opitons = '<option value="">Property</option>';
             if(data.properties != ''){
@@ -129,7 +129,7 @@ jQuery('document').ready(function(e)
         $.ajax({
             method:'GET',
             //data:['country_id':> this.val()] ,
-            url:'http://127.0.0.1:8000/get_units_property/'+property_id,
+            url:'http://173.230.138.250:8000/get_units_property/'+property_id,
             success:function(data){
                 console.log(data.units);
                 $opitons = '<option value="">Unit</option>';
