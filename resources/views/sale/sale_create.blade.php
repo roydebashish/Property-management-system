@@ -22,7 +22,7 @@
             <div class="form-group row">
                 <div class="col-sm-6 mb-3">
                     {{-- <label>Choose Country</label> --}}
-                    <select class="form-control" id='country_id' name="country_id">
+                    <select class="form-control" id='country_id' name="country_id" required>
                         <option value="">Country</option>
                         @if(!$countries->isEmpty())
                             @foreach ($countries as $country)
@@ -35,7 +35,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <select class="form-control" id="property_id" name="property_id">
+                    <select class="form-control" id="property_id" name="property_id" required>
                         <option value="">Property</option>
                     </select>
                     @error('property_id')
@@ -43,7 +43,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <select class="form-control" id="unit_id" name="unit_id">
+                    <select class="form-control" id="unit_id" name="unit_id" required>
                         <option value="">Unit</option>
                     </select>
                     @error('unit_id')
@@ -51,7 +51,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <select class="form-control" name="member_id">
+                    <select class="form-control" name="member_id" required>
                         <option value="">Member</option>
                        @if(!$members->isEmpty()) 
                        @foreach($members as $member)
@@ -64,13 +64,13 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <input type="text" class="form-control" name="sale_amount" value="{{ old('sale_amount') }}" placeholder="Sale Amount">
+                    <input type="text" class="form-control" name="sale_amount" value="{{ old('sale_amount') }}" placeholder="Sale Amount" required >
                     @error('mesale_amountdium')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <select class="form-control" name="payment_method">
+                    <select class="form-control" name="payment_method" required>
                         <option value="">Payment Method</option>
                         <option value="Method 1" @if(old('payment_method')=='cash' ) {{ 'selected' }} @endif>Cash</option>
                         <option value="Method 2" @if(old('payment_method')=='cheque' ) {{ 'selected' }} @endif>Cheque</option>
@@ -100,8 +100,8 @@ jQuery('document').ready(function(e)
       // console.log(country_id);
        $.ajax({
          method:'GET',
-         //data:['country_id':> this.val()] ,
-         url:'http://173.230.138.250:8000/properties/'+country_id,
+         //url:'http://173.230.138.250:8000/properties/'+country_id,
+         url:'http://127.0.0.1:8000/properties/'+country_id,
          success:function(data){
             $opitons = '<option value="">Property</option>';
             if(data.properties != ''){
@@ -128,8 +128,8 @@ jQuery('document').ready(function(e)
         console.log('property: '+property_id);
         $.ajax({
             method:'GET',
-            //data:['country_id':> this.val()] ,
-            url:'http://173.230.138.250:8000/get_units_property/'+property_id,
+            //url:'http://173.230.138.250:8000/get_units_property/'+property_id,
+            url:'http://127.0.0.1:8000/get_units_property/'+property_id,
             success:function(data){
                 console.log(data.units);
                 $opitons = '<option value="">Unit</option>';

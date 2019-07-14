@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
-    protected $fillable = ['unit_no','property_id'];
+    protected $fillable = ['is_vacant','unit_no','property_id'];
 
     /*
     *relation between unit to property

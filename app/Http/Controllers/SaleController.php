@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Sale;
 use App\Country;
 use App\Member;
+use App\Unit;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -16,7 +17,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        
+        $sales = '';
         return view('sale.sales');
     }
 
@@ -41,6 +42,8 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         Sale::create($request->all());
+        #update unit vacancy status
+        Unit::where('id', $request->unit_no)->update(['is_vacant' => 0]);
         return back()->with('success', 'Sale creted');
     }
 

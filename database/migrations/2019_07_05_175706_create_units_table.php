@@ -17,6 +17,7 @@ class CreateUnitsTable extends Migration
             $table->bigIncrements('id');
             $table->string('unit_no');
             $table->integer('property_id');
+            $table->string('is_vacant')->default(1);
             $table->timestamps();
         });
     }
