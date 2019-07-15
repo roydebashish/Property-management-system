@@ -35,7 +35,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <select class="form-control" id="property_id" name="property_id" required>
+                    <select class="form-control" id="property_id" name="property_id" disabled required>
                         <option value="">Property</option>
                     </select>
                     @error('property_id')
@@ -43,7 +43,7 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <select class="form-control" id="unit_id" name="unit_id" required>
+                    <select class="form-control" id="unit_id" name="unit_id" disabled required>
                         <option value="">Unit</option>
                     </select>
                     @error('unit_id')
@@ -56,8 +56,8 @@
                        @if(!$members->isEmpty()) 
                        @foreach($members as $member)
                         <option value="{{$member->id }}" @if(old('member_id')== $member->id ) {{ 'selected' }} @endif>{{ $member->member_name }}</option>
-                        @endforeach
-                        @endif
+                       @endforeach
+                       @endif
                     </select>
                     @error('member_id')
                     <small class="text-danger">{{ $message }}</small>
@@ -96,50 +96,53 @@ jQuery('document').ready(function(e)
     //get properties
     $('#country_id').change(function()
     {
-       var country_id = $(this).val();
-      // console.log(country_id);
-       $.ajax({
-         method:'GET',
-         //url:'http://173.230.138.250:8000/properties/'+country_id,
-         url:'http://127.0.0.1:8000/properties/'+country_id,
-         success:function(data){
-            $opitons = '<option value="">Property</option>';
-            if(data.properties != ''){
-                $(data.properties).each(function(index, value){
-                    $opitons += '<option value="'+value.id+'">'+value.property_name+'</option>';
-                    //$opitons += '<option value="v">data</option>';
-                });
-                $('#property_id').html($opitons);
-                //console.log($opitons);
-            }else{
-                    alert('No Property Found');
+        var property = $('#property_id');
+        property.attr('disabled','disabled');
+        $('#unit_id').attr('disabled', 'disabled');
+        $('#unit_id option:selected').prop('selected', false);
+        var country_id = $(this).val();
+        $.ajax({
+            method:'GET',
+            url:'/properties_by_country/'+country_id,
+            success:function(data){
+                $opitons = '<option value="">Property</option>';
+                if(data.properties != ''){
+                    $(data.properties).each(function(index, value){
+                        $opitons += '<option value="'+value.id+'">'+value.property_name+'</option>';
+                    });
+                    property.html($opitons);
+                    property.removeAttr('disabled');
+                }else{
+                    $('#property_id option:selected').prop('selected', false);
+                    alert(data.message);
+                }
+            },
+            error:function(xhr,status,error){
+                console.log(error);
             }
-         },
-         error:function(xhr,status,error){
-             console.log(error);
-         }
-       }); 
+        }); 
     });
     
     //get units
     $('#property_id').change(function()
     {
+        var unit = $('#unit_id');
+        unit.attr('disabled', 'disabled');
         var property_id = $(this).val();
-        console.log('property: '+property_id);
         $.ajax({
             method:'GET',
-            //url:'http://173.230.138.250:8000/get_units_property/'+property_id,
-            url:'http://127.0.0.1:8000/get_units_property/'+property_id,
+            url:'/get_units_by_property/'+property_id,
             success:function(data){
                 console.log(data.units);
                 $opitons = '<option value="">Unit</option>';
                 if(data.units != ''){
-                $(data.units).each(function(index, value){
-                     $opitons += '<option value="'+value.id+'">'+value.unit_no+'</option>';
-                });
-                $('#unit_id').html($opitons);
-                console.log($opitons);
+                    $(data.units).each(function(index, value){
+                        $opitons += '<option value="'+value.id+'">'+value.unit_no+'</option>';
+                    });
+                    unit.html($opitons);
+                    unit.removeAttr('disabled');
                 }else{
+                    $('#unit_id option:selected').prop('selected', false);
                     alert('No Unit Found');
                 }
             },

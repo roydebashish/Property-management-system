@@ -21,6 +21,7 @@ class CreateSalesTable extends Migration
             $table->tinyInteger('is_released')->default(0);
             $table->decimal('sale_amount',10,2);
             $table->string('payment_method')->nullable();
+            $table->date('effctive_date')->nullable();
             $table->timestamps();
         });
     }

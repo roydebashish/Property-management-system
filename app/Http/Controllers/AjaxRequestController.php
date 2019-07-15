@@ -16,10 +16,13 @@ class AjaxRequestController extends Controller
      */
     public function properties($country_id)
     {
-        $properties = Property::where('country_id',$country_id)->get();
+        $properties = Property::where('country_id', $country_id)->get();
+        $msg = count($properties) == 0 ? 'No Property Found' : '';
         return response([
-            'properties' => $properties
+            'properties' => $properties,
+            'message' => $msg
         ], 200);
+        
     }
     
      /**
@@ -29,9 +32,13 @@ class AjaxRequestController extends Controller
      */
     public function units($property_id)
     {
-        $units = Unit::where('property_id',$property_id)->get();
+        $units = Unit::where('property_id', $property_id)
+            ->where('is_vacant', 1)
+            ->get();
+        $msg = count($units) > 0 ? '' : 'No Unit Found';
         return response([
-            'units' => $units
+            'units' => $units,
+            'message' => $msg
         ], 200);
     }
 
