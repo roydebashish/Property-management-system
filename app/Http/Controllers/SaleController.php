@@ -6,6 +6,7 @@ use App\Sale;
 use App\Country;
 use App\Member;
 use App\Unit;
+use DB;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -17,8 +18,15 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = '';
-        return view('sale.sales');
+        $sales = DB::table('sales')
+            ->join('units', 'units.id', 'sales.unit_id')
+            ->join('properties','properties.id', 'sales.property_id')
+            ->where('sales.is_released', 0)
+            ->select('units.unit_no','properties.property_name', 'sales.is_released','sales.sale_amount','sales.payment_method','sales.id')
+            //->orderBy('trips.load_date','asc')
+            ->get();
+        //dd($sales);
+        return view('sale.sales')->with('sales', $sales);
     }
 
     /**
