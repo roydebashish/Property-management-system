@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Expense;
+use App\ExpenseType;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -24,7 +25,8 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expense.expense_create');
+        $expense_types = ExpenseType::all();
+        return view('expense.expense_create')->with('exp_types', $expense_types);
     }
 
     /**

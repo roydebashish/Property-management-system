@@ -18,7 +18,7 @@
 @include('alert')
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3 ">
+    <div class="card-header bg-info text-white py-3 ">
         Property
     </div>
     <div class="card-body">
@@ -72,81 +72,70 @@
 <div class="row">
 <div class="col-md-6 col-sm-12">
     <div class="card shadow mb-4">
-        <div class="card-header py-3 ">
+        <div class="card-header bg-info text-white py-3 ">
             Expense Entry
         </div>
         <div class="card-body">
-            <form class="user" method="post" action="">
-                @csrf
-                <div class="form-group row">
-                    <div class="col-sm-6 mb-3">
-                        {{-- <label>Choose Country</label> --}}
-                        <select class="form-control" name="expense_type_id">
-                            <option value="">Expense</option>
-                            <option value="" @if(old('expense_type_id')=='expense_type_id' ) {{ 'selected' }} @endif>Gas
-                            </option>
-                            <option value="" @if(old('expense_type_id')=='countrexpense_type_idy_id' ) {{ 'selected' }}
-                                @endif>Water
-                            </option>
-                        </select>
-                        @error('country_id')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                        <input type="number" class="form-control" name="expense_amount" value="{{ old('expense_amount') }}"
-                            placeholder="Amount">
-                        @error('expense_amount')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="col-sm-12 text-right">
-                        <hr>
-                        <button type="submit" class="btn btn-info">Add</button>
-                    </div>
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <select class="form-control" name="expense_type_id">
+                        <option value="">Select Item</option>
+                        @if(!$exp_types->isEmpty())
+                            @foreach($exp_types as $type)
+                                <option value="{{ $type->expense_type }}" >{{ $type->expense_type }}</option> 
+                            @endforeach()
+                        @endif
+                    </select>
+                    @error('country_id')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
-               
-            </form>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" name="expense_amount" value="{{ old('expense_amount') }}"
+                        placeholder="Amount">
+                    @error('expense_amount')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-right">
+            <button id="add_item" class="btn btn-sm btn-circle btn-success shadow-sm" title="Add Expense"><i class="fas fa-plus"></i></button>
         </div>
     </div>
 </div>
 <div class="col-md-6 col-sm-12">
     <div class="card shadow mb-4">
-        <div class="card-header py-3 ">
-            Expenses <a href="javascript::void(0)">Total: 0</a>
+        <div class="card-header bg-info text-white py-3 ">
+            Expenses <a href="javascript::void(0)" class="float-right badge badge-secondary font-size-1 text-white">Total: 0</a>
         </div>
         <div class="card-body">
-            <form class="user" method="post" action="">
-                @csrf
-                <div class="form-group row">
-                    <div class="col-sm-6 mb-3">
-                        {{-- <label>Choose Country</label> --}}
-                        <select class="form-control" name="expense_type_id">
-                            <option value="">Expense</option>
-                            <option value="" @if(old('expense_type_id')=='expense_type_id' ) {{ 'selected' }} @endif>Gas
-                            </option>
-                            <option value="" @if(old('expense_type_id')=='countrexpense_type_idy_id' ) {{ 'selected' }}
-                                @endif>Water
-                            </option>
-                        </select>
-                        @error('country_id')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                        <input type="number" class="form-control" name="expense_amount"
-                            value="{{ old('expense_amount') }}" placeholder="Amount">
-                        @error('expense_amount')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class=" col-sm-12 text-right">
-                        <hr />
-                        <button type="submit" class="btn btn-info"><i class="fas fa-plus-circle"></i> Save</button>
-                    </div>
-                </div>
-                
+            <form action="{{ route('expenses.store') }}" method="POST"> @csrf
+                <table id="exp_items" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" width="75%">Item</th>
+                            <th scope="col" width="25%">Amount</th>
+                            <th scope="col" width="10%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Water bill</td>
+                            <td>500</td>
+                            <td><button type="button" class="btn btn-sm btn-circle btn-danger shadow-sm remove-item"><i class="fas fa-times"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>Water bill</td>
+                            <td>500</td>
+                            <td><button type="button" class="btn btn-sm btn-circle btn-danger shadow-sm remove-item"><i class="fas fa-times"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </form>
+        </div>
+        <div class="card-footer text-right">
+            <button class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Save</button>
         </div>
     </div>
 </div>
@@ -156,13 +145,33 @@
 @section('ps_script')
 <script src="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
 <script>
-$(function(){
-   $('#exp_date').datepicker({
+$(function()
+{
+    // calendar
+    $('#exp_date').datepicker({
         dateFormat:'yy-mm-dd',
         //changeMonth: true,
         changeYear: true,
         //showButtonPanel: true,
-   });
+    });
+    
+    //add expense items
+    $('#add_item').click(function(){
+        //append to expense list table
+        $('#exp_items').append(
+            '<tr>'
+                +'<td>Water bill</td>'
+                +'<td>500</td>'
+                +'<td><button type="button" class="btn btn-sm btn-circle btn-danger shadow-sm remove-item"><i class="fas fa-times"></i></button></td>'
+            +'</tr>'
+        );
+    });
+    //remove item from iems lists
+    $(document).on('click','.remove-item', function(){
+        console.log(this);
+        $(this).closest ('tr').remove ();
+    });
+    
 });
 </script>
 @endsection
