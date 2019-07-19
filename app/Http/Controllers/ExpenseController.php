@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Expense;
 use App\ExpenseType;
+use App\Country;
+use DB;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -15,7 +17,15 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        return view('expense.expenses');
+        $expenses = DB::table('expenses')
+            ->join('units', 'units.id', 'expenses.unit_id')
+            ->join('properties','properties.id', 'expenses.property_id')
+            ->join('countries','countries.id', 'properties.country_id')
+            ->select('units.unit_no','properties.property_name','countries.country_name','expenses.*')
+            ->orderBy('expenses.expense_date','desc')
+            ->get();
+        //dd($expenses);
+        return view('expense.expenses')->with('expenses', $expenses);
     }
 
     /**
@@ -26,7 +36,11 @@ class ExpenseController extends Controller
     public function create()
     {
         $expense_types = ExpenseType::all();
-        return view('expense.expense_create')->with('exp_types', $expense_types);
+        $countries = Country::all();
+        return view('expense.expense_create')->with([
+            'exp_types' => $expense_types,
+            'countries' => $countries
+        ]);
     }
 
     /**
@@ -37,7 +51,12 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $expense['items'] = $request->items; 
+        $expense['amounts'] = $request->amounts; 
+        $data['expense'] = serialize($expense) ;
+        Expense::create($data);
+        return back()->with('success', 'Expense Stored');
     }
 
     /**

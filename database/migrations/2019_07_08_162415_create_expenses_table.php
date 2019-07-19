@@ -17,7 +17,8 @@ class CreateExpensesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('property_id');
             $table->integer('unit_id');
-            $table->string('expense');          
+            $table->string('expense');
+            $table->date('expense_date');          
             $table->timestamps();
         });
     }
