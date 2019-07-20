@@ -72,8 +72,8 @@
                 <div class="col-sm-6 mb-3">
                     <select class="form-control" name="payment_method" required>
                         <option value="">Payment Method</option>
-                        <option value="Method 1" @if(old('payment_method')=='cash' ) {{ 'selected' }} @endif>Cash</option>
-                        <option value="Method 2" @if(old('payment_method')=='cheque' ) {{ 'selected' }} @endif>Cheque</option>
+                        <option value="Cash" @if(old('payment_method')=='Cash' ) {{ 'selected' }} @endif>Cash</option>
+                        <option value="Cheque" @if(old('payment_method')=='Cheque' ) {{ 'selected' }} @endif>Cheque</option>
                     </select>
                     @error('payment_method')
                     <small class="text-danger">{{ $message }}</small>
