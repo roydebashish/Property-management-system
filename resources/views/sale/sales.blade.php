@@ -26,21 +26,21 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Property</th>
                         <th>Unit</th>
                         <th>Sale Amount</th>
                         <th>Payment</th>
-                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
+                        <th>Date</th>
                         <th>Property</th>
                         <th>Unit</th>
                         <th>Sale Amount</th>
                         <th>Method</th>
-                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -48,11 +48,11 @@
                     @if(count($sales))
                         @foreach($sales as $sale)
                             <tr>
+                                <td>{{ date('d F, Y', strtotime($sale->created_at)) }}</td>
                                 <td>{{ $sale->property_name}}</td>
                                 <td>{{ $sale->unit_no }}</td>
                                 <td>{{ $sale->sale_amount}}</td>
                                 <td>{{ $sale->payment_method }}</td>
-                                <td>{{ date('d F, Y', strtotime($sale->created_at)) }}</td>
                                 <td>
                                     <a href="{{ route('sales.edit',['id' => $sale->id]) }}" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-pencil-alt"></i>

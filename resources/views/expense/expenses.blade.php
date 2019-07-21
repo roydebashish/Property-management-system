@@ -1,5 +1,7 @@
 @extends('master')
 
+@section('title', 'Expenses')
+
 @section('ps_style')
 <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endsection
@@ -24,6 +26,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Unit</th>
                         <th>Property</th>
                         <th>Country</th>
@@ -33,6 +36,7 @@
                 </thead>
                 <tfoot>
                     <tr>
+                        <th>Date</th>
                         <th>Unit</th>
                         <th>Property</th>
                         <th>Country</th>
@@ -43,11 +47,12 @@
                 <tbody>
                     @if(count($expenses))
                         @foreach ($expenses as $expense)
-                            @php 
+                            @php #count total expense amount
                             $expnse_items = unserialize($expense->expense);
                             $total_amount = array_sum($expnse_items['amounts']);
                             @endphp
                             <tr>
+                                <td>{{ date('F Y', strtotime($expense->expense_date)) }}</td>
                                 <td>{{ $expense->unit_no }}</td>
                                 <td>{{ $expense->property_name }}</td>
                                 <td>{{ $expense->country_name }}</td>
