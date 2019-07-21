@@ -1,0 +1,74 @@
+@extends('master')
+
+@section('title', 'Expense Detail')
+
+@section('ps_style')
+<link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+@endsection
+
+@section('content')
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Expense Detail</h1>
+    {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
+        data-target="#unitModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a> --}}
+</div>
+
+@include('alert')
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header bg-info text-white py-3">
+        Expense Details
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table " id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                    <td width="25%"><b>Date:</b> {{ date('d F, Y', strtotime($expense->created_at)) }}</td>
+                    <td width="25%"><b>Property:</b> {{ $expense->property_id }}</td>
+                    <td width="25%"><b>Unit:</b> {{ $expense->unit_no }}</td>                    
+                    <td width="25%"><b>Country:</b> {{ $expense->property_id }}</td>
+                </tr>
+              
+            </table>
+            <h5>Expenses</h5>
+            <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>Item</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                {{-- <tfoot>
+                    <tr>
+                        <th>Item</th>
+                        <th>Cost</th>
+                    </tr>
+                </tfoot> --}}
+                <tbody>
+                    @foreach ($expense->expense as $key => $item)
+                        <tr>
+                            <td>{{ $key }}</td>
+                            <td>{{ number_format($item,2) }}</td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td class="font-weight-bold">Total</td>
+                        <td class="font-weight-bold">{{ number_format($total,2) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('ps_script')
+<!-- Page level plugins -->
+<script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+<!-- Page level custom scripts -->
+<script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
+</script>
+@endsection

@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\Country;
 use App\Property;
 use App\Unit;
+use App\Expense;
 
+/**
+ * Debashish Roy 
+ * */
 class AjaxRequestController extends Controller
 {
     /**
@@ -27,8 +31,8 @@ class AjaxRequestController extends Controller
     
      /**
      * list of units by property id.
-     *@param int $property_id
-     * 1= vacant or 0 = not vacant
+     *@param int $property_id, int $is_vacant
+     * 1 = vacant or 0 = not vacant
      * @return json
      */
     public function units($property_id, $is_vacant = null)
@@ -44,6 +48,30 @@ class AjaxRequestController extends Controller
             'units' => $units,
             'message' => $msg
         ], 200);
+    }
+    /**
+     * get expenses data by id of expense
+     * @param int $id
+     * @return json
+     */
+    public function get_expenses_id($id)
+    {
+        $expense = Expense::find($id);
+        $msg = "";
+        $status = "";
+        if($expense)
+        {
+            $expense_items = unserialize($expense->expense);
+            $expense_items =  array_combine($expense_items['items'], $expense_items['amounts']);
+            return response([
+                'items' => $expense_items 
+            ], 200);
+            
+        }
+        return response([
+            'msg' => 'Internal Serve Error',
+        ], 500);
+        
     }
 
 }

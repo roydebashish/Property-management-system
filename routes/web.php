@@ -37,3 +37,4 @@ Auth::routes(['register' => false]);
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/properties_by_country/{country_id}','AjaxRequestController@properties');
 Route::get('/get_units_by_property/{property_id}/{is_vacant?}','AjaxRequestController@units');
+Route::get('/get_expense_by_id/{expense_id}','AjaxRequestController@get_expenses_id');

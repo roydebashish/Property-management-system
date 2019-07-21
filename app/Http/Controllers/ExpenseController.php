@@ -67,7 +67,21 @@ class ExpenseController extends Controller
      */
     public function show(Expense $expense)
     {
-        //
+        $expenses = DB::table('expenses')
+            ->join('units', 'units.id', 'expenses.unit_id')
+            ->join('properties','properties.id', 'expenses.property_id')
+            ->join('countries','countries.id', 'properties.country_id')
+            ->where('expenses.id', $expense->id)
+            ->select('units.unit_no','properties.property_name','countries.country_name','expenses.*')
+            ->orderBy('expenses.expense_date','desc')
+            ->first();
+        #prepare expenses data
+        $expense_items = unserialize($expense->expense);
+        $total_amount = array_sum($expense_items['amounts']);
+        $expense_items =  array_combine($expense_items['items'], $expense_items['amounts']);
+        $expense->expense = $expense_items;
+        
+        return view('expense.detail')->with(['expense'=> $expense, 'total' => $total_amount]);
     }
 
     /**

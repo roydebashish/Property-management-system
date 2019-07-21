@@ -88,4 +88,5 @@
 <script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <!-- Page level custom scripts -->
 <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
+</script>
 @endsection
