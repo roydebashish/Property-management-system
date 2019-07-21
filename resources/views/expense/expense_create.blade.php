@@ -51,7 +51,7 @@
                 @enderror
             </div>
             <div class="col-sm-6 mb-3">
-                <input type="text" class="form-control" id="expense_date" name="expense_date" placeholder="Expense for the month" required />
+                <input type="text" class="form-control" id="expense_date" name="expense_date" placeholder="Expense Month" autocomplete="off" required />
                 @error('unit_id')
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -123,10 +123,11 @@ $(function()
 {
     // calendar
     $('#expense_date').datepicker({
+       // dateFormat:'yy-mm',
         dateFormat:'yy-mm-dd',
-        //changeMonth: true,
+        changeMonth: true,
         changeYear: true,
-        //showButtonPanel: true,
+        showButtonPanel: true,
     });
     
     //add expense items
