@@ -131,7 +131,7 @@ jQuery('document').ready(function(e)
         var property_id = $(this).val();
         $.ajax({
             method:'GET',
-            url:'/get_units_by_property/'+property_id,
+            url:'/get_units_by_property/'+property_id+'/1',
             success:function(data){
                 console.log(data.units);
                 $opitons = '<option value="">Unit</option>';

@@ -22,7 +22,7 @@ class SaleController extends Controller
             ->join('units', 'units.id', 'sales.unit_id')
             ->join('properties','properties.id', 'sales.property_id')
             ->where('sales.is_released', 0)
-            ->select('units.unit_no','properties.property_name', 'sales.is_released','sales.sale_amount','sales.payment_method','sales.id')
+            ->select('units.unit_no','properties.property_name', 'sales.is_released','sales.sale_amount','sales.payment_method','sales.id','sales.created_at')
             //->orderBy('trips.load_date','asc')
             ->get();
         //dd($sales);
