@@ -15,6 +15,7 @@ class Country extends Model
     {
         return $this->hasMany('App\Property');
     }
+   
     /**
      * relation country to member
      **/

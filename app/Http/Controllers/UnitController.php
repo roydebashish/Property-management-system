@@ -15,15 +15,8 @@ class UnitController extends Controller
      */
     public function index()
     {
-        // $units = Unit::join('properties',function($join){
-        //             $join->on('properties.id','units.property_id');
-        //         })
-        //         ->select('units.*','properties.property_name')
-        //         ->get();
-        
-        //$units = Unit::all()->load('property');
-        
-        return view('unit.units')->with(['units' => Unit::all()->load('property'), 'properties' => Property::orderBy('property_name','asc')->get()]);
+        //$units = Unit::all()->load('property.country'); 
+        return view('unit.units')->with(['units' => Unit::all()->load('property.country'), 'properties' => Property::orderBy('property_name','asc')->get()]);
     }
 
     /**

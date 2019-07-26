@@ -125,8 +125,8 @@ $(function()
     $('#expense_date').datepicker({
        // dateFormat:'yy-mm',
         dateFormat:'yy-mm-dd',
-        changeMonth: true,
-        changeYear: true,
+        // changeMonth: true,
+        // changeYear: true,
         showButtonPanel: true,
     });
     

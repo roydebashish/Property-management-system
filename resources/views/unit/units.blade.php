@@ -18,7 +18,7 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
+    <div class="card-header bg-info text-white py-3">
        List of All Units
     </div>
     <div class="card-body">
@@ -26,15 +26,17 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th width="50%">Unit</th>
-                        <th width="30%">Property</th>
-                        <th>Action</th>
+                        <th width="35%">Unit</th>
+                        <th width="35%">Property</th>
+                        <th width="25%">Country</th>
+                        <th width="5%">Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Unit</th>
                         <th>Property</th>
+                        <th>Country</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -45,6 +47,7 @@
                     
                         <td width="">{{ $item->unit_no }}</td>
                         <td width="">{{ @$item->property->property_name }}</td>
+                        <td width="">{{ @$item->property->country->country_name }}</td>
                         <td>
                             <a href="{{ route('units.edit',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
                                 <i class="fas fa-pencil-alt"></i>

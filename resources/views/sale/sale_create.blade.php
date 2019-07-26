@@ -2,18 +2,21 @@
 
 @section('title','Sale Form')
 
+@section('ps_style')
+<link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
+<link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.theme.min.css')}}" rel="stylesheet">
+@endsection
+
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Sale</h1>
-    {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-        data-target="#unitModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a> --}}
 </div>
 
 @include('alert')
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
+    <div class="card-header bg-info text-white py-3">
         Sale Create Form
     </div>
     <div class="card-body">
@@ -51,6 +54,18 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
+                    <input type="text" class="form-control" id="from_date" name="from_date" placeholder="From Date" required />
+                    @error('from_date')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <input type="text" class="form-control" id="to_date" name="to_date" placeholder="To Date" required />
+                    @error('to_date')
+                    <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col-sm-6 mb-3">
                     <select class="form-control" name="member_id" required>
                         <option value="">Member</option>
                        @if(!$members->isEmpty()) 
@@ -82,7 +97,7 @@
             </div>
             <div class="texr-center">
                 {{-- <button type="reset" class="btn btn-warning">Reset</button> --}}
-                <button type="submit" class="btn btn-info">Confirm Sale</button>
+                <button type="submit" class="btn btn-primary">Confirm Sale</button>
             </div>
         </form>
     </div>
@@ -90,9 +105,30 @@
 @endsection
 
 @section('ps_script')
+<script src="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
 <script>
 jQuery('document').ready(function(e)
  {
+    // calendar
+    $('#from_date').datepicker({
+        dateFormat:'yy-mm-dd',
+        showButtonPanel: true,
+        minDate:0,
+        onSelect: function (date) {
+            var date2 = $(this).datepicker('getDate');
+           // date2.setDate(date2.getDate() + 1);
+            //$('#to_date').datepicker('setDate', date2);
+            //sets minDate to dt1 date + 1
+            $('#to_date').datepicker('option', 'minDate', date2);
+        }
+    });
+    
+    $('#to_date').datepicker({
+        dateFormat:'yy-mm-dd',
+        showButtonPanel: true,
+        minDate: 0
+    });
+    
     //get properties
     $('#country_id').change(function()
     {
