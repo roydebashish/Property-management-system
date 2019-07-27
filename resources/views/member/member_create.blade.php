@@ -1,16 +1,20 @@
 @extends('master')
+
+@section('ps_style')
+<link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
+<link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.theme.min.css')}}" rel="stylesheet">
+@endsection
+
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Member</h1>
-    {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-        data-target="#unitModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a> --}}
 </div>
 
 @include('alert')
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
+    <div class="card-header bg-info text-white py-3">
         Member Create Form
     </div>
     <div class="card-body">
@@ -57,19 +61,34 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <input type="date" class="form-control" name="dob" value="{{ old('dob') }}" placeholder="Address">
+                    <input type="text" class="form-control" name="dob" value="{{ old('dob') }}" placeholder="Birth Date">
                     @error('dob')
                     <small class="text-danger">{{ $message }}</small>
-                    @else
-                    <small class="text-info text-grey">Date of Birth</small>
                     @enderror
                 </div>
             </div>
             <div class="texr-center">
-                <button type="submit" class="btn btn-info">Create New Member</button>
+                <button type="submit" class="btn btn-primary">Create New Member</button>
                 <button type="reset" class="btn btn-warning">Reset</button>
             </div>
         </form>
     </div>
 </div>
+@endsection
+
+@section('ps_script')
+<script src="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+<script>
+jQuery('document').ready(function(e)
+ {
+    //calendar
+    $('input[name=dob]').datepicker({
+        dateFormat:'yy-mm-dd',
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true,
+        maxDate: -1,
+    });
+ });
+</script>
 @endsection

@@ -69,9 +69,9 @@
                     <select class="form-control" name="member_id" required>
                         <option value="">Member</option>
                        @if(!$members->isEmpty()) 
-                       @foreach($members as $member)
-                        <option value="{{$member->id }}" @if(old('member_id')== $member->id ) {{ 'selected' }} @endif>{{ $member->member_name }}</option>
-                       @endforeach
+                        @foreach($members as $member)
+                            <option value="{{$member->id }}" @if(old('member_id')== $member->id ) {{ 'selected' }} @endif>{{ $member->member_name }}</option>
+                        @endforeach
                        @endif
                     </select>
                     @error('member_id')

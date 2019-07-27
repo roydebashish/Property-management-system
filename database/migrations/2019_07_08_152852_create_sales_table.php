@@ -18,10 +18,10 @@ class CreateSalesTable extends Migration
             $table->integer('property_id');
             $table->integer('unit_id');
             $table->integer('member_id');
-            $table->tinyInteger('is_released')->default(0);
+            $table->date('from_date');
+            $table->date('to_date');
             $table->decimal('sale_amount',10,2);
             $table->string('payment_method')->nullable();
-            $table->date('effctive_date')->nullable();
             $table->timestamps();
         });
     }

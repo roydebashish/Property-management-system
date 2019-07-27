@@ -29,7 +29,7 @@
         <div id="menu-sale" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('sales.create') }}">Sales Entry</a>
-                <a class="collapse-item" href="{{ route('sales.index') }}">Sales</a>
+                {{-- <a class="collapse-item" href="{{ route('sales.index') }}">Sales</a> --}}
             </div>
         </div>
     </li>
@@ -42,7 +42,7 @@
         <div id="menu-expense" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('expenses.create') }}">Expense Entry</a>
-                <a class="collapse-item" href="{{ route('expenses.index') }}">Expenses</a>
+                {{-- <a class="collapse-item" href="{{ route('expenses.index') }}">Expenses</a> --}}
             </div>
         </div>
     </li>
@@ -64,13 +64,27 @@
                 <h6 class="collapse-header">Manage</h6>
                 <a class="collapse-item" href="{{ route('countries.index') }}">Country</a>
                 <a class="collapse-item" href="{{ route('property.index') }}">Property</a>
-                <a class="collapse-item" href="{{ route('expenseType.index') }}">Expense Type</a>
                 <a class="collapse-item" href="{{ route('units.index') }}">Units</a>
+                <a class="collapse-item" href="{{ route('expenseType.index') }}">Add Expense</a>
             </div>
         </div>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
-    <div class="sidebar-heading">Users & Members</div>
+    {{-- <div class="sidebar-heading">Employees</div> --}}
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-employee" aria-expanded="true"
+            aria-controls="collapseTwo">
+            <i class="fas fa-user-friends"></i>
+            <span>Employee</span>
+        </a>
+        <div id="menu-employee" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="#">Add Employee</a>
+            </div>
+        </div>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    {{-- <div class="sidebar-heading">Users</div> --}}
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-user" aria-expanded="true"
             aria-controls="collapseTwo">
@@ -80,10 +94,11 @@
         <div id="menu-user" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('users.create') }}">Add User</a>
-                <a class="collapse-item" href="{{ route('users.index') }}">Users</a>
+                {{-- <a class="collapse-item" href="{{ route('users.index') }}">Users</a> --}}
             </div>
         </div>
     </li>
+    <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-member" aria-expanded="true"
             aria-controls="collapseTwo">
@@ -93,16 +108,14 @@
         <div id="menu-member" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('members.create') }}">Add Member</a>
-                <a class="collapse-item" href="{{ route('members.index') }}">Members</a>
+                {{-- <a class="collapse-item" href="{{ route('members.index') }}">Members</a> --}}
             </div>
         </div>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
 </ul>
-<!-- End of Sidebar -->

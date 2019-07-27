@@ -18,11 +18,11 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Today's Sale</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -35,11 +35,11 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Montly Sale</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+              <i class="fas fa-calendar fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -52,20 +52,15 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Today's Expense</div>
               <div class="row no-gutters align-items-center">
                 <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                </div>
-                <div class="col">
-                  <div class="progress progress-sm mr-2">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">$150</div>
                 </div>
               </div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -78,11 +73,11 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Monthly Expense</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">$500</div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-comments fa-2x text-gray-300"></i>
+              <i class="fas fa-calendar fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -99,16 +94,29 @@
         <div class="card-body border-bottom-danger">
           <div class="row">
             <div class="col-lg-3 mb-4">
-              <a class="btn btn-success btn-user btn-block" href="##">Sales</a>
+              <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm" href="{{ route('users.create') }}">Add User</a>
             </div>
             <div class="col-lg-3 mb-4">
-              <a class="btn btn-danger btn-user btn-block" href="#">Expense</a>
+              <a class="btn btn-danger btn-user btn-block rounded-0 shadow-sm" href="{{ route('members.create') }}">Add Member</a>
             </div>
             <div class="col-lg-3 mb-4">
-              <a class="btn btn-info btn-user btn-block" href="##">Add Member</a>
+              <a class="btn btn-info btn-user btn-block rounded-0 shadow-sm" href="#">Change Password</a>
+            </div>
+            {{-- <div class="col-lg-3 mb-4">
+              <a class="btn btn-info btn-secondary btn-block" href="{{ route('expenseType.index')}}">Add Expense Type</a>
+            </div> --}}
+            <div class="clearfix w-100"></div>
+            <div class="col-lg-3 mb-4">
+              <a class="btn btn-primary btn-user btn-block rounded-0 shadow-sm" href="{{ route('countries.index') }}">Add Country</a>
             </div>
             <div class="col-lg-3 mb-4">
-              <a class="btn btn-warning btn-user btn-block" href="##">Add User</a>
+              <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm" href="{{ route('property.index') }}">Add Property</a>
+            </div>
+            <div class="col-lg-3 mb-4">
+              <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm" href="{{ route('units.index') }}">Add Unit</a>
+            </div>
+            <div class="col-lg-3 mb-4">
+              <a class="btn btn-warning btn-user btn-block rounded-0 shadow-sm" href="{{ route('expenses.create') }}">Add Expense</a>
             </div>
   
           </div>
@@ -127,22 +135,19 @@
         <div class="card-body">
           <div class="row">
             <div class="col-lg-2 mb-4">
-              <a class="btn btn-success btn-user btn-block" href="#">User Info</a>
+              <a class="btn btn-primary btn-user btn-block rounded-0 shadow-sm" href="{{ route('sales.index') }}">Sales</a>
             </div>
             <div class="col-lg-2 mb-4">
-              <a class="btn btn-success btn-user btn-block" href="#">Member Info</a>
+              <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm" href="{{ route('expenses.index') }}">Expense</a>
             </div>
             <div class="col-lg-2 mb-4">
-              <a class="btn btn-success btn-user btn-block" href="#"> Employee Info</a>
+              <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm" href="{{ route('members.index') }}">Member</a>
             </div>
             <div class="col-lg-2 mb-4">
-              <a class="btn btn-success btn-user btn-block" href="#">Add User</a>
+              <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm" href="#">Employee</a>
             </div>
             <div class="col-lg-2 mb-4">
-              <a class="btn btn-success btn-user btn-block" href="#">Add User</a>
-            </div>
-            <div class="col-lg-2 mb-4">
-              <a class="btn btn-success btn-user btn-block" href="#">Add User</a>
+              <a class="btn btn-info btn-user btn-block rounded-0 shadow-sm" href="{{ route('users.index') }}">User</a>
             </div>
           </div>
         </div>
