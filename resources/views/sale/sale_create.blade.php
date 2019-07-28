@@ -54,13 +54,13 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <input type="text" class="form-control" id="from_date" name="from_date" placeholder="From Date" required />
+                    <input type="text" class="form-control" id="from_date" name="from_date" autocomplete="off" placeholder="From Date" required />
                     @error('from_date')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <input type="text" class="form-control" id="to_date" name="to_date" placeholder="To Date" required />
+                    <input type="text" class="form-control" id="to_date" name="to_date" placeholder="To Date" autocomplete="off" required />
                     @error('to_date')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -167,7 +167,7 @@ jQuery('document').ready(function(e)
         var property_id = $(this).val();
         $.ajax({
             method:'GET',
-            url:'/get_units_by_property/'+property_id+'/1',
+            url:'/get_units_by_property/'+property_id,
             success:function(data){
                 console.log(data.units);
                 $opitons = '<option value="">Unit</option>';
