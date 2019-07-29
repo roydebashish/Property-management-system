@@ -14,9 +14,7 @@
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    });
+    Route::get('/', 'DashboardController@index');
     Route::resource('dashboard', 'DashboardController');
     //Route::resource('dashboard','DashboardController');
     Route::resource('countries','CountryController');

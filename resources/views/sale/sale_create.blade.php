@@ -53,7 +53,7 @@
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-                <div class="col-sm-6 mb-3">
+                {{-- <div class="col-sm-6 mb-3">
                     <input type="text" class="form-control" id="from_date" name="from_date" autocomplete="off" placeholder="From Date" required />
                     @error('from_date')
                     <small class="text-danger">{{ $message }}</small>
@@ -64,7 +64,7 @@
                     @error('to_date')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
-                </div>
+                </div> --}}
                 <div class="col-sm-6 mb-3">
                     <select class="form-control" name="member_id" required>
                         <option value="">Member</option>
@@ -110,24 +110,21 @@
 jQuery('document').ready(function(e)
  {
     // calendar
-    $('#from_date').datepicker({
-        dateFormat:'yy-mm-dd',
-        showButtonPanel: true,
-        minDate:0,
-        onSelect: function (date) {
-            var date2 = $(this).datepicker('getDate');
-           // date2.setDate(date2.getDate() + 1);
-            //$('#to_date').datepicker('setDate', date2);
-            //sets minDate to dt1 date + 1
-            $('#to_date').datepicker('option', 'minDate', date2);
-        }
-    });
+    // $('#from_date').datepicker({
+    //     dateFormat:'yy-mm-dd',
+    //     showButtonPanel: true,
+    //     minDate:0,
+    //     onSelect: function (date) {
+    //         var date2 = $(this).datepicker('getDate');
+    //         $('#to_date').datepicker('option', 'minDate', date2);
+    //     }
+    // });
     
-    $('#to_date').datepicker({
-        dateFormat:'yy-mm-dd',
-        showButtonPanel: true,
-        minDate: 0
-    });
+    // $('#to_date').datepicker({
+    //     dateFormat:'yy-mm-dd',
+    //     showButtonPanel: true,
+    //     minDate: 0
+    // });
     
     //get properties
     $('#country_id').change(function()

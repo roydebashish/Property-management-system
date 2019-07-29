@@ -50,7 +50,7 @@ class SaleController extends Controller
     {
         Sale::create($request->all());
         #update unit vacancy status
-        Unit::where('id', $request->unit_id)->update(['is_vacant' => 0]);
+        //Unit::where('id', $request->unit_id)->update(['is_vacant' => 0]);
         return back()->with('success', 'Sale created');
     }
 

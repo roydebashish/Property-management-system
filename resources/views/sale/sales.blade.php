@@ -54,6 +54,9 @@
                                 <td>{{ $sale->sale_amount}}</td>
                                 <td>{{ $sale->payment_method }}</td>
                                 <td>
+                                    <a href="{{ route('sales.show',['id' => $sale->id]) }}" class="btn btn-success btn-circle btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                     <a href="{{ route('sales.edit',['id' => $sale->id]) }}" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>

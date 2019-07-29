@@ -16,9 +16,10 @@ class DashboardController extends Controller
     public function index()
     {
         $daily_sale = Sale::whereDate('created_at', date('Y-m-d'))->sum('sale_amount');
+       
         $monthly_sale = Sale::whereMonth('created_at', date('m'))->sum('sale_amount');
         //$yearly_sale = Sale::whereYear('created_at', date('Y'))->sum('sale_amount');
-       #calculate daily expense
+        #calculate daily expense
         $daily_expenses = Expense::whereDate('expense_date',  date('Y-m-d'))->pluck('expense');
         $daily_total_expense = 0;
         if($daily_expenses){
