@@ -15,4 +15,12 @@ class Unit extends Model
     {
         return $this->belongsTo('App\Property');
     }
+    
+     /*
+    *relation between unit to sale
+    */
+    public function sale()
+    {
+        return $this->hasMany('App\Sale');
+    }
 }

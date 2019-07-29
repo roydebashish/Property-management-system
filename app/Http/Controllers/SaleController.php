@@ -62,7 +62,10 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
+        $sale->load('property.country');
+        $sale->load('unit');
+       // dd($sale);
+        return view('sale.detail')->with('sale', $sale);
     }
 
     /**
