@@ -23,4 +23,12 @@ class Sale extends Model
     {
         return $this->belongsTo('App\Property');
     }
+    
+    /*
+    *relation between sale to member
+    */
+    public function member()
+    {
+        return $this->belongsTo('App\Member');
+    }
 }

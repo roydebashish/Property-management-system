@@ -12,4 +12,12 @@ class Member extends Model
     public function country(){
         return $this->belongsTo('App\Country');
     }
+    
+     /*
+    *relation between member to sale
+    */
+    public function sale()
+    {
+        return $this->belongsTo('App\Sale');
+    }
 }

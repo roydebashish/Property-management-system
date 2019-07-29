@@ -64,7 +64,8 @@ class SaleController extends Controller
     {
         $sale->load('property.country');
         $sale->load('unit');
-       // dd($sale);
+        $sale->load('member');
+        //dd($sale);
         return view('sale.detail')->with('sale', $sale);
     }
 

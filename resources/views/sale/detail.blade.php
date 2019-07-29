@@ -44,6 +44,10 @@
                     <td class="font-weight-bold">Payment Method</td>
                     <td>{{ $sale->payment_method }}</td>
                 </tr>
+                <tr>
+                    <td class="font-weight-bold">Sold to</td>
+                <td><a href="{{route('members.show',['id' => $sale->member->id])}}" target="_blank"> {{$sale->member->member_name }} </a></td>
+                </tr>
             </table>
         </div>
     </div>
