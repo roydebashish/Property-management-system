@@ -16,7 +16,7 @@
 @include('alert')
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
+    <div class="card-header bg-info text-white py-3">
         Member Detail Information
     </div>
     <div class="card-body">
@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <th>Date of Birth</th>
-                    <td>{{ $member->dob }}</td>
+                    <td>{{ date('d F Y', strtotime($member->dob)) }}</td>
                 </tr>
           </table>
         </div>

@@ -37,12 +37,15 @@ class DashboardController extends Controller
                 $monthly_total_expense += array_sum($expense['amounts']);
             }
         }
-        //dd($monthly_total_expense);
+        #grows profit
+        $gross_profit = $monthly_sale - $monthly_total_expense;
+        
         return view('dashboard')->with([
             'daily_sale' => $daily_sale,
             'monthly_sale' => $monthly_sale,
             'daily_expense' => $daily_total_expense,
-            'monthly_expense' => $monthly_total_expense
+            'monthly_expense' => $monthly_total_expense,
+            'gross_profit' => $gross_profit
         ]);
     }
 

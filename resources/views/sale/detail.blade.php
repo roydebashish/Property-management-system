@@ -14,7 +14,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header bg-info text-white py-3">
-        Sales detail: {!!'<b>'.date('d F, Y', strtotime($sale->created_at)).'</b>'!!}
+        Sales detail: {!!'<b>'.date('d F Y', strtotime($sale->created_at)).'</b>'!!}
     </div>
     <div class="card-body">
         <div class="table-responsive">
