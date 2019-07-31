@@ -67,6 +67,11 @@
             </div>
             <div class="card-body">
                 <div class="form-group row mb-0">
+                    <div class="col-sm-12 mb-2">
+                        <input type="text" class="form-control" name="voucher" value="{{ old('voucher') }}"
+                            placeholder="Voucher">
+                        <small class="text-danger"></small>
+                    </div>
                     <div class="col-sm-8">
                         <select class="form-control" name="expense_type">
                             <option value="">Select Item</option>

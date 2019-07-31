@@ -2,8 +2,11 @@
 namespace App;
 
 use Auth;
+use App\Miscellaneous;
 
-/**@Debashish Roy */
+/**
+ * @Debashish Roy 
+ * */
 class Helper
 {
     /**
@@ -33,5 +36,25 @@ class Helper
             default:
                 return $authenticated_user;
         }
+    }
+    /**
+     *
+     * return last voucher number  
+     */
+    public static function voucher_serial()
+    {
+        $serial = Miscellaneous::where('option_name', 'voucher_serial')->first();
+        return $serial->option_value;
+    }
+    /**
+     * update last  voucher number 
+     * return updated voucher number or false on failure 
+     */
+    public static function update_voucher_serial()
+    {
+        #update
+        Miscellaneous::where('option_name', 'voucher_serial')->increment('option_value',1);
+        $serial = Miscellaneous::where('option_name', 'voucher_serial')->pluck('option_value');
+        return $serial[0];
     }
 }

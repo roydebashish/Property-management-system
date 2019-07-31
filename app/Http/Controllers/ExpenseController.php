@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Expense;
 use App\ExpenseType;
 use App\Country;
+use App\Helper;
 use DB;
 use Illuminate\Http\Request;
 
@@ -37,9 +38,12 @@ class ExpenseController extends Controller
     {
         $expense_types = ExpenseType::all();
         $countries = Country::all();
+        $voucher_serial = Helper::voucher_serial();
+        //dd($voucher_serial);
         return view('expense.expense_create')->with([
             'exp_types' => $expense_types,
-            'countries' => $countries
+            'countries' => $countries,
+            'voucher_serial' => $voucher_serial
         ]);
     }
 
