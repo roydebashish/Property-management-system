@@ -104,9 +104,10 @@
                 <table id="exp_items" class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col" width="75%">Item</th>
+                            <th scope="col" width="55%">Item</th>
+                            <th scope="col" width="25%">Voucher</th>
                             <th scope="col" width="25%">Amount</th>
-                            <th scope="col" width="10%">Action</th>
+                            <th scope="col" width="5%">Action</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -140,6 +141,7 @@ $(function()
     {
         var expense_type = $('select[name=expense_type]'); 
         var expense_amount = $('input[name=expense_amount]');
+        var voucher = $('input[name=voucher]');
         //empty errors & remove error class
         expense_amount.next('small').text('');
         expense_amount.removeClass('is-invalid');
@@ -164,6 +166,7 @@ $(function()
             $('#exp_items').append(
                 '<tr>'
                     +'<td>'+expense_type.val()+'<input type="hidden" value="'+expense_type.val()+'" name="items[]" /></td>'
+                    +'<td>'+voucher.val()+'<input type="hidden" value="'+voucher.val()+'" name="vouchers[]" /></td>'
                     +'<td>'+expense_amount.val()+'<input type="hidden" value="'+expense_amount.val()+'" name="amounts[]" /></td>'
                     +'<td><button type="button" class="btn btn-sm btn-circle btn-danger shadow-sm remove-item"><i class="fas fa-times"></i></button></td>'
                 +'</tr>'
@@ -171,6 +174,7 @@ $(function()
             //clear items entry inputs
             $('select[name=expense_type] option:selected').prop('selected', false);
             expense_amount.val('');
+            voucher.val('');
             //update total price
             updateAmount();
         }

@@ -19,7 +19,7 @@ class Unit extends Model
      /*
     *relation between unit to sale
     */
-    public function sale()
+    public function sales()
     {
         return $this->hasMany('App\Sale');
     }

@@ -73,6 +73,30 @@
                     @endif
                 </tbody>
             </table>
+            {{-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Property</th>
+                        <th>Unit</th>
+                        <th>Sale Amount</th>
+                        <th>Payment</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Date</th>
+                        <th>Property</th>
+                        <th>Unit</th>
+                        <th>Sale Amount</th>
+                        <th>Method</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+            </table> --}}
         </div>
     </div>
 </div>
@@ -84,4 +108,20 @@
 <script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <!-- Page level custom scripts -->
 <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
+<script>
+// $('#dataTable').DataTable(
+// {
+//     processing: true,
+//     serverSide: true,
+//     ajax: '{{ route("sales.index") }}',
+//     columns: [
+//         {data: 'created_at', name: 'created_at'},
+//         {data: 'property_id', name: 'property_id'},
+//         {data: 'unit_id', name: 'unit_id'},
+//         {data: 'sale_amount', name: 'sale_amount'},
+//         {data: 'payment_method', name: 'payment_method'},
+//         {data: 'action', name: 'action', orderable: false, searchable: false}
+//     ]
+// });
+</script>
 @endsection

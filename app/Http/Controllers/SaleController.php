@@ -7,6 +7,7 @@ use App\Country;
 use App\Member;
 use App\Unit;
 use DB;
+use DataTables;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -16,7 +17,7 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $sales = DB::table('sales')
             ->join('units', 'units.id', 'sales.unit_id')
@@ -24,8 +25,34 @@ class SaleController extends Controller
             ->select('units.unit_no','properties.property_name','sales.sale_amount','sales.payment_method','sales.id','sales.created_at')
             //->orderBy('trips.load_date','asc')
             ->get();
+        $sales = Sale::all();
+        $sales->load('unit.property');
         //dd($sales);
         return view('sale.sales')->with('sales', $sales);
+        // if ($request->ajax())
+        // {
+        //     $sales = Sale::all();
+        //     $sales->load('unit.property');
+        //     return Datatables::of($sales)
+        //             ->addColumn('action', function($row){
+        //                 $btn = '<a href="'.route("sales.show",["id" => $row->id]).'" class="btn btn-success btn-circle btn-sm">
+        //                             <i class="fas fa-eye"></i>
+        //                         </a>
+        //                         <a href="'.route("sales.edit",["id" => $row->id]).'" class="btn btn-info btn-circle btn-sm">
+        //                             <i class="fas fa-pencil-alt"></i>
+        //                         </a>
+        //                         <form class="d-md-inline-block" action="'.route("sales.destroy", ["id" => $row->id]).'" method="POST">
+        //                         '.method_field("DELETE").csrf_field().'
+        //                             <button type"submit" class="btn btn-danger btn-circle btn-sm">
+        //                                 <i class="fas fa-trash"></i>
+        //                             </button>
+        //                         </form>';
+        //                 return $btn;
+        //             })
+        //             ->rawColumns(['action'])
+        //             ->make(true);
+        //     }
+        //     return view('sale.sales');
     }
 
     /**

@@ -56,9 +56,22 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $expense['items'] = $request->items; 
-        $expense['amounts'] = $request->amounts; 
-        $data['expense'] = serialize($expense) ;
+        // $expense['items'] = $request->items; 
+        // $expense['amounts'] = $request->amounts; 
+        $expenses = [];
+        $items = $request->input('items');
+        $amounts = $request->input('amounts');
+        $vouchers = $request->input('vouchers');
+        #prepare items, voucher & amounts
+        for($i = 0; $i < count($request->items); $i++){
+            $expenses[] = ['item' => $items[$i], 'amount' => $amounts[$i], 'voucher' => $vouchers[$i]];
+        }
+        $data['expense'] = serialize($expenses) ;
+        #remove unnecessary data
+        unset($data['items']);
+        unset($data['amounts']);
+        unset($data['vouchers']);
+        //dd($data);
         Expense::create($data);
         return back()->with('success', 'Expense Stored');
     }
