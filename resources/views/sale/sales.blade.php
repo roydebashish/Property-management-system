@@ -27,11 +27,11 @@
         <form class="form-inline mb-3">
             <div class="form-group mx-sm-3 mb-2">
                 <label for="from_date" class="sr-only">From</label>
-                <input type="text" class="form-control" name="from_date" id="from_date" placeholder="From" autocomplete="off">
+                <input type="text" class="form-control" name="from_date" id="from_date" value="{{$from_date}}" placeholder="From" autocomplete="off" required>
             </div>
             <div class="form-group mx-sm-3 mb-2">
                 <label for="to_date" class="sr-only">To</label>
-                <input type="text" class="form-control" name="to_date" id="to_date" placeholder="To" autocomplete="off">
+                <input type="text" class="form-control" name="to_date" id="to_date" value="{{$to_date}}"  placeholder="To" autocomplete="off" required>
             </div>
             <button type="submit" class="btn btn-primary mb-2">Search</button>
         </form>
@@ -86,6 +86,7 @@
                     @endif
                 </tbody>
             </table>
+            {{ $sales->appends(request()->query())->links() }}
             {{-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
