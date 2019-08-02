@@ -3,7 +3,9 @@
 @section('title', 'Sales')
 
 @section('ps_style')
-    <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
+<link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.theme.min.css')}}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -22,6 +24,17 @@
         List of All Sales
     </div>
     <div class="card-body">
+        <form class="form-inline mb-3">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="from_date" class="sr-only">From</label>
+                <input type="text" class="form-control" name="from_date" id="from_date" placeholder="From" autocomplete="off">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="to_date" class="sr-only">To</label>
+                <input type="text" class="form-control" name="to_date" id="to_date" placeholder="To" autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </form>
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -107,8 +120,29 @@
 <script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <!-- Page level custom scripts -->
-<script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
+{{-- <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script> --}}
+<script src="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
 <script>
+    $(function(){
+        // calendar
+        $('#from_date, #to_date').datepicker({
+            dateFormat:'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            onSelect: function(date){
+                $("#to_date").datepicker("option","minDate", $("#from_date").datepicker("getDate"));
+            }
+        });
+        
+        $(' #to_date').datepicker({
+            dateFormat:'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+        });
+        
+    });
 // $('#dataTable').DataTable(
 // {
 //     processing: true,
@@ -123,5 +157,6 @@
 //         {data: 'action', name: 'action', orderable: false, searchable: false}
 //     ]
 // });
+
 </script>
 @endsection

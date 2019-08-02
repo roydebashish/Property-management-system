@@ -19,11 +19,17 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
+        $from_date = isset($request->from_date) ? $request->from_date : '';
+        $to_date = isset($request->to_date) ? $request->to_date : '';
+        dd($from_date. $to_date);
         $sales = DB::table('sales')
             ->join('units', 'units.id', 'sales.unit_id')
             ->join('properties','properties.id', 'sales.property_id') 
             ->select('units.unit_no','properties.property_name','sales.sale_amount','sales.payment_method','sales.id','sales.created_at')
-            //->orderBy('trips.load_date','asc')
+            ->when($from_date != '' && $to_date != '', function($query) use ($from_date, $to_date){
+                $query->whereBetween('sales.created_at',[$from_date, $to_date]);
+                return $query;
+            })
             ->get();
         $sales = Sale::all();
         $sales->load('unit.property');
