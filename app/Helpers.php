@@ -16,7 +16,8 @@ class Helper
     public static function current_user($key=null)
     {
         $authenticated_user = Auth::user();
-        switch($key){
+        switch($key)
+        {
             case 'name':
                 return $authenticated_user->name;
             case 'id':
@@ -37,8 +38,35 @@ class Helper
                 return $authenticated_user;
         }
     }
+     /**
+     * count total daily  last voucher number  
+     * @param array $expenses
+     * return int $total expense
+     */
+    public static function calulate_total_expense($expenses)
+    {
+        $total = 0;
+
+        if(!$expenses->isEmpty())
+        {
+            #loop through expense items
+            foreach($expenses as $expense)
+            {
+                $expense_items = unserialize($expense);
+                #sum amount
+                if(is_array($expense_items))
+                {
+                    foreach($expense_items as $items){
+                         $total += $items['amount'];
+                    }
+                }
+               
+            }
+        }
+        
+        return $total;
+    }
     /**
-     *
      * return last voucher number  
      */
     public static function voucher_serial()

@@ -90,7 +90,7 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Gross Profie (Monthly)</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Gross Profit (Monthly)</div>
               <div class="h6 mb-0 font-weight-bold text-gray-800">
                 {{Config::get('mugneu.currency').' '.number_format($gross_profit,2)}}</div>
             </div>
