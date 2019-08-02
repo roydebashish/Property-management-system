@@ -15,7 +15,7 @@ class Property extends Model
         return $this->belongsTo('App\Country');
     }
 
-     /*
+    /*
     *relation between property to unit
     */
     public function units()
@@ -23,11 +23,11 @@ class Property extends Model
         return $this->hasMany('App\Unit');
     }
     
-    // /*
-    // *relation between unit to property
-    // */
-    // public function sale()
-    // {
-    //     return $this->hasMany('App\Sale');
-    // }
+    /*
+    *relation between unit to property
+    */
+    public function sale()
+    {
+        return $this->hasMany('App\Sale');
+    }
 }

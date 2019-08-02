@@ -19,16 +19,16 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header bg-info text-white py-3">
-        Expense Details
+        Expense Details of <b>{{$expense->unit->unit_no}}</b>
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table " id="dataTable" width="100%" cellspacing="0">
                 <tr>
                     <td width="25%"><b>Date:</b> {{ date('d F, Y', strtotime($expense->created_at)) }}</td>
-                    <td width="25%"><b>Property:</b> {{ $expense->property_id }}</td>
-                    <td width="25%"><b>Unit:</b> {{ $expense->unit_no }}</td>                    
-                    <td width="25%"><b>Country:</b> {{ $expense->property_id }}</td>
+                    <td width="25%"><b>Property:</b> {{ $expense->unit->property->property_name }}</td>
+                    <td width="25%"><b>Unit:</b> {{ $expense->unit->unit_no }}</td>                    
+                    <td width="25%"><b>Country:</b> {{ $expense->unit->property->country->country_name }}</td>
                 </tr>
               
             </table>
@@ -36,6 +36,7 @@
             <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
                 <thead class="bg-dark text-white">
                     <tr>
+                        <th>Voucher</th>
                         <th>Item</th>
                         <th>Cost</th>
                     </tr>
@@ -49,13 +50,14 @@
                 <tbody>
                     @foreach ($expense->expense as $key => $item)
                         <tr>
-                            <td>{{ $key }}</td>
-                            <td>{{ number_format($item,2) }}</td>
+                            <td>{{ $item['voucher'] }}</td>                            
+                            <td>{{ $item['item'] }}</td>
+                            <td>{{ number_format($item['amount'], 2) }}</td>
                         </tr>
                     @endforeach
                     <tr>
-                        <td class="font-weight-bold">Total</td>
-                        <td class="font-weight-bold">{{ number_format($total,2) }}</td>
+                        <td class="font-weight-bold text-right" colspan="2" >Total =</td>
+                        <td class="font-weight-bold">{{ number_format($total, 2) }}</td>
                     </tr>
                 </tbody>
             </table>

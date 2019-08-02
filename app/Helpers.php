@@ -66,6 +66,29 @@ class Helper
         
         return $total;
     }
+    
+     /**
+     * count total daily  last voucher number  
+     * @param array $expenses
+     * return int $total expense
+     */
+    public static function total_expense_day($expenses)
+    {
+        $total = 0;
+        //dd(unserialize($expenses));
+        if(!empty($expenses))
+        {
+            #loop through expense items
+            
+            foreach(unserialize($expenses) as $items)
+            {
+                $total += $items['amount'];
+            }
+        }
+        //dd($total);
+        return $total;
+    }
+    
     /**
      * return last voucher number  
      */

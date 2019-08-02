@@ -16,7 +16,7 @@ class CreateExpensesTable extends Migration
         Schema::create('expenses', function (Blueprint $table) {
             $table->bigIncrements('id');
             //$table->integer('voucher')->unique();
-            $table->integer('property_id');
+            //$table->integer('property_id');
             $table->integer('unit_id');
             $table->text('expense');
             $table->date('expense_date');          

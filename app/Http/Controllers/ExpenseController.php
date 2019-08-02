@@ -18,14 +18,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = DB::table('expenses')
-            ->join('units', 'units.id', 'expenses.unit_id')
-            ->join('properties','properties.id', 'expenses.property_id')
-            ->join('countries','countries.id', 'properties.country_id')
-            ->select('units.unit_no','properties.property_name','countries.country_name','expenses.*')
-            ->orderBy('expenses.expense_date','desc')
-            ->get();
-        //dd($expenses);
+        $expenses = Expense::with('unit.property.country')->get();
+       // $expenses->load('unit.property.country');
+       // dd($expenses);
         return view('expense.expenses')->with('expenses', $expenses);
     }
 
@@ -86,16 +81,18 @@ class ExpenseController extends Controller
     {
         $expenses = DB::table('expenses')
             ->join('units', 'units.id', 'expenses.unit_id')
-            ->join('properties','properties.id', 'expenses.property_id')
-            ->join('countries','countries.id', 'properties.country_id')
+            //->join('properties','properties.id', 'expenses.property_id')
+           // ->join('countries','countries.id', 'properties.country_id')
             ->where('expenses.id', $expense->id)
-            ->select('units.unit_no','properties.property_name','countries.country_name','expenses.*')
-            ->orderBy('expenses.expense_date','desc')
-            ->first();
+            //->select('units.*','properties.*','countries.*','expenses.*')
+            ->select('units.*','expenses.*')
+            ->get();
+        $expense->load('unit.property.country');
+        //dd($expense);
         #prepare expenses data
         $expense_items = unserialize($expense->expense);
-        $total_amount = array_sum($expense_items['amounts']);
-        $expense_items =  array_combine($expense_items['items'], $expense_items['amounts']);
+        $total_amount = Helper::total_expense_day($expense->expense);
+        $expense_items =  unserialize($expense->expense);
         $expense->expense = $expense_items;
         
         return view('expense.detail')->with(['expense'=> $expense, 'total' => $total_amount]);

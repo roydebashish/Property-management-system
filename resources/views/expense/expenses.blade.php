@@ -47,16 +47,16 @@
                 <tbody>
                     @if(count($expenses))
                         @foreach ($expenses as $expense)
-                            @php #count total expense amount
-                            $expnse_items = unserialize($expense->expense);
+                            {{-- @php #count total expense amount
+                            $total = unserialize($expense->expense);
                             $total_amount = array_sum($expnse_items['amounts']);
-                            @endphp
+                            @endphp --}}
                             <tr>
-                                <td>{{ date('F Y', strtotime($expense->expense_date)) }}</td>
-                                <td>{{ $expense->unit_no }}</td>
-                                <td>{{ $expense->property_name }}</td>
-                                <td>{{ $expense->country_name }}</td>
-                                <td>{{ $total_amount }}</td>
+                                <td>{{ date('d F Y', strtotime($expense->expense_date)) }}</td>
+                                <td>{{ $expense->unit->unit_no }}</td>
+                                <td>{{ $expense->unit->property->property_name }}</td>
+                                <td>{{ $expense->unit->property->country->country_name }}</td>
+                                <td>{{ @App\Helper::total_expense_day($expense->expense) }}</td>
                                 <td>
                                     <a href="{{ route('expenses.show',['id' => $expense->id]) }}" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-eye"></i>
