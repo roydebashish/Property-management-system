@@ -6,6 +6,7 @@
 <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 <link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.theme.min.css')}}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -25,6 +26,24 @@
     </div>
     <div class="card-body">
         <form class="form-inline mb-3">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="country" class="sr-only">Country</label>
+                <select type="text" class="form-control" id="country" name="country" required>
+                    <option value="">Country</option>
+                </select>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="property" class="sr-only">Property</label>
+                <select type="text" class="form-control" id="property" name="property" required>
+                    <option value="">Property</option>
+                </select>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="unit" class="sr-only">Property</label>
+                <select type="text" class="form-control" id="unit" name="unit"  required>
+                    <option value="">Unit</option>
+                </select>
+            </div>
             <div class="form-group mx-sm-3 mb-2">
                 <label for="from_date" class="sr-only">From</label>
                 <input type="text" class="form-control" name="from_date" id="from_date" value="{{$from_date}}" placeholder="From" autocomplete="off" required>
@@ -123,6 +142,7 @@
 <!-- Page level custom scripts -->
 {{-- <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script> --}}
 <script src="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
     $(function(){
         // calendar
@@ -142,6 +162,8 @@
             changeYear: true,
             showButtonPanel: true,
         });
+        
+        $('#country, #property, #unit').select2();
         
     });
 // $('#dataTable').DataTable(

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\user;
+use Auth;
+use Hash;
 
 class UserController extends Controller
 {
@@ -103,7 +105,6 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -111,5 +112,57 @@ class UserController extends Controller
     {
         $user->delete();
         return back()->with('success', "User deleted");
+    }
+    
+     /**
+     * change password form
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function change_password()
+    {
+        return view('profile.change_password');
+    }
+    
+     /**
+     * udate password 
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_password(Request $request)
+    {
+       $this->validate($request,[
+            'old_password' => 'required',
+            'new_password' => 'required|min:8',
+        ],[
+            'old_password.required' => 'Enter Current Password',
+            'new_password.required' => 'Enter New Password',
+            'new_password.min' => 'At Least 8 Characters',
+        ]);
+
+        $message = '';
+        if(Auth::check())
+        {
+            $current_password = Auth::User()->password;           
+            if(Hash::check($request->input('old_password'), $current_password))
+            {        
+                $user_id = Auth::User()->id;                       
+                $obj_user = User::find($user_id);
+                $obj_user->password = Hash::make($request->input('new_password'));
+                
+                $update = $obj_user->save();
+
+                if($update)
+                    $message = 'Password Changed';
+                else
+                    $message = 'Internal error ocurred. Try some time later';
+                
+            }else{           
+                $message = 'Current Password Does Not Match';
+                
+            }
+        }
+
+        return back()->with('success', $message);
     }
 }

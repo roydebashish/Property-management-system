@@ -11,8 +11,11 @@
 |
 */
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () 
+{
     Route::get('/', 'DashboardController@index');
+    Route::get('users/change-password', 'UserController@change_password')->name('changePassword');
+    Route::post('users/change-password', 'UserController@update_password')->name('updatePassword');
     Route::resource('dashboard', 'DashboardController');
     //Route::resource('dashboard','DashboardController');
     Route::resource('countries','CountryController');

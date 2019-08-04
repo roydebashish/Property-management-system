@@ -118,7 +118,7 @@
               <a class="btn btn-danger btn-user btn-block rounded-0 shadow-sm" href="{{ route('members.create') }}">Add Member</a>
             </div>
             <div class="col-lg-3 mb-4">
-              <a class="btn btn-info btn-user btn-block rounded-0 shadow-sm" href="#">Change Password</a>
+              <a class="btn btn-info btn-user btn-block rounded-0 shadow-sm" href="{{route('changePassword')}}">Change Password</a>
             </div>
             {{-- <div class="col-lg-3 mb-4">
               <a class="btn btn-info btn-secondary btn-block" href="{{ route('expenseType.index')}}">Add Expense Type</a>
