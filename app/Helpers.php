@@ -2,6 +2,9 @@
 namespace App;
 
 use Auth;
+use App\Country;
+use App\Property;
+use App\Unit;
 use App\Miscellaneous;
 
 /**
@@ -90,22 +93,42 @@ class Helper
     }
     
     /**
-     * return last voucher number  
+     * get properties by country 
      */
     public static function voucher_serial()
     {
         $serial = Miscellaneous::where('option_name', 'voucher_serial')->first();
         return $serial->option_value;
-    }
+    } 
+    
     /**
-     * update last  voucher number 
-     * return updated voucher number or false on failure 
+     * get property name by id
+     * @param int $id 
      */
-    public static function update_voucher_serial()
+    public static function get_property_name($id)
     {
-        #update
-        Miscellaneous::where('option_name', 'voucher_serial')->increment('option_value',1);
-        $serial = Miscellaneous::where('option_name', 'voucher_serial')->pluck('option_value');
-        return $serial[0];
+        $property = Property::findOrFail($id)->first();
+        return $property->property_name;
     }
+    
+     /**
+     * get unit name by id
+     * @param int $id 
+     */
+    public static function get_unit_name($id)
+    {
+        $unit = Unit::findOrFail($id)->first();
+        return $unit->unit_no;
+    }
+    
+     /**
+     * get country  name by id
+     * @param int $id 
+     */
+    public static function get_country_name($id)
+    {
+        $country = Country::findOrFail($id)->first();
+        return $country->country_name;
+    }
+   
 }

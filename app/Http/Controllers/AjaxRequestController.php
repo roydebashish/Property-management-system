@@ -35,14 +35,9 @@ class AjaxRequestController extends Controller
      * 1 = vacant or 0 = not vacant
      * @return json
      */
-    public function units($property_id, $is_vacant = null)
+    public function units($property_id)
     {
-        $units = Unit::where('property_id', $property_id)
-            // ->where('is_vacant', $is_vacant)
-            ->when($is_vacant, function($query, $is_vacant){
-                return $query->where('is_vacant', $is_vacant);
-            })
-            ->get();
+        $units = Unit::where('property_id', $property_id)->get();
         $msg = count($units) > 0 ? '' : 'No Unit Found';
         return response([
             'units' => $units,

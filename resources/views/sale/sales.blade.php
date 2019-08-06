@@ -6,7 +6,6 @@
 <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 <link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.theme.min.css')}}" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -27,33 +26,44 @@
     <div class="card-body">
         <form class="form-inline mb-3">
             <div class="form-group mx-sm-3 mb-2">
-                <label for="country" class="sr-only">Country</label>
-                <select type="text" class="form-control" id="country" name="country" required>
+                <label for="country_id" class="sr-only">Country</label>
+                <select type="text" class="form-control" id="country_id" name="country_id" >
                     <option value="">Country</option>
+                    @if(!$countries->isEmpty())
+                        @foreach ($countries as $item)
+                            <option value="{{$item->id}}" >{{$item->country_name}}</option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
             <div class="form-group mx-sm-3 mb-2">
-                <label for="property" class="sr-only">Property</label>
-                <select type="text" class="form-control" id="property" name="property" required>
-                    <option value="">Property</option>
+                <label for="property_id" class="sr-only">Property</label>
+                <select type="text" class="form-control" id="property_id" name="property_id" disabled >
+                <option value="">Property</option>
                 </select>
             </div>
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="unit" class="sr-only">Property</label>
-                <select type="text" class="form-control" id="unit" name="unit"  required>
+            <div class="form-group mx-sm-2 mb-2">
+                <label for="unit_id" class="sr-only">Unit</label>
+                <select type="text" class="form-control" id="unit_id" name="unit_id" disabled >
                     <option value="">Unit</option>
                 </select>
             </div>
-            <div class="form-group mx-sm-3 mb-2">
+            <div class="form-group mx-sm-2 mb-2">
                 <label for="from_date" class="sr-only">From</label>
-                <input type="text" class="form-control" name="from_date" id="from_date" value="{{$from_date}}" placeholder="From" autocomplete="off" required>
+                <input type="text" class="form-control" name="from_date" id="from_date"  value="{{$from_date}}" placeholder="From" autocomplete="off" required>
             </div>
-            <div class="form-group mx-sm-3 mb-2">
+            <div class="form-group mx-sm-2 mb-2">
                 <label for="to_date" class="sr-only">To</label>
                 <input type="text" class="form-control" name="to_date" id="to_date" value="{{$to_date}}"  placeholder="To" autocomplete="off" required>
             </div>
             <button type="submit" class="btn btn-primary mb-2">Search</button>
         </form>
+        @if($srch_title) 
+            <div class="row">
+                <div class="col-md-10"><h6>{!!$srch_title!!}</h6></div>
+                <div class="col-md-2 text-right "><b>Total: {{number_format($total_sale, 2)}}</b></div>
+            </div>
+        @endif
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -142,7 +152,6 @@
 <!-- Page level custom scripts -->
 {{-- <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script> --}}
 <script src="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
     $(function(){
         // calendar
@@ -163,7 +172,70 @@
             showButtonPanel: true,
         });
         
-        $('#country, #property, #unit').select2();
+       //get properties
+        $('#country_id').change(function()
+        {
+            var property = $('#property_id');
+            property.attr('disabled','disabled');
+            $('#unit_id').attr('disabled', 'disabled');
+            $('#unit_id option:selected').prop('selected', false);
+            var country_id = $(this).val();
+            
+            $.ajax({
+                method:'GET',
+                url:'/properties_by_country/'+country_id,
+                success:function(data)
+                {
+                    $opitons = '<option value="">Property</option>';
+                    
+                    if(data.properties != '')
+                    {
+                        $(data.properties).each(function(index, value){
+                        $opitons += '<option value="'+value.id+'">'+value.property_name+'</option>';
+                        });
+                        property.html($opitons);
+                        property.removeAttr('disabled');
+                    }else{
+                        $('#property_id option:selected').prop('selected', false);
+                        alert(data.message);
+                    }
+                },
+                error:function(xhr,status,error){
+                    console.log(error);
+                }
+            });
+        });
+        
+        //get units
+        $('#property_id').change(function()
+        {
+            var unit = $('#unit_id');
+            unit.attr('disabled', 'disabled');
+            var property_id = $(this).val();
+            $.ajax({
+                method:'GET',
+                url:'/get_units_by_property/'+property_id,
+                success:function(data)
+                {
+                    //console.log(data.units);
+                    $opitons = '<option value="">Unit</option>';
+                    if(data.units != '')
+                    {
+                        $(data.units).each(function(index, value){
+                            $opitons += '<option value="'+value.id+'">'+value.unit_no+'</option>';
+                        });
+                        unit.html($opitons);
+                        unit.removeAttr('disabled');
+                    }else{
+                        $('#unit_id option:selected').prop('selected', false);
+                        alert('No Unit Found');
+                    }
+                },
+                error:function(xhr,status,error){
+                    console.log(error);
+                }
+            });
+        });
         
     });
 // $('#dataTable').DataTable(

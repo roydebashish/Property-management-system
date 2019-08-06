@@ -6,6 +6,7 @@ use App\Sale;
 use App\Country;
 use App\Member;
 use App\Unit;
+use App\Helper;
 use DB;
 use DataTables;
 use Illuminate\Http\Request;
@@ -19,9 +20,43 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-        $from_date = isset($request->from_date) ? $request->from_date : '';
-        $to_date = isset($request->to_date) ? $request->to_date : '';
-        //dd($from_date. $to_date);
+        $total_sale = 0;
+        $srch_title = '';
+        $from_date =  !empty($request->input('from_date')) ? $request->from_date : '';
+        $to_date = !empty($request->input('to_date')) ? $request->to_date : '';
+        $property_id =  !empty($request->input('property_id')) ? $request->input('property_id') : '';
+        $unit_id =  !empty($request->input('unit_id')) ? $request->input('unit_id') : '';
+        $country_id =  !empty($request->input('country_id')) ? $request->input('country_id') : '';
+        $country_name = !empty($country_id) ? Helper::get_country_name($country_id) : '';
+        $property_name = !empty($property_id) ? Helper::get_property_name($property_id) : '';
+        $unit_name = !empty($unit_id) ? Helper::get_unit_name($unit_id) : '';
+        $countries = Country::all();
+        
+        #prepare search result title & total sale
+        if(!empty($country_name) || !empty($property_name) || !empty($unit_name))
+        {
+            //$srch_title = 'Search: ';
+            if(!empty($country_name)){
+                $srch_title .= '<b>Country:</b> '.$country_name.' ';
+            }
+            if(!empty($property_name)){
+                $srch_title .= '<b>Property:</b> '.$property_name.' ';
+            }
+            if(!empty($unit_name)){
+                $srch_title .= '<b>Unit:</b> '.$unit_name.' ';
+            }
+            
+            #sum total sale
+            $total_sale =Sale::when($property_id, function($query) use ($property_id){
+                    return $query->where('sales.property_id','=',  $property_id);
+                })
+                ->when($unit_id, function($query) use ($unit_id){
+                    return $query->where('sales.unit_id','=',  $unit_id);
+                })
+                ->sum('sale_amount');
+                
+        }
+       // dd($property_id.' '.$unit_id);
         $sales = DB::table('sales')
             ->join('units', 'units.id', 'sales.unit_id')
             ->join('properties','properties.id', 'sales.property_id') 
@@ -31,16 +66,27 @@ class SaleController extends Controller
             ->when($to_date, function($query) use ($to_date){
                 return $query->whereDate('sales.created_at','<=',  $to_date);
             })
+            ->when($property_id, function($query) use ($property_id){
+                return $query->where('sales.property_id','=',  $property_id);
+            })
+            ->when($unit_id, function($query) use ($unit_id){
+                return $query->where('sales.unit_id','=',  $unit_id);
+            })
             ->select('units.unit_no','properties.property_name','sales.sale_amount','sales.payment_method','sales.id','sales.created_at')
             ->oldest('sales.created_at')
             ->paginate(20);
+        
         // $sales = Sale::all();
         // $sales->load('unit.property');
         // dd($sales);
+       //dd($country_id);
         return view('sale.sales')->with([
             'sales'=> $sales,
             'from_date' => $from_date,
-            'to_date' => $to_date
+            'to_date' => $to_date,
+            'countries' => $countries,
+            'srch_title' => $srch_title,
+            'total_sale' => $total_sale
         ]);
         // if ($request->ajax())
         // {
