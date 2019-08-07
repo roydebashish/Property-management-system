@@ -7,6 +7,7 @@ use App\Country;
 use App\Property;
 use App\Unit;
 use App\Expense;
+use App\Helper;
 
 /**
  * Debashish Roy 
@@ -67,6 +68,22 @@ class AjaxRequestController extends Controller
             'msg' => 'Internal Serve Error',
         ], 500);
         
+    }
+    
+    public function get_country($country_id)
+    {
+        $status = false;
+        $data = [];
+        try{
+            $country = Country::findOrFail($country_id);
+            $status = true;
+            $data['country'] = $country;
+        }catch(ModelNotFoundException $exception)
+        {
+            $data['error'] = $exception->getMessage();
+        }
+        $data['status'] = $status;
+        return response($data, 200);
     }
 
 }

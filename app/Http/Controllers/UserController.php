@@ -146,7 +146,7 @@ class UserController extends Controller
             $current_password = Auth::User()->password;           
             if(Hash::check($request->input('old_password'), $current_password))
             {        
-                $user_id = Auth::User()->id;                       
+                $user_id = Auth::user()->id;                       
                 $obj_user = User::find($user_id);
                 $obj_user->password = Hash::make($request->input('new_password'));
                 

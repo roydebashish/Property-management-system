@@ -14,8 +14,6 @@
 Route::group(['middleware' => 'auth'], function () 
 {
     Route::get('/', 'DashboardController@index');
-    Route::get('users/change-password', 'UserController@change_password')->name('changePassword');
-    Route::post('users/change-password', 'UserController@update_password')->name('updatePassword');
     Route::resource('dashboard', 'DashboardController');
     //Route::resource('dashboard','DashboardController');
     Route::resource('countries','CountryController');
@@ -27,13 +25,16 @@ Route::group(['middleware' => 'auth'], function ()
     Route::resource('users','UserController');
     Route::resource('members','MemberController');
     //Route::resource('ajaxRequests','AjaxRequestController');
+    Route::get('users/change-password', 'UserController@change_password')->name('changePassword');
+    Route::post('users/update-password', 'UserController@update_password')->name('updatePassword');
     
 });
+
 // disabled registration
 Auth::routes(['register' => false]);
-//Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/properties_by_country/{country_id}','AjaxRequestController@properties');
 Route::get('/get_units_by_property/{property_id}/{is_vacant?}','AjaxRequestController@units');
 Route::get('/get_expense_by_id/{expense_id}','AjaxRequestController@get_expenses_id');
+Route::get('/get_country/{country_id}','AjaxRequestController@get_country');

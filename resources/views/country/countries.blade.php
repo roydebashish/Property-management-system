@@ -42,13 +42,13 @@
                         <tr>
                             <td>{{ $country->country_name }}</td>
                             <td>
-                                <a href="{{ route('countries.edit',['id' => $country->id]) }}" class="btn btn-info btn-circle btn-sm">
+                                 <a href="#" data-id="{{$country->id}}" class="btn btn-info edit btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                                 <form class="d-md-inline-block" action="{{ route('countries.destroy', ['id' => $country->id]) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    <button type='submit' class="btn btn-danger btn-circle btn-sm">
+                                    <button type='submit' onclick="return confirm('Are you sure?');" class="btn btn-danger btn-circle btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -89,6 +89,35 @@
         </div>
     </div>
 </div>
+<!-- edit -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="Edi Country"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Country</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+
+            </div>
+            <form action="" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-8 mb-4">
+                            <input type="text" name="country_name" class="form-control form-control-user"
+                                placeholder="Add Country" required>
+                        </div>
+                        <div class="col-lg-4 mb-4">
+                            <button type="submit" class="btn btn-primary btn-block" type="button">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('ps_script')
@@ -97,4 +126,31 @@
 <script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <!-- Page level custom scripts -->
 <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
+<script>
+    $(function(){
+        $('.edit').click(function(e)
+        {
+            e.preventDefault();
+            var country_id = $(this).data('id');
+            console.log(country_id);
+            $.ajax({
+                method:'GET',
+                url:'/get_country/'+country_id,
+                success:function(data)
+                {
+                    console.log(data);
+                    if(data.status == true)
+                    {
+                       $('#editModal').modal('show');
+                    }else{
+                        alert(data.error);
+                    }
+                },
+                error:function(xhr,status,error){
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
 @endsection
