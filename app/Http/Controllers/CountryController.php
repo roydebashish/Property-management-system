@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Country;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
@@ -35,6 +36,16 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = validator::make($request->all(),[
+            'country_name' => 'required|unique:countries,country_name'
+        ],[
+            'country_name.required' => 'Enter Country Name',
+            'country_name.unique' => 'Country Already Exists'
+        ]);
+        if($validate->fails()){
+          // dd($validate->errors()->first('country_name')); 
+           return back()->with('warning', $validate->errors()->first('country_name'));
+        }
         $country = Country::create($request->all());
         return back()->with('success', "\"$country->country_name\"added to country list");
     }

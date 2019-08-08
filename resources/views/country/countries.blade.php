@@ -95,19 +95,19 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Country</h5>
+                <h5 class="modal-title" >Update Country</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
 
             </div>
-            <form action="" method="POST">
+            <form action="{{url::to('countries/update')}}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-8 mb-4">
                             <input type="text" name="country_name" class="form-control form-control-user"
-                                placeholder="Add Country" required>
+                                placeholder="Country" required>
                         </div>
                         <div class="col-lg-4 mb-4">
                             <button type="submit" class="btn btn-primary btn-block" type="button">Update</button>
@@ -132,16 +132,15 @@
         {
             e.preventDefault();
             var country_id = $(this).data('id');
-            console.log(country_id);
             $.ajax({
                 method:'GET',
                 url:'/get_country/'+country_id,
                 success:function(data)
                 {
-                    console.log(data);
                     if(data.status == true)
                     {
-                       $('#editModal').modal('show');
+                        $('#editModal input[name=country_name]').val(data.country.country_name);
+                        $('#editModal').modal('show');
                     }else{
                         alert(data.error);
                     }
