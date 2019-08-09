@@ -47,15 +47,20 @@ class SaleController extends Controller
             }
             
             #sum total sale
-            $total_sale =Sale::when($property_id, function($query) use ($property_id){
+            $total_sale = Sale::when($country_id, function($query) use ($country_id){
+                    return $query->join('properties','properties.id', 'sales.property_id')
+                        ->where('properties.country_id','=',  $country_id);
+                })
+                ->when($property_id, function($query) use ($property_id){
                     return $query->where('sales.property_id','=',  $property_id);
                 })
                 ->when($unit_id, function($query) use ($unit_id){
                     return $query->where('sales.unit_id','=',  $unit_id);
                 })
-                ->sum('sale_amount');
+                ->sum('sales.sale_amount');
                 
         }
+        
        // dd($property_id.' '.$unit_id);
         $sales = DB::table('sales')
             ->join('units', 'units.id', 'sales.unit_id')
@@ -65,6 +70,9 @@ class SaleController extends Controller
             })
             ->when($to_date, function($query) use ($to_date){
                 return $query->whereDate('sales.created_at','<=',  $to_date);
+            })
+            ->when($country_id, function($query) use ($country_id){
+                return $query->where('properties.country_id','=',  $country_id);
             })
             ->when($property_id, function($query) use ($property_id){
                 return $query->where('sales.property_id','=',  $property_id);

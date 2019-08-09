@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Country;
+use App\Property;
+use App\Unit;
+use App\User;
 class ReportController extends Controller
 {
     /**
@@ -13,7 +16,17 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        $total_country = Country::count();
+        $total_property = Property::count();
+        $total_unit = Unit::count();
+        $total_user = User::count();
+        
+        return view('report.dashboard')->with([
+            'total_country' => $total_country,
+            'total_property' => $total_property,
+            'total_unit' => $total_unit,
+            'total_user' => $total_user
+        ]);
     }
 
     /**

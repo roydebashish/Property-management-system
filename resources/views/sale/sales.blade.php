@@ -24,44 +24,58 @@
         List of All Sales
     </div>
     <div class="card-body">
-        <form class="form-inline mb-3">
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="country_id" class="sr-only">Country</label>
-                <select type="text" class="form-control" id="country_id" name="country_id" >
-                    <option value="">Country</option>
-                    @if(!$countries->isEmpty())
-                        @foreach ($countries as $item)
-                            <option value="{{$item->id}}" >{{$item->country_name}}</option>
-                        @endforeach
-                    @endif
-                </select>
+        <div class="row">
+            <div class="col-md-10">
+                <form class="form-inline mb-3">
+                    <div class="form-group col-md-4 col-sm-4 mb-2">
+                        <label for="country_id" class="sr-only">Country</label>
+                        <select type="text" class="form-control w-100" id="country_id" name="country_id">
+                            <option value="">Country</option>
+                            @if(!$countries->isEmpty())
+                            @foreach ($countries as $item)
+                            <option value="{{$item->id}}">{{$item->country_name}}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-4 mb-2">
+                        <label for="property_id" class="sr-only">Property</label>
+                        <select type="text" class="form-control w-100" id="property_id" name="property_id" disabled>
+                            <option value="">Property</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-4 mb-2">
+                        <label for="unit_id" class="sr-only">Unit</label>
+                        <select type="text" class="form-control w-100" id="unit_id" name="unit_id" disabled>
+                            <option value="">Unit</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-4 mb-2">
+                        <label for="from_date" class="sr-only">From</label>
+                        <input type="text" class="form-control w-100" name="from_date" id="from_date" value="{{$from_date}}"
+                            placeholder="From" autocomplete="off" required>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-4 mb-2">
+                        <label for="to_date" class="sr-only">To</label>
+                        <input type="text" class="form-control w-100" name="to_date" id="to_date" value="{{$to_date}}" placeholder="To"
+                            autocomplete="off" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                </form>
             </div>
-            <div class="form-group mx-sm-3 mb-2">
-                <label for="property_id" class="sr-only">Property</label>
-                <select type="text" class="form-control" id="property_id" name="property_id" disabled >
-                <option value="">Property</option>
-                </select>
+            <div class="col-md-2 text-center text-secondary font-weight-bold">
+                
+                @if($srch_title)
+                    <h6>Total</h6>
+                   {{number_format($total_sale, 2)}}
+                @endif
+                
             </div>
-            <div class="form-group mx-sm-2 mb-2">
-                <label for="unit_id" class="sr-only">Unit</label>
-                <select type="text" class="form-control" id="unit_id" name="unit_id" disabled >
-                    <option value="">Unit</option>
-                </select>
-            </div>
-            <div class="form-group mx-sm-2 mb-2">
-                <label for="from_date" class="sr-only">From</label>
-                <input type="text" class="form-control" name="from_date" id="from_date"  value="{{$from_date}}" placeholder="From" autocomplete="off" required>
-            </div>
-            <div class="form-group mx-sm-2 mb-2">
-                <label for="to_date" class="sr-only">To</label>
-                <input type="text" class="form-control" name="to_date" id="to_date" value="{{$to_date}}"  placeholder="To" autocomplete="off" required>
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Search</button>
-        </form>
+            
+        </div>
         @if($srch_title) 
             <div class="row">
-                <div class="col-md-10"><h6>{!!$srch_title!!}</h6></div>
-                <div class="col-md-2 text-right "><b>Total: {{number_format($total_sale, 2)}}</b></div>
+                <div class="col-md-12"><h6>{!!$srch_title!!}</h6></div>
             </div>
         @endif
         <div class="table-responsive">

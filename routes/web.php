@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::resource('sales','SaleController');
     Route::resource('users','UserController');
     Route::resource('members','MemberController');
+    Route::resource('reports','ReportController');
     //Route::resource('ajaxRequests','AjaxRequestController');
     Route::get('users/change-password', 'UserController@change_password')->name('changePassword');
     Route::post('users/update-password', 'UserController@update_password')->name('updatePassword');

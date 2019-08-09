@@ -47,7 +47,10 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-report" aria-expanded="true"
+        <a class="nav-link " href="{{route('reports.index')}}">
+            <i class="fas fa-file-invoice"></i><span>Report</span>
+        </a>
+        {{-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-report" aria-expanded="true"
             aria-controls="collapseTwo">
             <i class="fas fa-file-invoice"></i>
             <span>Report</span>
@@ -57,11 +60,9 @@
                 <a class="collapse-item" href="{{ route('sales.index') }}">Sales</a>
                 <a class="collapse-item" href="{{ route('expenses.index') }}">Expense</a>
                 <a class="collapse-item" href="{{ route('members.index') }}">Members</a>
-                {{-- <a class="collapse-item" href="{{ route('users.index') }}">Employees</a> --}}
                 <a class="collapse-item" href="{{ route('users.index') }}">Users</a>
-                
             </div>
-        </div>
+        </div> --}}
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
