@@ -76,12 +76,40 @@ class CountryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Country $country)
+    public function update(Request $request)
     {
-        //
+        //return $request->input('country_id');
+        $validate = validator::make($request->all(),[
+            'country_name' => 'required|unique:countries,country_name,'.$request->input('country_id')
+        ],[
+            'country_name.required' => 'Enter Country Name',
+            'country_name.unique' => 'Country Already Exists'
+        ]);
+        
+        $message = '';
+        $status = false;
+        
+        if($validate->fails()){
+           $message = $validate->errors()->first('country_name');
+        }else{
+            $country = Country::find( $request->input('country_id'));
+            if($country)
+            {
+                $country->country_name = $request->input('country_name');
+                $country->save();
+                $message = 'Country Updated';
+                $status = true;
+            }else{
+                 $message = 'Country not found. Try some time later.';
+            }
+        }
+        $data = [
+            'status' => $status,
+            'msg' => $message
+        ];
+        return response($data, 200);
     }
 
     /**

@@ -101,16 +101,18 @@
                 </button>
 
             </div>
-            <form action="{{url::to('countries/update')}}" method="POST">
+            <form action="" method="POST" id="updateForm">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-8 mb-4">
                             <input type="text" name="country_name" class="form-control form-control-user"
                                 placeholder="Country" required>
+                            {{-- <span class="invalid-feedback" role="alert"> </span> --}}
+                            <input type="hidden" name="country_id" value="">
                         </div>
                         <div class="col-lg-4 mb-4">
-                            <button type="submit" class="btn btn-primary btn-block" type="button">Update</button>
+                            <button type="button" class="btn btn-primary btn-block" id="update">Update</button>
                         </div>
                     </div>
                 </div>
@@ -128,6 +130,7 @@
 <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
 <script>
     $(function(){
+        // prepare update modal
         $('.edit').click(function(e)
         {
             e.preventDefault();
@@ -140,9 +143,41 @@
                     if(data.status == true)
                     {
                         $('#editModal input[name=country_name]').val(data.country.country_name);
+                        $('#editModal input[name=country_id]').val(data.country.id);
+                        
                         $('#editModal').modal('show');
                     }else{
                         alert(data.error);
+                    }
+                },
+                error:function(xhr,status,error){
+                    console.log(error);
+                }
+            });
+        });
+       
+        // update
+        $('#update').click(function(e)
+        {
+            var btn = $(this);
+            btn.attr('disabled', 'disabled');
+            $.ajax({
+                method:'POST',
+                data:$('#updateForm').serialize(),
+                url:'/update_country',
+                success:function(data)
+                {
+                    console.log(data);
+                    if(data.status == true)
+                    {
+                        btn.removeAttr('disabled');
+                        $('#editModal').modal('toggle');
+                        alert(data.msg);
+                        // $('#updateForm').reset();
+                        //btn.closest('tr').find('td:first-child').text($('#updateForm input[name=country_name]').val());
+                    }else{
+                        btn.removeAttr('disabled');
+                        alert(data.msg);
                     }
                 },
                 error:function(xhr,status,error){
