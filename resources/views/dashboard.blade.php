@@ -104,10 +104,75 @@
   </div>
   <div class="row">
     <div class="col-lg-12 mb-4">
+      <!--country, property, unit -->
+      <div class="card shadow  mb-4">
+        <div class="card-header bg-info py-3">
+          <h6 class="m-0 font-weight-bold text-white">Total Country, Property & Unit</h6>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-4 col-md-4  mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Country</div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">
+                          {{$total_country}} 
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-globe-asia fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-4  mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Property</div>
+                      <div class="h6 mb-0 font-weight-bold text-gray-800">
+                        {{$total_property}}
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-building fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-md-4  mb-4">
+              <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Unit</div>
+                      <div class="h6 mb-0 font-weight-bold text-gray-800">
+                        {{$total_unit}}
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-layer-group fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 mb-4">
       <!-- Quick Link -->
       <div class="card shadow mb-4">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Quick Link</h6>
+        <div class="card-header bg-success py-3">
+          <h6 class="m-0 font-weight-bold text-white">Quick Link</h6>
         </div>
         <div class="card-body border-bottom-danger">
           <div class="row">
@@ -145,10 +210,10 @@
   </div>
   <div class="row">
     <div class="col-lg-12 mb-4">
-      <!-- Quick Link -->
+      <!-- Quick Report -->
       <div class="card shadow  mb-4">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Quick Report</h6>
+        <div class="card-header bg-secondary py-3">
+          <h6 class="m-0 font-weight-bold text-white">Quick Report</h6>
         </div>
         <div class="card-body">
           <div class="row">

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Sale;
 use App\Expense;
+use App\Country;
+use App\Property;
+use App\Unit;
 use App\Helper;
 use Illuminate\Http\Request;
 
@@ -30,12 +33,20 @@ class DashboardController extends Controller
         #gross profit
         $gross_profit = $monthly_sale - $monthly_total_expense;
         
+        #total country
+        $total_country = Country::count();
+        $total_property = Property::count();
+        $total_unit = Unit::count();
+      
         return view('dashboard')->with([
             'daily_sale' => $daily_sale,
             'monthly_sale' => $monthly_sale,
             'daily_expense' => $daily_total_expense,
             'monthly_expense' => $monthly_total_expense,
-            'gross_profit' => $gross_profit
+            'gross_profit' => $gross_profit,
+            'total_country' => $total_country,
+            'total_property' => $total_property,
+            'total_unit' => $total_unit,
         ]);
     }
 }
