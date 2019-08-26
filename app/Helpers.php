@@ -130,5 +130,24 @@ class Helper
         $country = Country::findOrFail($id)->first();
         return $country->country_name;
     }
+    
+    /**
+     * get days passed till current date
+     * @param int $id 
+    */
+    public static function get_days_passed()
+    {
+        $current_date = today();
+        $total_days = 0;
+        #calculate total days
+        for($i = 1; $i < 8; $i++)
+        {
+            $total_days += cal_days_in_month(CAL_GREGORIAN, $i, $current_date->year);
+        }
+        #add current month's day
+        $total_days += $current_date->day;
+      
+        return $total_days;
+    }
    
 }
