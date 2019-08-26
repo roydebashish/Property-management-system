@@ -34,7 +34,7 @@ class Helper
             case 'photo':
                 if(!$authenticated_user->user_photo)#return default link
                 {
-                    return 'https://source.unsplash.com/QAB-WJcbgJk/60x60';
+                    return 'https://source.unsplash.com/ZHvM3XIOHoE/60x60';
                 }
                 return $authenticated_user->user_photo;
             default:
