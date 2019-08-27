@@ -13,6 +13,7 @@
 <div class="row">
     <!-- Total country-->
     <div class="col-xl-3 col-md-3 mb-4">
+        
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -25,6 +26,7 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer p-0 text-xs text-center font-weight-bold"><a href="{{ route('countries.index') }}">View</i></a></div>
         </div>
     </div>
 
@@ -46,6 +48,8 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer p-0 text-xs text-center font-weight-bold"><a href="{{ route('property.index') }}">View</i></a>
+            </div>
         </div>
     </div>
 
@@ -62,6 +66,8 @@
                         <i class="fas fa-layer-group fa-2x text-gray-300"></i>
                     </div>
                 </div>
+            </div>
+            <div class="card-footer p-0 text-xs text-center font-weight-bold"><a href="{{ route('units.index') }}">View</i></a>
             </div>
         </div>
     </div>
@@ -81,6 +87,8 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer p-0 text-xs text-center font-weight-bold"><a href="{{ route('users.index') }}">View</i></a>
+                            </div>
         </div>
     </div>
 </div>
