@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master')
 
 @section('ps_style')
 <link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">

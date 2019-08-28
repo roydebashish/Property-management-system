@@ -23,22 +23,22 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    @include('nav.sidebar')
+    @include('layouts.nav.sidebar')
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
       <div id="content">
-        @include('nav.topbar')
+        @include('layouts.nav.topbar')
         <!-- Begin Page Content -->
         <div class="container-fluid">
           @yield('content')
         </div>
       </div>
-      <footer class="sticky-footer bg-white">
+      <footer class="sticky-footer pt-3 pb-3 bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; {{date('Y')}}</span>
+            <span>Copyright &copy; {{date('Y')}}. Developed By <a href="javascript:void(0)">Inspire32</a></span>
           </div>
         </div>
       </footer>

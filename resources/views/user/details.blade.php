@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master')
 
 @section('ps_style')
 <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">

@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master')
 
 @section('title','Countries')
 
@@ -9,7 +9,7 @@
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Coutry</h1>
+    <h1 class="h3 mb-0 text-gray-800">Country</h1>
     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#CountryModal"><i
             class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a>
 </div>
@@ -128,7 +128,8 @@
 <!-- Page level custom scripts -->
 <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
 <script>
-    $(function(){
+    $(function()
+    {
         // prepare update modal
         $('.edit').click(function(e)
         {

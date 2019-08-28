@@ -9,6 +9,7 @@ class Property extends Model
 {
     use SoftDeletes;
     protected $fillable = ['property_name','country_id'];
+    
     /*
     *relation between property to country
     */

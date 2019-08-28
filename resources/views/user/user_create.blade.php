@@ -1,4 +1,5 @@
-@extends('master')
+@extends('layouts.master')
+
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
