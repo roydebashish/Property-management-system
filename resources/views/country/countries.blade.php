@@ -106,9 +106,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-8 mb-4">
-                            <input type="text" name="country_name" class="form-control form-control-user"
-                                placeholder="Country" required>
-                            {{-- <span class="invalid-feedback" role="alert"> </span> --}}
+                            <input type="text" name="country_name" class="form-control form-control-user" required>
+                             <span class="invalid-feedback" role="alert"> </span>
                             <input type="hidden" name="country_id" value="">
                         </div>
                         <div class="col-lg-4 mb-4">
@@ -161,6 +160,8 @@
         {
             var btn = $(this);
             btn.attr('disabled', 'disabled');
+            var error = $('#updateForm .invalid-feedback');
+            error.empty();
             $.ajax({
                 method:'POST',
                 data:$('#updateForm').serialize(),
@@ -177,7 +178,8 @@
                         //btn.closest('tr').find('td:first-child').text($('#updateForm input[name=country_name]').val());
                     }else{
                         btn.removeAttr('disabled');
-                        alert(data.msg);
+                        $('#updateForm input[name=country_name]').addClass('is-invalid');
+                        error.text(data.msg);
                     }
                 },
                 error:function(xhr,status,error){
@@ -185,6 +187,13 @@
                 }
             });
         });
+        
+        //remove previous errors when model fires
+        $('#editModal').on('shown.bs.modal, hide.bs.modal', function () 
+        {
+            $('#updateForm input').removeClass('is-invalid');
+            $('#updateForm span').removeClass('is-invalid');
+        })
     });
 </script>
 @endsection
