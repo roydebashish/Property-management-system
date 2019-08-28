@@ -69,8 +69,8 @@
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Property</h5>
+            <div class="modal-header bg-primary text-white pb-2 pt-2">
+                <h5 class="modal-title" >Add Property</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -80,7 +80,7 @@
             @csrf
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-lg-6">
                         <select name="country_id" class="form-control form-control-user" required>
                             <option value="">Select Country</option>
                             @if(!$countries->isEmpty())
@@ -90,14 +90,14 @@
                             @endif
                         </select>
                     </div>
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-lg-6">
                         <input type="text" name="property_name" class="form-control form-control-user" placeholder="Property Name" required />
                     </div>
 
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type='submit' class="btn btn-primary" type="button">Save</button>
+            <div class="modal-footer pb-2 pt-2">
+                <button type='submit' class="btn btn-sm btn-primary" type="button">Save</button>
             </div>
             </form>
         </div>

@@ -5,7 +5,6 @@ use Auth;
 use App\Country;
 use App\Property;
 use App\Unit;
-use App\Miscellaneous;
 
 /**
  * @Debashish Roy 
@@ -91,16 +90,6 @@ class Helper
         //dd($total);
         return $total;
     }
-    
-    /**
-     * get properties by country 
-     */
-    public static function voucher_serial()
-    {
-        $serial = Miscellaneous::where('option_name', 'voucher_serial')->first();
-        return $serial->option_value;
-    } 
-    
     /**
      * get property name by id
      * @param int $id 
