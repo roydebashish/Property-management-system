@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Member extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['member_name', 'phone', 'email', 'address', 'dob','country_id'];
     
     /**relation member to country */

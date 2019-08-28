@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['is_vacant','unit_no','property_id'];
 
     /*

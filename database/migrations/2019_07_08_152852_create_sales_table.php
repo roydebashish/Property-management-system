@@ -22,6 +22,7 @@ class CreateSalesTable extends Migration
             // $table->date('to_date');
             $table->decimal('sale_amount',10,2);
             $table->string('payment_method')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

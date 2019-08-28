@@ -17,6 +17,7 @@ class CreatePropertiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('property_name');
             $table->integer('country_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

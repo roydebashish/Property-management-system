@@ -19,7 +19,8 @@ class CreateExpensesTable extends Migration
             //$table->integer('property_id');
             $table->integer('unit_id');
             $table->text('expense');
-            $table->date('expense_date');          
+            $table->date('expense_date');
+             $table->softDeletes();          
             $table->timestamps();
         });
     }

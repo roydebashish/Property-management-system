@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Expense extends Model
 {
+    use SoftDeletes;
+    
     protected $fillable = ['unit_id', 'expense', 'expense_date'];
     /*
     *relation expense to unit

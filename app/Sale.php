@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['member_id','property_id','unit_id','sale_amount','payment_method'];
     
      /*

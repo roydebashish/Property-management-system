@@ -21,6 +21,7 @@ class CreateMembersTable extends Migration
             $table->string('address')->nullable();
             $table->date('dob')->nullable();
             $table->integer('country_id')->nullable();
+             $table->softDeletes();
             $table->timestamps();
         });
     }
