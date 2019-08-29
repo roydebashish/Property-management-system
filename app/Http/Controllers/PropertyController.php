@@ -61,7 +61,8 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
-        
+        $countries = Country::all();
+        return view('property.edit')->with(['property' => $property, 'countries' => $countries]);
     }
 
     /**
@@ -73,7 +74,15 @@ class PropertyController extends Controller
      */
     public function update(Request $request, Property $property)
     {
-        //
+        $this->validate($request, [
+            'country_id' => 'required',
+            'property_name' => 'required|unique:properties, property_name,'.$property->id,
+        ]);
+        
+        $property->country_id = $request->input('country_id');
+        $property->property_name = $request->input('property_name');
+        
+        return view('property.index')->with('success', 'Property Updated');
     }
 
     /**

@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
     <h1 class="h3 mb-0 text-gray-800">Property</h1>
     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
         data-target="#propertyModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a>
@@ -17,7 +17,7 @@
 @include('alert')
 
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
+<div class="card shadow mb-3">
     <div class="card-header bg-info text-white  py-3">
       List of All Properties
     </div>
@@ -93,7 +93,6 @@
                     <div class="col-lg-6">
                         <input type="text" name="property_name" class="form-control form-control-user" placeholder="Property Name" required />
                     </div>
-
                 </div>
             </div>
             <div class="modal-footer pb-2 pt-2">

@@ -66,7 +66,7 @@
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-primary text-white pb-2 pt-2">
                 <h5 class="modal-title" id="exampleModalLabel">Add Country</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -77,12 +77,12 @@
             @csrf
             <div class="modal-body">
                 <div class="row">
-                        <div class="col-lg-8 mb-4">
-                            <input type="text" name="country_name" class="form-control form-control-user" placeholder="Add Country" required>
-                        </div>
-                        <div class="col-lg-4 mb-4">
-                            <button type="submit" class="btn btn-primary btn-block" type="button">Add</button>
-                        </div>
+                    <div class="col-lg-8 mb-4">
+                        <input type="text" name="country_name" class="form-control form-control-user" placeholder="Add Country" required>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <button type="submit" class="btn btn-primary btn-block" type="button">Add</button>
+                    </div>
                 </div>
             </div>
             </form>
