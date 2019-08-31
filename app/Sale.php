@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Sale extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['member_id','property_id','unit_id','sale_amount','payment_method'];
+    protected $fillable = ['voucher_no','member_id','property_id','unit_id','sale_amount','payment_method'];
     
      /*
     *relation between sale to unit

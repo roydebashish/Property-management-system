@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Country;
 use App\Property;
+use App\Expense;
 use App\Unit;
 use App\User;
 use App\Sale;
@@ -25,6 +26,12 @@ class ReportController extends Controller
         $total_unit = Unit::count();
         $total_user = User::count();
         
+        #calculate daily & monthly expense
+        $daily_expenses = Expense::whereDate('expense_date',  date('Y-m-d'))->pluck('expense');
+        $daily_total_expense = Helper::calulate_total_expense($daily_expenses);
+        $monthly_expenses = Expense::whereMonth('expense_date',  date('m'))->pluck('expense');
+        $monthly_total_expense = Helper::calulate_total_expense($monthly_expenses);
+
         #count units sold today & this month
         $count_units_sold_today = Sale::whereDate('created_at', today())->count();
         $count_units_sold_this_month = Sale::whereMonth('created_at', today())->count();
@@ -44,7 +51,9 @@ class ReportController extends Controller
             'total_user' => $total_user,
             'ratio_today' => $ratio_today,
             'ratio_this_month' => $ratio_this_month,
-            'ratio_this_year' => $ratio_this_year
+            'ratio_this_year' => $ratio_this_year,
+            'daily_expense' => $daily_total_expense,
+            'monthly_expense' => $monthly_total_expense
         ]);
     }
 

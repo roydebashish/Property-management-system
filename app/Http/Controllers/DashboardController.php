@@ -25,10 +25,10 @@ class DashboardController extends Controller
         //$yearly_sale = Sale::whereYear('created_at', date('Y'))->sum('sale_amount');
         
         #calculate daily & monthly expense
-        $daily_expenses = Expense::whereDate('expense_date',  date('Y-m-d'))->pluck('expense');
-        $daily_total_expense = Helper::calulate_total_expense($daily_expenses);
-        $monthly_expenses = Expense::whereMonth('expense_date',  date('m'))->pluck('expense');
-        $monthly_total_expense = Helper::calulate_total_expense($monthly_expenses);
+        // $daily_expenses = Expense::whereDate('expense_date',  date('Y-m-d'))->pluck('expense');
+        // $daily_total_expense = Helper::calulate_total_expense($daily_expenses);
+        // $monthly_expenses = Expense::whereMonth('expense_date',  date('m'))->pluck('expense');
+        // $monthly_total_expense = Helper::calulate_total_expense($monthly_expenses);
        
         #gross profit
         $gross_profit = $monthly_sale - $monthly_total_expense;

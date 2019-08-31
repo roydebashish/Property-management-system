@@ -15,6 +15,7 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('voucher_no', 250)->nullable();
             $table->integer('property_id');
             $table->integer('unit_id');
             $table->integer('member_id');

@@ -9,19 +9,18 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
     <h1 class="h3 mb-0 text-gray-800">Sale</h1>
 </div>
 
 @include('alert')
 
-<div class="card shadow mb-4">
-    <div class="card-header bg-info text-white py-3">
+<div class="card shadow mb-3">
+    <div class="card-header bg-info text-white py-2">
         Sale Create Form
     </div>
-    <div class="card-body">
-    <form class="user" method="post" action="{{ route('sales.store')}}">
-            @csrf
+    <form class="user" method="post" action="{{ route('sales.store')}}"> @csrf
+        <div class="card-body">
             <div class="form-group row">
                 <div class="col-sm-6 mb-3">
                     {{-- <label>Choose Country</label> --}}
@@ -34,15 +33,19 @@
                         @endif
                     </select>
                     @error('country_id')
-                    <small class="text-danger">{{ $message }}</small>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
                     <select class="form-control" id="property_id" name="property_id" disabled required>
                         <option value="">Property</option>
                     </select>
-                    @error('property_id')
-                    <small class="text-danger">{{ $message }}</small>
+                     @error('property_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
@@ -50,7 +53,17 @@
                         <option value="">Unit</option>
                     </select>
                     @error('unit_id')
-                    <small class="text-danger">{{ $message }}</small>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <input type="text" class="form-control  @error('voucher_no') is-invalid @enderror" name="voucher_no" autocomplete="off" placeholder="Voucher Number" />
+                    @error('voucher_no')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
                 {{-- <div class="col-sm-6 mb-3">
@@ -66,41 +79,47 @@
                     @enderror
                 </div> --}}
                 <div class="col-sm-6 mb-3">
-                    <select class="form-control" name="member_id" required>
+                    <select class="form-control" name="member_id">
                         <option value="">Member</option>
-                       @if(!$members->isEmpty()) 
+                    @if(!$members->isEmpty()) 
                         @foreach($members as $member)
                             <option value="{{$member->id }}" @if(old('member_id')== $member->id ) {{ 'selected' }} @endif>{{ $member->member_name }}</option>
                         @endforeach
-                       @endif
+                    @endif
                     </select>
                     @error('member_id')
-                    <small class="text-danger">{{ $message }}</small>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
                     <input type="text" class="form-control" name="sale_amount" value="{{ old('sale_amount') }}" placeholder="Sale Amount" required >
-                    @error('mesale_amountdium')
-                    <small class="text-danger">{{ $message }}</small>
+                    @error('sale_amount')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
-                <div class="col-sm-6 mb-3">
+                <div class="col-sm-6">
                     <select class="form-control" name="payment_method" required>
                         <option value="">Payment Method</option>
                         <option value="Cash" @if(old('payment_method')=='Cash' ) {{ 'selected' }} @endif>Cash</option>
                         <option value="Cheque" @if(old('payment_method')=='Cheque' ) {{ 'selected' }} @endif>Cheque</option>
                     </select>
                     @error('payment_method')
-                    <small class="text-danger">{{ $message }}</small>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
             </div>
-            <div class="texr-center">
-                {{-- <button type="reset" class="btn btn-warning">Reset</button> --}}
-                <button type="submit" class="btn btn-primary">Confirm Sale</button>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="card-footer"> 
+            {{-- <button type="reset" class="btn btn-warning">Reset</button> --}}
+            <button type="submit" class="btn btn-sm btn-primary">Confirm Sale</button>
+        </div>
+    </form>
 </div>
 @endsection
 
