@@ -18,7 +18,7 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-3">
-    <div class="card-header bg-info text-white  py-3">
+    <div class="card-header bg-info text-white  py-2">
       List of All Properties
     </div>
     <div class="card-body">
@@ -48,10 +48,10 @@
                             <a href="{{ route('property.edit',['id' => $property->id]) }}" class="btn btn-info btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form class="d-md-inline-block" action="{{ route('property.destroy', ['id' => $property->id]) }}" method="POST">
+                                <form id="{{$property->id}}" class="d-md-inline-block" action="{{ route('property.destroy', ['id' => $property->id]) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    <button type='submit' class="btn btn-danger btn-circle btn-sm">
+                                    <button type='submit' data="{{$property->id}}" class="btn btn-danger btn-delete btn-circle btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -74,7 +74,6 @@
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-
             </div>
             <form action="{{ route("property.store") }}" method="POST">
             @csrf
@@ -110,4 +109,36 @@
 <script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 <!-- Page level custom scripts -->
 <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
+<script>
+$(function(){
+    //check if cuntry has property
+    $('.btn-delete').click(function(e){
+        e.preventDefault();
+        var property_id = $(this).attr('data');
+        $.ajax({
+            method:'GET',
+            url:'/property_has_unit/'+property_id,
+            success:function(data)
+            {
+                console.log(data);
+                if(data.status == true)
+                {
+                    $confirm = confirm('This property has '+data.units+' unit(s). Do you want to continue?');
+                    if($confirm == true){
+                        $('#'+property_id).submit();
+                    }
+                }else{
+                    $confirm = confirm('Are you sure?');
+                    if($confirm == true){
+                        $('#'+property_id).submit();
+                    }
+                }
+            },
+            error:function(xhr,status,error){
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
 @endsection

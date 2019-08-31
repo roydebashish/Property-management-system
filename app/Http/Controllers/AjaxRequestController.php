@@ -90,7 +90,7 @@ class AjaxRequestController extends Controller
     }
 
     /***
-     * CHECK IF CUNTRY HAS ANY PROPERTY BELONGS TO IT
+     * CHECK IF COUNTRY HAS ANY PROPERTY BELONGS TO IT
      * @param int $country_id
      * return true  or false
      */
@@ -102,6 +102,27 @@ class AjaxRequestController extends Controller
             $count = Property::where('country_id', $country_id)->count();
             $status = ($count > 0) ? true : false;
             $data['properties'] = $count;
+        }catch(ModelNotFoundException $exception)
+        {
+            $data['error'] = $exception->getMessage();
+        }
+        $data['status'] = $status;
+        return response($data, 200);
+    }
+
+    /***
+     * CHECK IF COUNTRY HAS ANY PROPERTY BELONGS TO IT
+     * @param int $country_id
+     * return true  or false
+     */
+    public function property_has_unit($property_id)
+    {
+        $status = false;
+        $data = [];
+        try{
+            $count = Unit::where('property_id', $property_id)->count();
+            $status = ($count > 0) ? true : false;
+            $data['units'] = $count;
         }catch(ModelNotFoundException $exception)
         {
             $data['error'] = $exception->getMessage();

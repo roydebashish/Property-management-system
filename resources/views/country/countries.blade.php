@@ -204,7 +204,6 @@
                 url:'/country_has_property/'+country_id,
                 success:function(data)
                 {
-                    console.log(data);
                     if(data.status == true)
                     {
                         $confirm = confirm('This country has '+data.properties+' property(s). Do you want to continue?');

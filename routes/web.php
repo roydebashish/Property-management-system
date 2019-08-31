@@ -40,6 +40,7 @@ Route::get('/get_units_by_property/{property_id}/{is_vacant?}','AjaxRequestContr
 Route::get('/get_expense_by_id/{expense_id}','AjaxRequestController@get_expenses_id');
 Route::get('/get_country/{country_id}','AjaxRequestController@get_country');
 Route::get('/country_has_property/{country_id}','AjaxRequestController@country_has_proterty');
+Route::get('/property_has_unit/{property_id}','AjaxRequestController@property_has_unit');
 Route::post('/update_country','CountryController@update');
 
 // Route::get('/days',function(){
