@@ -41,14 +41,14 @@
                         @foreach($countries as $country)
                         <tr>
                             <td>{{ $country->country_name }}</td>
-                            <td>
+                            <td data='aa'>
                                  <a href="#" data-id="{{$country->id}}" class="btn btn-info edit btn-circle btn-sm">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <form class="d-md-inline-block" action="{{ route('countries.destroy', ['id' => $country->id]) }}" method="POST">
+                                <form id="{{$country->id}}" class="d-md-inline-block" action="{{ route('countries.destroy', ['id' => $country->id]) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    <button type='submit' onclick="return confirm('Are you sure?');" class="btn btn-danger btn-circle btn-sm">
+                                    <button type='submit' data="{{$country->id}}" class="btn btn-delete btn-danger btn-circle btn-sm">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -194,7 +194,35 @@
         {
             $('#updateForm input').removeClass('is-invalid');
             $('#updateForm span').removeClass('is-invalid');
-        })
+        });
+        //check if cuntry has property
+        $('.btn-delete').click(function(e){
+            e.preventDefault();
+             var country_id = $(this).attr('data');
+            $.ajax({
+                method:'GET',
+                url:'/country_has_property/'+country_id,
+                success:function(data)
+                {
+                    console.log(data);
+                    if(data.status == true)
+                    {
+                        $confirm = confirm('This country has '+data.properties+' property(s). Do you want to continue?');
+                        if($confirm == true){
+                            $('#'+country_id).submit();
+                        }
+                    }else{
+                        $confirm = confirm('Are you sure?');
+                        if($confirm == true){
+                            $('#'+country_id).submit();
+                        }
+                    }
+                },
+                error:function(xhr,status,error){
+                    console.log(error);
+                }
+            });
+        });
     });
 </script>
 @endsection

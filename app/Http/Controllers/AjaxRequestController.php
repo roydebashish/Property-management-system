@@ -69,7 +69,10 @@ class AjaxRequestController extends Controller
         ], 500);
         
     }
-    
+    /***
+     * get country information by id
+     * @param int $country_id
+     */
     public function get_country($country_id)
     {
         $status = false;
@@ -86,4 +89,24 @@ class AjaxRequestController extends Controller
         return response($data, 200);
     }
 
+    /***
+     * CHECK IF CUNTRY HAS ANY PROPERTY BELONGS TO IT
+     * @param int $country_id
+     * return true  or false
+     */
+    public function country_has_proterty($country_id)
+    {
+        $status = false;
+        $data = [];
+        try{
+            $count = Property::where('country_id', $country_id)->count();
+            $status = ($count > 0) ? true : false;
+            $data['properties'] = $count;
+        }catch(ModelNotFoundException $exception)
+        {
+            $data['error'] = $exception->getMessage();
+        }
+        $data['status'] = $status;
+        return response($data, 200);
+    }
 }
