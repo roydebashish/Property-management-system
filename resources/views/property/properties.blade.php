@@ -8,7 +8,7 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-3">
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
     <h1 class="h3 mb-0 text-gray-800">Property</h1>
     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
         data-target="#propertyModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a>
@@ -18,7 +18,7 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-3">
-    <div class="card-header bg-info text-white  py-2">
+    <div class="card-header bg-info text-white py-2">
       List of All Properties
     </div>
     <div class="card-body">
@@ -111,7 +111,7 @@
 <script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
 <script>
 $(function(){
-    //check if cuntry has property
+    //check if property has unit
     $('.btn-delete').click(function(e){
         e.preventDefault();
         var property_id = $(this).attr('data');

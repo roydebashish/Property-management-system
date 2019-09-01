@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Country;
 use App\Property;
 use App\Unit;
+use App\Sale;
 use App\Expense;
 use App\Helper;
 
@@ -111,7 +112,7 @@ class AjaxRequestController extends Controller
     }
 
     /***
-     * CHECK IF COUNTRY HAS ANY PROPERTY BELONGS TO IT
+     * CHECK IF PROPERTY HAS ANY UNITS BELONG TO IT
      * @param int $country_id
      * return true  or false
      */
@@ -123,6 +124,27 @@ class AjaxRequestController extends Controller
             $count = Unit::where('property_id', $property_id)->count();
             $status = ($count > 0) ? true : false;
             $data['units'] = $count;
+        }catch(ModelNotFoundException $exception)
+        {
+            $data['error'] = $exception->getMessage();
+        }
+        $data['status'] = $status;
+        return response($data, 200);
+    }
+
+    /***
+     * CHECK IF PROPERTY HAS ANY UNITS BELONG TO IT
+     * @param int $country_id
+     * return true  or false
+     */
+    public function unit_has_sales($unit_id)
+    {
+        $status = false;
+        $data = [];
+        try{
+            $count = Sale::where('unit_id', $unit_id)->count();
+            $status = ($count > 0) ? true : false;
+            $data['sales'] = $count;
         }catch(ModelNotFoundException $exception)
         {
             $data['error'] = $exception->getMessage();

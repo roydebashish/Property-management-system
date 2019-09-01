@@ -39,11 +39,6 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        // $this->validate([
-        //     'country_id' => 'required',
-        //     'property_name' => 'required'
-        // ]);
         $validate = validator::make($request->all(),[
             'country_id' => 'required',
             'property_name' => 'required|max:191'

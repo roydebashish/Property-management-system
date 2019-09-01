@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Unit;
 use App\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UnitController extends Controller
 {
@@ -37,8 +38,37 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        Unit::create($request->all());
-        return back()->with('success', "New Unit added");
+        //dd($request->all());
+        $validate = validator::make($request->all(),[
+            'property_id' => 'required|max:191',
+            'unit_no' => 'required|max:191'
+        ],[
+            'property_id.required' => 'Select property not found',
+            'property_id.max' => 'should not exceed 191 characters',
+            'unit_no.required' => 'Unit name not found',
+            'unit_no.max' => 'Unit name should not exceed 191 characters',
+        ]);
+
+        $messasge = '';
+        if($validate->fails()){
+            if($validate->errors->first('property_id')){
+                $messasge .=$validate->errors->first('property_id').'.';
+            }
+            if($validate->errors->first('unit_no')){
+                $messasge .= $validate->errors->first('unit_no');
+            }
+            return back()->with('warning', $messasge);
+        }else{
+            $check_if_exists = Unit::where('property_id', $request->input('property_id'))
+                ->where('unit_no', $request->input('unit_no'))
+                ->count();
+            if($check_if_exists > 0){
+                return back()->with('warning', $request->input('unit_no').' exists');
+            }else{
+                Unit::create($request->all());
+                return back()->with('success', "New Unit added");
+            } 
+        }
     }
 
     /**
@@ -60,7 +90,11 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
-        //
+        $properties = Property::all();
+        return view('unit.edit')->with([
+            'unit' => $unit,
+            'properties' => $properties        
+        ]);
     }
 
     /**
@@ -71,8 +105,23 @@ class UnitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Unit $unit)
-    {
-        //
+    {   
+        $this->validate($request, [
+            'property_id' => 'required|max:20',
+            'unit_no' => 'required|max:191|unique:units,unit_no,'.$unit->id
+        ],[
+            'property_id.required' => 'Select Property',
+            'property_id.max' => 'Property ID should not exceed 20 characters',
+            'unit_no.required' => 'Unit number is required',
+            'unit_no.unique' => 'This unit has already been taken',
+            'unit_no.max' => 'Unit number should not exceed 191 characters'
+        ]);
+
+        $unit->property_id = $request->input('property_id');
+        $unit->unit_no = $request->input('unit_no');
+        $unit->save();
+
+        return back()->with('success', 'Unit updated');
     }
 
     /**

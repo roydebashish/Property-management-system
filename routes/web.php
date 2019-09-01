@@ -41,7 +41,9 @@ Route::get('/get_expense_by_id/{expense_id}','AjaxRequestController@get_expenses
 Route::get('/get_country/{country_id}','AjaxRequestController@get_country');
 Route::get('/country_has_property/{country_id}','AjaxRequestController@country_has_proterty');
 Route::get('/property_has_unit/{property_id}','AjaxRequestController@property_has_unit');
+Route::get('/unit_has_sales/{unit_id}','AjaxRequestController@unit_has_sales');
 Route::post('/update_country','CountryController@update');
+Route::post('/update_unit','UnitController@update');
 
 // Route::get('/days',function(){
 //     App\Helper::get_days_passed();

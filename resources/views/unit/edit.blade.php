@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Edit Property')
+@section('title', 'Edit: '.$unit->unit_no)
 
 @section('ps_style')
 <link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
@@ -13,24 +13,24 @@
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-2">
-    <h1 class="h3 mb-0 text-gray-800">Property</h1>
+    <h1 class="h3 mb-0 text-gray-800">Unit</h1>
 </div>
 
 @include('alert')
 
 <div class="card shadow mb-4">
-    <div class="card-header bg-info text-white py-2"> Edit Property</div>
+    <div class="card-header bg-info text-white py-2"> Edit Unit</div>
     <div class="card-body">
-        <form class="user" method="post" action="{{ route('property.update',['id' => $property->id]) }}">
+        <form class="user" method="post" action="{{ route('units.update',['id' => $unit->id]) }}">
             @csrf @method('PUT')
             <div class="form-group row">
                 <div class="col-sm-6 mb-3">
                     <select class="form-control @error('country_id') is-invalid @enderror" id="country_id" name="country_id">
-                        <option value="" disabled selected>Country</option>
-                        @if(!$countries->isEmpty())
-                            @foreach($countries as $item)
-                            <option value="{{ $item->id }}" @if($property->country_id == $item->id ) {{ 'selected' }} @endif
-                                >{{$item->country_name}}
+                        <option value="" disabled selected>Property</option>
+                        @if(!$properties->isEmpty())
+                            @foreach($properties as $item)
+                            <option value="{{ $item->id }}" @if($unit->property_id == $item->id ) {{ 'selected' }} @endif
+                                >{{$item->property_name}}
                             </option>
                             @endforeach
                         @endif
@@ -42,9 +42,9 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 mb-3">
-                    <input type="text" class="form-control @error('property_name') is-invalid @enderror" name="property_name" value="{{ $property->property_name }}"
+                    <input type="text" class="form-control @error('unit_no') is-invalid @enderror" name="unit_no" value="{{ $unit->unit_no }}"
                         placeholder="Property Name">
-                    @error('property_name')
+                    @error('unit_no')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
