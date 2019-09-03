@@ -106,6 +106,7 @@ class UnitController extends Controller
      */
     public function update(Request $request, Unit $unit)
     {   
+      // dd($request->all());
         $this->validate($request, [
             'property_id' => 'required|max:20',
             'unit_no' => 'required|max:191|unique:units,unit_no,'.$unit->id
@@ -113,14 +114,13 @@ class UnitController extends Controller
             'property_id.required' => 'Select Property',
             'property_id.max' => 'Property ID should not exceed 20 characters',
             'unit_no.required' => 'Unit number is required',
-            'unit_no.unique' => 'This unit has already been taken',
+            'unit_no.unique' => $request->input('unit_no').' has already been taken',
             'unit_no.max' => 'Unit number should not exceed 191 characters'
         ]);
-
+        
         $unit->property_id = $request->input('property_id');
         $unit->unit_no = $request->input('unit_no');
         $unit->save();
-
         return back()->with('success', 'Unit updated');
     }
 

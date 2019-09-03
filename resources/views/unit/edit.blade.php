@@ -18,45 +18,42 @@
 
 @include('alert')
 
-<div class="card shadow mb-4">
+<div class="card shadow mb-2">
     <div class="card-header bg-info text-white py-2"> Edit Unit</div>
+    <form class="user" method="POST" action="{{ route('units.update',['id' => $unit->id]) }}">
     <div class="card-body">
-        <form class="user" method="post" action="{{ route('units.update',['id' => $unit->id]) }}">
-            @csrf @method('PUT')
-            <div class="form-group row">
-                <div class="col-sm-6 mb-3">
-                    <select class="form-control @error('country_id') is-invalid @enderror" id="country_id" name="country_id">
-                        <option value="" disabled selected>Property</option>
-                        @if(!$properties->isEmpty())
-                            @foreach($properties as $item)
-                            <option value="{{ $item->id }}" @if($unit->property_id == $item->id ) {{ 'selected' }} @endif
-                                >{{$item->property_name}}
-                            </option>
-                            @endforeach
-                        @endif
-                    </select>
-                    @error('country_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-                <div class="col-sm-6 mb-3">
-                    <input type="text" class="form-control @error('unit_no') is-invalid @enderror" name="unit_no" value="{{ $unit->unit_no }}"
-                        placeholder="Property Name">
-                    @error('unit_no')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
+        @csrf @method('PUT')
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3">
+                <select class="form-control @error('property_id') is-invalid @enderror" id="property_id" name="property_id">
+                    <option value="" disabled selected>Property</option>
+                    @if(!$properties->isEmpty())
+                        @foreach($properties as $item)
+                        <option value="{{ $item->id }}" @if($unit->property_id == $item->id ) {{ 'selected' }} @endif
+                            >{{$item->property_name}}
+                        </option>
+                        @endforeach
+                    @endif
+                </select>
+                @error('property_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
-            <div class="texr-center">
-                <button type="reset" class="btn btn-danger mr-2">Back</button>
-                <button type="submit" class="btn btn-primary">Update Property</button>
+            <div class="col-sm-6 mb-3">
+                <input type="text" class="form-control @error('unit_no') is-invalid @enderror" name="unit_no" value="{{ $unit->unit_no }}"
+                    placeholder="Property Name">
+                @error('unit_no')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
-        </form>
+        </div>
     </div>
+    <div class="card-footer text-right"><button type="submit" class="btn btn-sm btn-primary">Update</button></div>
+    </form>
 </div>
 @endsection
 
