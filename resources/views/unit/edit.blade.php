@@ -63,7 +63,7 @@
 jQuery('document').ready(function(e)
  {
     //calendar
-    $('#country_id').selectmenu();
+    $('#property_id').selectmenu();
  });
 </script>
 @endsection

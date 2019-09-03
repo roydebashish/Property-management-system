@@ -9,8 +9,8 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Add New Expense</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <h1 class="h5 mb-0 text-gray-800">Add New Expense</h1>
     {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
         data-target="#unitModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a> --}}
 </div>
@@ -18,9 +18,9 @@
 @include('alert')
 <form action="{{ route('expenses.store') }}" method="POST"> @csrf
 <div class="card shadow mb-4">
-    <div class="card-header bg-info text-white py-3 ">Property </div>
+    <div class="card-header bg-info text-white py-2 ">Property </div>
     <div class="card-body">
-        <div class="form-group row">
+        <div class="form-group row mb-0">
             <div class="col-sm-6 mb-3">
                 <select class="form-control" name="country_id" id="country_id">
                     <option value="">Country</option>
@@ -61,10 +61,8 @@
 </div>
 <div class="row">
     <div class="col-md-6 col-sm-12">
-        <div class="card shadow mb-4">
-            <div class="card-header bg-info text-white py-3 ">
-                Expense Entry
-            </div>
+        <div class="card shadow mb-2">
+            <div class="card-header bg-info text-white py-2">Expense Entry</div>
             <div class="card-body">
                 <div class="form-group row mb-0">
                     <div class="col-sm-12 mb-2">
@@ -90,14 +88,14 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer text-right">
+            <div class="card-footer pt-1 pb-1 text-right">
                 <button type="button" id="add_item" class="btn btn-sm btn-circle btn-success shadow-sm" title="Add Expense"><i class="fas fa-plus"></i></button>
             </div>
         </div>
     </div>
     <div class="col-md-6 col-sm-12">
-        <div class="card shadow mb-4">
-            <div class="card-header bg-info text-white py-3 ">
+        <div class="card shadow mb-2">
+            <div class="card-header bg-info text-white py-2">
                 Expenses <a href="javascript::void(0)" id="totalAmount" style="font-size:1rem" class="float-right badge badge-secondary font-size-1 text-white">Total: 0</a>
             </div>
             <div class="card-body">
@@ -113,7 +111,7 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <div class="card-footer text-right">
+            <div class="card-footer pt-1 pb-1 text-right">
                 <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Save</button>
             </div>
         </div>

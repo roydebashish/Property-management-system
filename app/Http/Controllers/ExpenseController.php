@@ -19,8 +19,6 @@ class ExpenseController extends Controller
     public function index()
     {
         $expenses = Expense::with('unit.property.country')->get();
-       // $expenses->load('unit.property.country');
-       // dd($expenses);
         return view('expense.expenses')->with('expenses', $expenses);
     }
 
@@ -54,11 +52,13 @@ class ExpenseController extends Controller
         $items = $request->input('items');
         $amounts = $request->input('amounts');
         $vouchers = $request->input('vouchers');
+        
         #prepare items, voucher & amounts
         for($i = 0; $i < count($request->items); $i++){
             $expenses[] = ['item' => $items[$i], 'amount' => $amounts[$i], 'voucher' => $vouchers[$i]];
         }
         $data['expense'] = serialize($expenses) ;
+        
         #remove unnecessary data
         unset($data['items']);
         unset($data['amounts']);
@@ -126,6 +126,7 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+        $expense->delete();
+        return back()->with('success','Expense deleted');
     }
 }

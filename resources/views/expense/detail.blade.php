@@ -8,8 +8,8 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Expense Detail</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <h1 class="h5 mb-0 text-gray-800">Expense Detail</h1>
     {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
         data-target="#unitModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a> --}}
 </div>
@@ -18,19 +18,18 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header bg-info text-white py-3">
+    <div class="card-header bg-info text-white py-2">
         Expense Details of <b>{{$expense->unit->unit_no}}</b>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table " id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-borderless" width="100%" cellspacing="0">
                 <tr>
                     <td width="25%"><b>Date:</b> {{ date('d F, Y', strtotime($expense->created_at)) }}</td>
                     <td width="25%"><b>Property:</b> {{ $expense->unit->property->property_name }}</td>
                     <td width="25%"><b>Unit:</b> {{ $expense->unit->unit_no }}</td>                    
                     <td width="25%"><b>Country:</b> {{ $expense->unit->property->country->country_name }}</td>
                 </tr>
-              
             </table>
             <h5>Expenses</h5>
             <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
@@ -41,12 +40,6 @@
                         <th>Cost</th>
                     </tr>
                 </thead>
-                {{-- <tfoot>
-                    <tr>
-                        <th>Item</th>
-                        <th>Cost</th>
-                    </tr>
-                </tfoot> --}}
                 <tbody>
                     @foreach ($expense->expense as $key => $item)
                         <tr>
@@ -64,13 +57,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('ps_script')
-<!-- Page level plugins -->
-<script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-<!-- Page level custom scripts -->
-<script src="{{ asset('admin/js/demo/datatables-demo.js')}}"></script>
-</script>
 @endsection
