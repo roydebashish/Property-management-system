@@ -13,7 +13,7 @@
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-2">
-    <h1 class="h3 mb-0 text-gray-800">Property</h1>
+    <h1 class="h5 mb-0 text-gray-800">Property</h1>
 </div>
 
 @include('alert')
@@ -52,8 +52,8 @@
                 </div>
             </div>
             <div class="texr-center">
-                <button type="reset" class="btn btn-danger mr-2">Back</button>
-                <button type="submit" class="btn btn-primary">Update Property</button>
+                {{-- <button type="reset" class="btn btn-danger mr-2">Back</button> --}}
+                <button type="submit" class="btn btn-sm btn-primary">Update</button>
             </div>
         </form>
     </div>

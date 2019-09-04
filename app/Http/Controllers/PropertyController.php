@@ -105,13 +105,14 @@ class PropertyController extends Controller
     {
         $this->validate($request, [
             'country_id' => 'required',
-            'property_name' => 'required|unique:properties, property_name,'.$property->id,
+            'property_name' => 'required|unique:properties,property_name,'.$property->id
         ]);
         
         $property->country_id = $request->input('country_id');
         $property->property_name = $request->input('property_name');
+        $property->save();
         
-        return view('property.index')->with('success', 'Property Updated');
+        return redirect()->route('property.index')->with('success', 'Property Updated');
     }
 
     /**
