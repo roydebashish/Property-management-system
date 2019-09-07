@@ -16,7 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('user_role', '!=', 'system')->get();
+        $users = User::where('user_role', '!=', 'system')
+            ->where('id','<>',Auth::user()->id)
+            ->get();
         return view('user.users')->with('users', $users);
     }
 
@@ -27,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.user_create');
+        return view('user.create');
     }
 
     /**

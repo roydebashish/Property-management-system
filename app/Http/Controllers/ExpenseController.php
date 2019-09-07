@@ -31,7 +31,7 @@ class ExpenseController extends Controller
     {
         $expense_types = ExpenseType::all();
         $countries = Country::all();
-        return view('expense.expense_create')->with([
+        return view('expense.create')->with([
             'exp_types' => $expense_types,
             'countries' => $countries
         ]);
@@ -46,8 +46,6 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        // $expense['items'] = $request->items; 
-        // $expense['amounts'] = $request->amounts; 
         $expenses = [];
         $items = $request->input('items');
         $amounts = $request->input('amounts');
@@ -63,8 +61,8 @@ class ExpenseController extends Controller
         unset($data['items']);
         unset($data['amounts']);
         unset($data['vouchers']);
-        //dd($data);
         Expense::create($data);
+
         return back()->with('success', 'Expense Stored');
     }
 
@@ -103,7 +101,16 @@ class ExpenseController extends Controller
      */
     public function edit(Expense $expense)
     {
-        //
+        $expense->load('unit');
+        $expense_types = ExpenseType::all();
+        $countries = Country::all();
+        $expense_items = unserialize($expense->expense);
+        return view('expense.edit')->with([
+            'exp_types' => $expense_types,
+            'countries' => $countries,
+            'expense'   => $expense,
+            'expense_items' => $expense_items
+        ]);
     }
 
     /**

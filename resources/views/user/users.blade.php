@@ -8,8 +8,8 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Users</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <h1 class="h5 mb-0 text-gray-800">Users</h1>
     {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
         data-target="#unitModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a> --}}
 </div>
@@ -18,13 +18,13 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
+    <div class="card-header text-white bg-info py-2">
         List of All Users
     </div>
     <div class="card-body">
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
+            <thead class="thead-light">
                 <tr>
                     <th>Name</th>
                     <th>Phone</th>
@@ -32,14 +32,6 @@
                     <th width="15%">Action</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
-            </tfoot>
             <tbody>
                 @if(!$users->isEmpty())
                     @foreach ($users as $item)

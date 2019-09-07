@@ -131,7 +131,7 @@ class SaleController extends Controller
     {
         $countries = Country::orderby('country_name', 'asc')->get();
         $members = Member::all();
-        return view('sale.sale_create')->with(['countries'=> $countries,'members' => $members]);
+        return view('sale.create')->with(['countries'=> $countries,'members' => $members]);
     }
 
     /**
