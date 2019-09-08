@@ -57,7 +57,7 @@ class UserController extends Controller
         ]; 
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'nullabel|unique:users|email',
+            'email' => 'nullable|unique:users|email',
             'phone' => 'required',
             'user_role' => 'required',
             'password'=> 'required|min:6|same:confirm',
