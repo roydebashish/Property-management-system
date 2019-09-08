@@ -43,7 +43,7 @@ class UserController extends Controller
         //dd($request->all());
         $messages = [
             'name.required' => 'Enter valid name',
-            'email.required' => 'Enter email',
+            //'email.required' => 'Enter email',
             'email.email' => 'Email address not valid',
             'email.unique' => 'Email already taken',
             'phone.required' => 'Enter phone number',
@@ -51,15 +51,18 @@ class UserController extends Controller
             'password.required'=> 'Enter password',
             'password.min'=> 'Minimum 6 characters',
             'password.same'=> 'Comfirm password does not match',
-            'confirm.required' => 'Confirm password'
+            'confirm.required' => 'Confirm password',
+            //'user_photo.mimes' => 'Allowed files jpg, jpeg & png',
+            //'user_photo.dimensions' => 'File size: 150 X 150 px'
         ]; 
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'required|unique:users|email',
+            'email' => 'nullabel|unique:users|email',
             'phone' => 'required',
             'user_role' => 'required',
             'password'=> 'required|min:6|same:confirm',
-            'confirm' => 'required'
+            'confirm' => 'required',
+            //'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width:150,max_height:150'
         ], $messages);
         
         $data = $request->all();

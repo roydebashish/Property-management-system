@@ -121,7 +121,7 @@ class Helper
     }
     
     /**
-     * get days passed till current date
+     * get days passed till current date in a year
      * @param int $id 
     */
     public static function get_days_passed()

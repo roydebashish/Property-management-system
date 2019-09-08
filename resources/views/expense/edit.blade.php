@@ -5,6 +5,9 @@
 @section('ps_style')
 <link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
 <link href="{{ asset('admin/vendor/jquery-ui-1.12.1/jquery-ui.theme.min.css')}}" rel="stylesheet">
+<style>
+.no-pointer-event{pointer-events:none}
+</style>
 @endsection
 
 @section('content')
@@ -16,12 +19,12 @@
 </div>
 
 @include('alert')
-<form action="{{ route('expenses.store') }}" method="POST"> @csrf
+<form action="{{ route('expenses.update',['id' => $expense->id]) }}" method="POST"> @csrf @method('PUT')
 <div class="card shadow mb-4">
     <div class="card-header bg-info text-white py-2 ">Property </div>
     <div class="card-body">
         <div class="form-group row mb-0">
-            <div class="col-sm-6 mb-3">
+            <div class="col-sm-6 col-md-3 mb-3">
                 <select class="form-control" name="country_id" id="country_id">
                     <option value="">Country</option>
                     @if(!$countries->isEmpty())
@@ -34,7 +37,7 @@
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            <div class="col-sm-6 mb-3">
+            <div class="col-sm-6 col-md-3 mb-3">
                 <select class="form-control" disabled name="property_id" id="property_id">
                     <option value="">Property</option>
                 </select>
@@ -42,18 +45,22 @@
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            <div class="col-sm-6 mb-3">
-                <select class="form-control" disabled name="unit_id" id="unit_id">
+            <div class="col-sm-6 col-md-3 mb-3">
+                <select class="form-control no-pointer-event @error('unit_id') is-invalid @enderror" name="unit_id" id="unit_id">
                     <option value="{{$expense->unit_id}}">{{$expense->unit->unit_no}}</option>
                 </select>
                 @error('unit_id')
-                <small class="text-danger">{{ $message }}</small>
+               <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
             </div>
-            <div class="col-sm-6 mb-3">
-                <input type="text" class="form-control" id="expense_date" name="expense_date" value="{{$expense->expense_date}}" placeholder="Expense Date" autocomplete="off" required />
+            <div class="col-sm-6 col-md-3 mb-3">
+                <input type="text" class="form-control @error('expense_date') is-invalid @enderror" id="expense_date" name="expense_date" value="{{$expense->expense_date}}" placeholder="Expense Date" autocomplete="off" required />
                 @error('expense_date')
-                <small class="text-danger">{{ $message }}</small>
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
                 @enderror
             </div>
         </div>
@@ -96,9 +103,15 @@
     <div class="col-md-6 col-sm-12">
         <div class="card shadow mb-2">
             <div class="card-header bg-info text-white py-2">
-                Expenses <a href="javascript::void(0)" id="totalAmount" style="font-size:1rem" class="float-right badge badge-secondary font-size-1 text-white">Total: 0</a>
+                Expenses <a href="javascript::void(0)" id="totalAmount" style="font-size:1rem" class="float-right badge badge-secondary font-size-1 text-white">Total: {{$total_expense_amount}}</a>
             </div>
             <div class="card-body">
+                @error('items')
+                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
+                @error('amounts')
+                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                @enderror
                 <table id="exp_items" class="table table-striped">
                     <thead>
                         <tr>
@@ -210,7 +223,7 @@ $(function()
     {
         var property = $('#property_id');
         property.attr('disabled','disabled');
-        $('#unit_id').attr('disabled', 'disabled');
+        $('#unit_id').addClass('no-pointer-event');
         $('#unit_id option:selected').prop('selected', false);
         var country_id = $(this).val();
         $.ajax({
@@ -239,7 +252,7 @@ $(function()
     $('#property_id').change(function()
     {
         var unit = $('#unit_id');
-        unit.attr('disabled', 'disabled');
+        unit.addClass('no-pointer-event');
         var property_id = $(this).val();
         $.ajax({
             method:'GET',
@@ -252,7 +265,7 @@ $(function()
                         $opitons += '<option value="'+value.id+'">'+value.unit_no+'</option>';
                     });
                     unit.html($opitons);
-                    unit.removeAttr('disabled');
+                    unit.removeClass('no-pointer-event');
                 }else{
                     $('#unit_id option:selected').prop('selected', false);
                     alert('No Unit Found');

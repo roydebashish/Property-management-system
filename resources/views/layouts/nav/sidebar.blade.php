@@ -83,7 +83,7 @@
                 <a class="collapse-item" href="{{ route('countries.index') }}">Country</a>
                 <a class="collapse-item" href="{{ route('property.index') }}">Property</a>
                 <a class="collapse-item" href="{{ route('units.index') }}">Units</a>
-                <a class="collapse-item" href="{{ route('expenseType.index') }}">Add Expense</a>
+                <a class="collapse-item" href="{{ route('expenseType.index') }}">Add Expense Head</a>
             </div>
         </div>
     </li>

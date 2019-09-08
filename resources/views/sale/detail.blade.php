@@ -4,8 +4,8 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-3">
-    <h1 class="h3 mb-0 text-gray-800">Sales</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <h1 class="h5 mb-0 text-gray-800">Sales</h1>
 <a href="{{ route('sales.edit',['id' => $sale->id])}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-pencil-alt fa-sm text-white-50"></i> Edit</a>
 </div>
 
@@ -50,7 +50,7 @@
                 </tr>
                 <tr>
                     <td class="font-weight-bold">Sold to</td>
-                <td><a href="{{route('members.show',['id' => $sale->member->id])}}" target="_blank"> {{$sale->member->member_name }} </a></td>
+                <td><a href="{{route('members.show',['id' => $sale->member->id])}}" > {{$sale->member->member_name }} </a></td>
                 </tr>
             </table>
         </div>

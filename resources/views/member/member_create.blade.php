@@ -7,14 +7,14 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
     <h1 class="h3 mb-0 text-gray-800">Member</h1>
 </div>
 
 @include('alert')
 
 <div class="card shadow mb-4">
-    <div class="card-header bg-info text-white py-3">
+    <div class="card-header bg-info text-white py-2">
         Member Create Form
     </div>
     <div class="card-body">

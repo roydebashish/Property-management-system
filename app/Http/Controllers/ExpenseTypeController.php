@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ExpenseType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ExpenseTypeController extends Controller
 {
@@ -35,8 +36,23 @@ class ExpenseTypeController extends Controller
      */
     public function store(Request $request)
     {
-        ExpenseType::create($request->all());
-        return back()->with('success', "New expense type added");
+         $validate = validator::make($request->all(),[
+            'expense_type' => 'required|max:191|unique:expense_types,expense_type'
+        ],[
+            'expense_type.required' => 'Enter expense head',
+            'expense_type.max' => 'Maximun 191 characters',
+            'expense_type.unique' => 'Expense head exists',
+        ]);
+
+        if($validate->fails()){
+           $message = $validate->errors()->first('expense_type');
+           return back()->with('warning', $message);
+        }else{
+            ExpenseType::create($request->all());
+            return back()->with('success', "New expense type added");
+        }
+
+        
     }
 
     /**
@@ -82,6 +98,6 @@ class ExpenseTypeController extends Controller
     public function destroy(ExpenseType $expenseType)
     {
         $expenseType->delete();
-        return back()->with('success', "Expense type deleted");
+        return back()->with('success', "Expense head deleted");
     }
 }

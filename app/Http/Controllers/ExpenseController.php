@@ -104,12 +104,14 @@ class ExpenseController extends Controller
         $expense->load('unit');
         $expense_types = ExpenseType::all();
         $countries = Country::all();
+        $total_expense_amount = Helper::total_expense_day($expense->expense);
         $expense_items = unserialize($expense->expense);
         return view('expense.edit')->with([
             'exp_types' => $expense_types,
             'countries' => $countries,
             'expense'   => $expense,
-            'expense_items' => $expense_items
+            'expense_items' => $expense_items,
+            'total_expense_amount' => $total_expense_amount
         ]);
     }
 
@@ -122,7 +124,37 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, Expense $expense)
     {
-        //
+        //dd($request->all());
+        $this->validate($request,[
+            'unit_id' => 'required',
+            'expense_date' => 'required|max:191|date_format:Y-m-d',
+            'items' => 'required',
+            'amounts' => 'required'
+        ],[
+            'unit_id.required' => 'Must Select Unit',
+            'expense_date.required' => 'Select Expense Date',
+            'expense_date.max' => 'Maximum 191 characters',
+            'expense_date.date_format' => 'Valid format YYYY-MM-DD',
+            'items.required' => 'Enter expense items',
+            'amounts.required' => 'Enter items cost'
+        ]);
+        $data = $request->all();
+        $expenses = [];
+        $items = $request->input('items');
+        $amounts = $request->input('amounts');
+        $vouchers = $request->input('vouchers');
+        
+        #prepare items, voucher & amounts
+        for($i = 0; $i < count($request->items); $i++){
+            $expenses[] = ['item' => $items[$i], 'amount' => $amounts[$i], 'voucher' => $vouchers[$i]];
+        }
+        $expenses = serialize($expenses) ;
+        
+        $expense->unit_id = $request->input('unit_id');
+        $expense->expense = $expenses;
+        $expense->expense_date = $request->input('expense_date');
+        $expense->save();
+        return redirect()->route('expenses.index')->with('success', 'Expense Updated');
     }
 
     /**

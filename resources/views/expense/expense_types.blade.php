@@ -8,8 +8,8 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Expense Type</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <h1 class="h5 mb-0 text-gray-800">Expense Head</h1>
     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
         data-target="#expenseModal"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Add New</a>
 </div>
@@ -18,34 +18,27 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header bg-info text-white py-3">
-       List of All Expense Types
+    <div class="card-header bg-info text-white py-2">
+       List of All Expense Heads
     </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead class="thead-light">
                     <tr>
                         <th width="80%">Expense Type</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>Expense Type</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @if(!$expense_types->isEmpty())
                     @foreach($expense_types as $item)
                     <tr>
-                    
                         <td width="">{{ $item->expense_type }}</td>
                         <td>
-                            <a href="{{ route('expenseType.edit',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
+                            {{-- <a href="{{ route('expenseType.edit',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
                                 <i class="fas fa-pencil-alt"></i>
-                            </a>
+                            </a> --}}
                             <form class="d-md-inline-block" action="{{ route('expenseType.destroy', ['id' => $item->id]) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
