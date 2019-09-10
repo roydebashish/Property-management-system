@@ -113,13 +113,13 @@
                                     <a href="{{ route('sales.show',['id' => $sale->id]) }}" class="btn btn-success btn-circle btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('sales.edit',['id' => $sale->id]) }}" class="btn btn-info btn-circle btn-sm">
+                                    {{-- <a href="{{ route('sales.edit',['id' => $sale->id]) }}" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-pencil-alt"></i>
-                                    </a>
+                                    </a> --}}
                                     <form class="d-md-inline-block" action="{{ route('sales.destroy', ['id' => $sale->id]) }}" method="POST">
                                         @method('DELETE')
                                         @csrf
-                                        <button type='submit' class="btn btn-danger btn-circle btn-sm">
+                                        <button type='submit' onclick="return confirm('Are you sure?');" class="btn btn-danger btn-circle btn-sm">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>

@@ -65,6 +65,7 @@ class SaleController extends Controller
         $sales = DB::table('sales')
             ->join('units', 'units.id', 'sales.unit_id')
             ->join('properties','properties.id', 'sales.property_id') 
+            ->whereNull('sales.deleted_at')
             ->when($from_date, function($query) use ($from_date){
                 return $query->whereDate('sales.created_at','>=', $from_date);
             })
@@ -194,6 +195,7 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        $sale->delete();
+        return back()->with('success', 'Sale deleted');
     }
 }

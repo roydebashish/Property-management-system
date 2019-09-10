@@ -18,7 +18,7 @@ class CreateSalesTable extends Migration
             $table->string('voucher_no', 250)->nullable();
             $table->integer('property_id');
             $table->integer('unit_id');
-            $table->integer('member_id');
+            $table->integer('member_id')->nullable();
             // $table->date('from_date');
             // $table->date('to_date');
             $table->decimal('sale_amount',10,2);
