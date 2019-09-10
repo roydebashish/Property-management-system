@@ -33,7 +33,7 @@ class Helper
             case 'photo':
                 if(!$authenticated_user->user_photo)#return default link
                 {
-                    return 'https://source.unsplash.com/ZHvM3XIOHoE/60x60';
+                    return 'https://via.placeholder.com/60';
                 }
                 return url('uploads/user').'/'.$authenticated_user->user_photo;
             default:
