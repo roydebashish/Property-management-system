@@ -87,9 +87,9 @@
             </div>
         </div>
     </li>
-    <hr class="sidebar-divider d-none d-md-block">
+    {{-- <hr class="sidebar-divider d-none d-md-block"> --}}
     {{-- <div class="sidebar-heading">Employees</div> --}}
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-employee" aria-expanded="true"
             aria-controls="collapseTwo">
             <i class="fas fa-user-friends"></i>
@@ -100,7 +100,8 @@
                 <a class="collapse-item" href="#">Add Employee</a>
             </div>
         </div>
-    </li>
+    </li> --}}
+    @if(App\Helper::current_user('role') == 'admin')
     <hr class="sidebar-divider d-none d-md-block">
     {{-- <div class="sidebar-heading">Users</div> --}}
     <li class="nav-item">
@@ -116,6 +117,7 @@
             </div>
         </div>
     </li>
+    @endif
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-member" aria-expanded="true"

@@ -45,9 +45,10 @@ class SaleController extends Controller
             if(!empty($unit_name)){
                 $srch_title .= '<b>Unit:</b> '.$unit_name.' ';
             }
-            
+            //DB::enableQueryLog();
             #sum total sale
-            $total_sale = Sale::when($country_id, function($query) use ($country_id){
+            $total_sale = Sale::whereNull('sales.deleted_at')
+                ->when($country_id, function($query) use ($country_id){
                     return $query->join('properties','properties.id', 'sales.property_id')
                         ->where('properties.country_id','=',  $country_id);
                 })
@@ -58,7 +59,7 @@ class SaleController extends Controller
                     return $query->where('sales.unit_id','=',  $unit_id);
                 })
                 ->sum('sales.sale_amount');
-                
+            //dd(DB::getQueryLog()); 
         }
         
        // dd($property_id.' '.$unit_id);

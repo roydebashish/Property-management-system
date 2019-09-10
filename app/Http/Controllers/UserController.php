@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\user;
 use Auth;
 use Hash;
+use File;
 
 class UserController extends Controller
 {
@@ -43,8 +44,8 @@ class UserController extends Controller
         //dd($request->all());
         $messages = [
             'name.required' => 'Enter valid name',
-            //'email.required' => 'Enter email',
-            'email.email' => 'Email address not valid',
+            'email.required' => 'Enter email',
+            'email.email' => 'Invalid email',
             'email.unique' => 'Email already taken',
             'phone.required' => 'Enter phone number',
             'user_role.required' => 'Select user role',
@@ -52,21 +53,38 @@ class UserController extends Controller
             'password.min'=> 'Minimum 6 characters',
             'password.same'=> 'Comfirm password does not match',
             'confirm.required' => 'Confirm password',
-            //'user_photo.mimes' => 'Allowed files jpg, jpeg & png',
-            //'user_photo.dimensions' => 'File size: 150 X 150 px'
+            'user_photo.mimes' => 'Allowed files jpg, jpeg & png',
+            'user_photo.dimensions' => 'File size: 150 X 150 px'
         ]; 
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'nullable|unique:users|email',
+            'email' => 'required|unique:users|email',
             'phone' => 'required',
             'user_role' => 'required',
             'password'=> 'required|min:6|same:confirm',
             'confirm' => 'required',
-            //'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width:150,max_height:150'
+            'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
         ], $messages);
         
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
+
+        #upload user pic  
+        if($request->hasFile('user_photo')){
+            $destinationPath = public_path().'/uploads/user';
+            
+            if (!file_exists($destinationPath)) {
+                 File::makeDirectory($destinationPath);
+            }
+            $file       = $request->user_photo;
+            $extension  = $file->getClientOriginalExtension();
+            //$actual_title   = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $user_photo    = md5(time()).'.'.$extension;
+            $file->move($destinationPath, $user_photo);
+            #attach profile url
+            $data['user_photo']  = $user_photo;
+        }
+
         $user = User::create($data);
        
         return back()->with('success', "New User <b>$user->name</b> Created");
@@ -91,9 +109,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('user.edit')->with('user', $user);
     }
 
     /**
@@ -103,9 +121,61 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $messages = [
+            'name.required' => 'Enter valid name',
+            'email.required' => 'Enter email',
+            'email.email' => 'Email address not valid',
+            'email.unique' => 'Email already taken',
+            'phone.required' => 'Enter phone number',
+            'user_role.required' => 'Select user role',
+            'password.required'=> 'Enter password',
+            'password.min'=> 'Minimum 6 characters',
+            'password.same'=> 'Comfirm password does not match',
+            'confirm.required' => 'Confirm password',
+            'user_photo.mimes' => 'Allowed files jpg, jpeg & png',
+            'user_photo.dimensions' => 'File size: 150 X 150 px'
+        ]; 
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'phone' => 'required',
+            'user_role' => 'required',
+            'password'=> 'nullable|min:6|same:confirm',
+            'confirm' => 'nullable',
+            'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
+        ], $messages);
+        
+        #upload user pic  
+        if($request->hasFile('user_photo')){
+            $destinationPath = public_path().'/uploads/user';
+            
+            #remove previous file
+            if (File::exists(public_path().'/uploads/user/'. $user->user_photo)) {
+                File::delete(public_path().'/uploads/user/'. $user->user_photo);
+            }
+             
+            $file       = $request->user_photo;
+            $extension  = $file->getClientOriginalExtension();
+            //$actual_title   = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $user_photo    = md5(time()).'.'.$extension;
+            $file->move($destinationPath, $user_photo);
+            #attach image url
+            $user->user_photo  = $user_photo;
+        }
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->user_role = $request->input('user_role');
+        if(!empty($request->input('password'))){
+            $user->password = bcrypt($request->input('password'));
+        }
+        
+        $user->save();
+       
+        return redirect()->route('users.index')->with('success', "New User <b>$user->name</b> Updated");
     }
 
     /**

@@ -35,7 +35,7 @@ class Helper
                 {
                     return 'https://source.unsplash.com/ZHvM3XIOHoE/60x60';
                 }
-                return $authenticated_user->user_photo;
+                return url('uploads/user').'/'.$authenticated_user->user_photo;
             default:
                 return $authenticated_user;
         }

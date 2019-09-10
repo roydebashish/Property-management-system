@@ -26,6 +26,7 @@
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead class="thead-light">
                 <tr>
+                    <th>Image</th>
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Role</th>
@@ -36,6 +37,13 @@
                 @if(!$users->isEmpty())
                     @foreach ($users as $item)
                     <tr>
+                        <td>
+                            @if($item->user_photo)
+                            <img src="{{ url('uploads/user/'.$item->user_photo) }}" width="80" class="rounded-circle" />
+                            @else
+                            <img src="https://source.unsplash.com/ZHvM3XIOHoE/80x80" class="rounded-circle"/>
+                            @endif
+                        </td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->phone }}</td>
                         <td>{{ $item->user_role }}</td>
@@ -49,7 +57,7 @@
                             <form class="d-md-inline-block" action="{{ route('users.destroy', ['id' => $item->id]) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
-                                <button type='submit' class="btn btn-danger btn-circle btn-sm">
+                                <button type='submit' onclick="return confirm('Are you sure?');"  class="btn btn-danger btn-circle btn-sm">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>

@@ -8,7 +8,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-2">
     <h1 class="h5 mb-0 text-gray-800">User</h1>
-    <a href="{{ route('users.edit',['id' => $user->id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    <a href="{{ route('profile.edit', ['id' => $user->id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
         <i class="fas fa-pencil-alt fa-sm text-white-50"></i> Edit
     </a>
 </div>
