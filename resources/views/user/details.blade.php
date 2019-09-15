@@ -56,7 +56,7 @@
                         @if($user->user_photo)
                             <img src="{{ url('uploads/user/'.$user->user_photo) }}" width="80" class="rounded-circle" />
                         @else
-                            <img src="https://source.unsplash.com/ZHvM3XIOHoE/80x80" class="rounded-circle"/>
+                            ----
                         @endif
                     </td>
                 </tr>
