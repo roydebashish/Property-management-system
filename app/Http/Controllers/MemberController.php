@@ -16,7 +16,7 @@ class MemberController extends Controller
     public function index()
     {
         $members = Member::all()->load('country');
-        return view('member.members')->with('members', $members);
+        return view('client.clients')->with('members', $members);
     }
 
     /**
@@ -27,7 +27,7 @@ class MemberController extends Controller
     public function create()
     {
         $countries = Country::orderBy('country_name','asc')->get();
-        return view('member.member_create')->with('countries', $countries);
+        return view('client.create')->with('countries', $countries);
     }
 
     /**
@@ -49,7 +49,7 @@ class MemberController extends Controller
             'country_id.required' => 'Select country',
             'country_id.integer' => 'Selected country\'s ID not integer',
             'country_id.exists' => 'Selected country not found in database',
-        ]; 
+        ];
         $this->validate($request,[
             'member_name' => 'required',
             'email' => 'nullable|unique:members|email',
@@ -71,7 +71,7 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
-        return view('member.details')->with('member', $member->load('country'));
+        return view('client.details')->with('member', $member->load('country'));
     }
 
     /**

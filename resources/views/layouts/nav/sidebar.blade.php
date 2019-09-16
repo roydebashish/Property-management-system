@@ -18,7 +18,7 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
-   
+
     <div class="sidebar-heading">Sales & Expense</div>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-sale" aria-expanded="true"
@@ -83,7 +83,7 @@
                 <a class="collapse-item" href="{{ route('countries.index') }}">Country</a>
                 <a class="collapse-item" href="{{ route('property.index') }}">Property</a>
                 <a class="collapse-item" href="{{ route('units.index') }}">Units</a>
-                <a class="collapse-item" href="{{ route('expenseType.index') }}">Add Expense Head</a>
+                <a class="collapse-item" href="{{ route('expenseType.index') }}">Expense Heads</a>
             </div>
         </div>
     </li>
@@ -123,11 +123,11 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menu-member" aria-expanded="true"
             aria-controls="collapseTwo">
             <i class="fas fa-users"></i>
-            <span>Members</span>
+            <span>Clients</span>
         </a>
         <div id="menu-member" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('members.create') }}">Add Member</a>
+                <a class="collapse-item" href="{{ route('members.create') }}">Add Client</a>
                 {{-- <a class="collapse-item" href="{{ route('members.index') }}">Members</a> --}}
             </div>
         </div>

@@ -9,11 +9,44 @@
     {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> --}}
 </div>
 
+<div class="row">
+    <div class="col-lg-12 mb-3">
+        <!-- Quick Link -->
+        <div class="card shadow">
+            <div class="card-header bg-secondary  py-2">
+                <h6 class="m-0 font-weight-bold text-white">Reports</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2 mb-3">
+                        <a class="btn btn-primary btn-user btn-block rounded-0 shadow-sm"
+                            href="{{ route('sales.index') }}">Sales</a>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm"
+                            href="{{ route('expenses.index') }}">Expense</a>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm"
+                            href="{{ route('members.index') }}">Clients</a>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm" href="#">Employee</a>
+                    </div>
+                    <div class="col-lg-2 mb-3">
+                        <a class="btn btn-info btn-user btn-block rounded-0 shadow-sm"
+                            href="{{ route('users.index') }}">User</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Content Row -->
 <div class="row">
     <!-- Total country-->
     <div class="col-xl-3 col-md-3 mb-3">
-        
+
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -197,39 +230,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12 mb-3">
-        <!-- Quick Link -->
-        <div class="card shadow">
-            <div class="card-header bg-secondary  py-2">
-                <h6 class="m-0 font-weight-bold text-white">Reports</h6>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-2 mb-3">
-                        <a class="btn btn-primary btn-user btn-block rounded-0 shadow-sm"
-                            href="{{ route('sales.index') }}">Sales</a>
-                    </div>
-                    <div class="col-lg-2 mb-3">
-                        <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm"
-                            href="{{ route('expenses.index') }}">Expense</a>
-                    </div>
-                    <div class="col-lg-2 mb-3">
-                        <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm"
-                            href="{{ route('members.index') }}">Member</a>
-                    </div>
-                    <div class="col-lg-2 mb-3">
-                        <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm" href="#">Employee</a>
-                    </div>
-                    <div class="col-lg-2 mb-3">
-                        <a class="btn btn-info btn-user btn-block rounded-0 shadow-sm"
-                            href="{{ route('users.index') }}">User</a>
                     </div>
                 </div>
             </div>

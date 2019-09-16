@@ -8,14 +8,14 @@
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-2">
-    <h1 class="h3 mb-0 text-gray-800">Member</h1>
+    <h1 class="h5 mb-0 text-gray-800">Client</h1>
 </div>
 
 @include('alert')
 
 <div class="card shadow mb-4">
     <div class="card-header bg-info text-white py-2">
-        Member Create Form
+        Client Create Form
     </div>
     <div class="card-body">
         <form class="user" method="post" action="{{ route('members.store') }}">
@@ -68,8 +68,8 @@
                 </div>
             </div>
             <div class="texr-center">
-                <button type="submit" class="btn btn-primary">Create New Member</button>
-                <button type="reset" class="btn btn-warning">Reset</button>
+                <a href="{{url()->previous()}}" class="btn btn-sm btn-warning"><i class="fas fa-chevron-circle-left"></i> Back</a>
+                <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Create Client</button>
             </div>
         </form>
     </div>

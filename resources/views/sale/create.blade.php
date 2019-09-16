@@ -9,8 +9,8 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-3">
-    <h1 class="h3 mb-0 text-gray-800">Sale</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <h1 class="h5 mb-0 text-gray-800">Sale</h1>
 </div>
 
 @include('alert')
@@ -21,14 +21,14 @@
     </div>
     <form class="user" method="post" action="{{ route('sales.store')}}"> @csrf
         <div class="card-body">
-            <div class="form-group row">
-                <div class="col-sm-6 mb-3">
-                    {{-- <label>Choose Country</label> --}}
+            <div class="form-group row mb-0">
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <label class="sr-only">Choose Country</label>
                     <select class="form-control" id='country_id' name="country_id" required>
                         <option value="">Country</option>
                         @if(!$countries->isEmpty())
                             @foreach ($countries as $country)
-                                <option value="{{ $country->id }}" @if(old('country_id')== $country->id ) {{ 'selected' }} @endif>{{ $country->country_name }}</option>                            
+                                <option value="{{ $country->id }}" @if(old('country_id')== $country->id ) {{ 'selected' }} @endif>{{ $country->country_name }}</option>
                             @endforeach
                         @endif
                     </select>
@@ -38,7 +38,7 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-6 mb-3">
+                <div class="col-sm-6 col-md-4 mb-3">
                     <select class="form-control" id="property_id" name="property_id" disabled required>
                         <option value="">Property</option>
                     </select>
@@ -48,7 +48,7 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-6 mb-3">
+                <div class="col-sm-6 col-md-4 mb-3">
                     <select class="form-control" id="unit_id" name="unit_id" disabled required>
                         <option value="">Unit</option>
                     </select>
@@ -58,30 +58,30 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-6 mb-3">
-                    <input type="text" class="form-control  @error('voucher_no') is-invalid @enderror" name="voucher_no" autocomplete="off" placeholder="Voucher Number" />
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <input type="text" class="form-control  @error('voucher_no') is-invalid @enderror" name="voucher_no" autocomplete="off" required placeholder="Voucher Number" />
                     @error('voucher_no')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
-                {{-- <div class="col-sm-6 mb-3">
+                <div class="col-sm-6 col-md-4 mb-3">
                     <input type="text" class="form-control" id="from_date" name="from_date" autocomplete="off" placeholder="From Date" required />
                     @error('from_date')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-                <div class="col-sm-6 mb-3">
+                <div class="col-sm-6 col-md-4 mb-3">
                     <input type="text" class="form-control" id="to_date" name="to_date" placeholder="To Date" autocomplete="off" required />
                     @error('to_date')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
-                </div> --}}
-                <div class="col-sm-6 mb-3">
+                </div>
+                <div class="col-sm-6 col-md-4 mb-3">
                     <select class="form-control" name="member_id">
-                        <option value="">Member</option>
-                    @if(!$members->isEmpty()) 
+                        <option value="">Client</option>
+                    @if(!$members->isEmpty())
                         @foreach($members as $member)
                             <option value="{{$member->id }}" @if(old('member_id')== $member->id ) {{ 'selected' }} @endif>{{ $member->member_name }}</option>
                         @endforeach
@@ -93,17 +93,18 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-6 mb-3">
-                    <input type="text" class="form-control" name="sale_amount" value="{{ old('sale_amount') }}" placeholder="Sale Amount" required >
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <input type="number" class="form-control" name="sale_amount" value="{{ old('sale_amount') }}" placeholder="Sale Amount" autocomplete="off" required >
                     @error('sale_amount')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 col-md-4">
                     <select class="form-control" name="payment_method" required>
                         <option value="">Payment Method</option>
+                        <option value="Card" @if(old('payment_method')=='Card' ) {{ 'selected' }} @endif>Card</option>
                         <option value="Cash" @if(old('payment_method')=='Cash' ) {{ 'selected' }} @endif>Cash</option>
                         <option value="Cheque" @if(old('payment_method')=='Cheque' ) {{ 'selected' }} @endif>Cheque</option>
                     </select>
@@ -115,8 +116,8 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer"> 
-            {{-- <button type="reset" class="btn btn-warning">Reset</button> --}}
+        <div class="card-footer">
+            <a href="{{url()->previous()}}" class="btn btn-sm btn-warning">Back</a>
             <button type="submit" class="btn btn-sm btn-primary">Confirm Sale</button>
         </div>
     </form>
@@ -129,22 +130,22 @@
 jQuery('document').ready(function(e)
  {
     // calendar
-    // $('#from_date').datepicker({
-    //     dateFormat:'yy-mm-dd',
-    //     showButtonPanel: true,
-    //     minDate:0,
-    //     onSelect: function (date) {
-    //         var date2 = $(this).datepicker('getDate');
-    //         $('#to_date').datepicker('option', 'minDate', date2);
-    //     }
-    // });
-    
-    // $('#to_date').datepicker({
-    //     dateFormat:'yy-mm-dd',
-    //     showButtonPanel: true,
-    //     minDate: 0
-    // });
-    
+     $('#from_date').datepicker({
+        dateFormat:'yy-mm-dd',
+        showButtonPanel: true,
+        minDate:0,
+        onSelect: function (date) {
+            var date2 = $(this).datepicker('getDate');
+            $('#to_date').datepicker('option', 'minDate', date2);
+        }
+    });
+
+    $('#to_date').datepicker({
+        dateFormat:'yy-mm-dd',
+        showButtonPanel: true,
+        minDate: 0
+    });
+
     //get properties
     $('#country_id').change(function()
     {
@@ -172,9 +173,9 @@ jQuery('document').ready(function(e)
             error:function(xhr,status,error){
                 console.log(error);
             }
-        }); 
+        });
     });
-    
+
     //get units
     $('#property_id').change(function()
     {
