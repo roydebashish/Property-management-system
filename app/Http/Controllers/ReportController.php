@@ -25,7 +25,7 @@ class ReportController extends Controller
         $total_property = Property::count();
         $total_unit = Unit::count();
         $total_user = User::count();
-        
+
         #calculate daily & monthly expense
         $daily_expenses = Expense::whereDate('expense_date',  date('Y-m-d'))->pluck('expense');
         $daily_total_expense = Helper::calulate_total_expense($daily_expenses);
@@ -36,14 +36,22 @@ class ReportController extends Controller
         $count_units_sold_today = Sale::whereDate('created_at', today())->count();
         $count_units_sold_this_month = Sale::whereMonth('created_at', today())->count();
         $count_units_sold_this_year = Sale::whereYear('created_at', today()->year)->count();
-       
-        #calculate ratio        
+
+        #calculate ratio
         $units_in_this_month = $total_unit * Carbon::now()->daysInMonth; #number of units * number of days in current month
         $units_in_this_year = $total_unit * Helper::get_days_passed(); #total units * number of days till now
         $ratio_today = ($count_units_sold_today > 0) ? round(100 * $count_units_sold_today / $total_unit, 2) : 0;
         $ratio_this_month = ($count_units_sold_this_month > 0) ? round(100 * $count_units_sold_this_month / $units_in_this_month, 2) : 0;
         $ratio_this_year = ($count_units_sold_this_month > 0) ? round(100 * $count_units_sold_this_year / $units_in_this_year, 2) : 0;
-    
+
+        #sales
+        $todays_sale_card = Sale::Total_sales_by_payment_type('Card', 'today');
+        $todays_sale_cash = Sale::Total_sales_by_payment_type('Cash', 'today');
+        $todays_sale_cheque = Sale::Total_sales_by_payment_type('Cheque', 'today');
+        $monthly_sale_card = Sale::Total_sales_by_payment_type('Card', 'monthly');
+        $monthly_sale_cash = Sale::Total_sales_by_payment_type('Cash', 'monthly');
+        $monthly_sale_cheque = Sale::Total_sales_by_payment_type('Cheque', 'monthly');
+        //dd($monthly_sale_cash);
         return view('report.dashboard')->with([
             'total_country' => $total_country,
             'total_property' => $total_property,
@@ -53,7 +61,13 @@ class ReportController extends Controller
             'ratio_this_month' => $ratio_this_month,
             'ratio_this_year' => $ratio_this_year,
             'daily_expense' => $daily_total_expense,
-            'monthly_expense' => $monthly_total_expense
+            'monthly_expense' =>$monthly_total_expense,
+            'todays_sale_card' => $todays_sale_card,
+            'todays_sale_cash' => $todays_sale_cash,
+            'todays_sale_cheque' => $todays_sale_cheque,
+            'monthly_sale_card' => $monthly_sale_card,
+            'monthly_sale_cash' =>  $monthly_sale_cash,
+            'monthly_sale_cheque' =>  $monthly_sale_cheque,
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Sale extends Model
 {
@@ -42,4 +43,23 @@ class Sale extends Model
     {
         return $this->belongsTo('App\Member');
     }
+
+     /*
+    *calculate total sales by payment type
+    */
+    public function scopeTotal_sales_by_payment_type($query, $payment_type, $report_type)
+    {
+        if($report_type == 'today')
+        {
+            return Sale::where('payment_method', $payment_type)
+            ->whereDate('created_at', today())
+            ->sum('sale_amount');
+        }elseif($report_type == 'monthly'){
+            return Sale::where('payment_method', $payment_type)
+            ->whereMonth('created_at', date('m'))
+            ->sum('sale_amount');
+        }
+
+    }
+
 }
