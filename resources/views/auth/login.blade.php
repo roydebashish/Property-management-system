@@ -19,10 +19,17 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
+     <style>
+        .page-bg{
+            background-image: url({{url('/admin/img/login-page-bg.jpg')}});
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .card{background-color:#000000c7}
+    </style>
 </head>
 
-<body class="bg-gradient-primary">
+<body class="page-bg">
 
     <div class="container">
 

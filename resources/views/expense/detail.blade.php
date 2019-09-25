@@ -23,7 +23,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-borderless" width="100%" cellspacing="0">
+            <table class="table table-borderless mb-0" width="100%" cellspacing="0">
                 <tr>
                     <td width="25%"><b>Date:</b> {{ date('d F, Y', strtotime($expense->created_at)) }}</td>
                     <td width="25%"><b>Property:</b> {{ $expense->unit->property->property_name }}</td>
