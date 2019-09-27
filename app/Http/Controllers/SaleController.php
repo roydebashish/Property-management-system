@@ -30,6 +30,7 @@ class SaleController extends Controller
         $country_name = !empty($country_id) ? Helper::get_country_name($country_id) : '';
         $property_name = !empty($property_id) ? Helper::get_property_name($property_id) : '';
         $unit_name = !empty($unit_id) ? Helper::get_unit_name($unit_id) : '';
+        $payment_type = !empty($request->input('payment_type')) ? $request->input('payment_type') : '';;
         $countries = Country::all();
         
         #prepare search result title & total sale
@@ -44,6 +45,9 @@ class SaleController extends Controller
             }
             if(!empty($unit_name)){
                 $srch_title .= '<b>Unit:</b> '.$unit_name.' ';
+            }
+            if(!empty($payment_type)){
+                $srch_title .= '<b>Unit:</b> '.$payment_type.' ';
             }
             //DB::enableQueryLog();
             #sum total sale
@@ -82,6 +86,9 @@ class SaleController extends Controller
             ->when($unit_id, function($query) use ($unit_id){
                 return $query->where('sales.unit_id','=',  $unit_id);
             })
+             ->when($payment_type, function($query) use ($payment_type){
+                return $query->where('sales.payment_method','=',  $payment_type);
+            })
             ->select('units.unit_no','properties.property_name','sales.sale_amount','sales.payment_method','sales.id','sales.created_at')
             ->oldest('sales.created_at')
             ->paginate(20);
@@ -96,7 +103,8 @@ class SaleController extends Controller
             'to_date' => $to_date,
             'countries' => $countries,
             'srch_title' => $srch_title,
-            'total_sale' => $total_sale
+            'total_sale' => $total_sale,
+            'payment_type' => $payment_type
         ]);
         // if ($request->ajax())
         // {

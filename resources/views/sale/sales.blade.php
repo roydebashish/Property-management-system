@@ -52,14 +52,25 @@
                     <div class="form-group col-md-4 col-sm-4 mb-2">
                         <label for="from_date" class="sr-only">From</label>
                         <input type="text" class="form-control w-100" name="from_date" id="from_date" value="{{$from_date}}"
-                            placeholder="From" autocomplete="off" required>
+                            placeholder="From" autocomplete="off">
                     </div>
                     <div class="form-group col-md-4 col-sm-4 mb-2">
                         <label for="to_date" class="sr-only">To</label>
                         <input type="text" class="form-control w-100" name="to_date" id="to_date" value="{{$to_date}}" placeholder="To"
-                            autocomplete="off" required>
+                            autocomplete="off">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                    <div class="form-group col-md-4 col-sm-4 mb-2">
+                        <label for="to_date" class="sr-only">To</label>
+                        <select class="form-control w-100" name="payment_type" value="{{$to_date}}" placeholder="To" autocomplete="off" >
+                            <option value="">Payment Type</option>
+                            <option value="Card" @if($payment_type == 'Card') selected @endif>Card</option>
+                            <option value="Cash" @if($payment_type == 'Cash') selected @endif>Cash</option>
+                            <option value="Cheque" @if($payment_type == 'Cheque') selected @endif>Cheque</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4 col-sm-4 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Search</button>
+                    </div>
                 </form>
             </div>
             <div class="col-md-2 text-center text-secondary font-weight-bold">

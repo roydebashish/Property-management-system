@@ -19,8 +19,20 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-2 mb-3">
-                        <a class="btn btn-primary btn-user btn-block rounded-0 shadow-sm"
-                            href="{{ route('sales.index') }}">Sales</a>
+                        {{-- <a class="btn btn-primary btn-user btn-block rounded-0 shadow-sm"
+                            href="{{ route('sales.index') }}">Sales</a> --}}
+                            <div class="btn-group w-100 btn-user btn-block rounded-0 shadow-sm">
+                                <button type="button" class="btn btn-primary rounded-0">Sales</button>
+                                <button type="button" class="btn btn-primary rounded-0 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ route('sales.index') }}">All</a>
+                                    <a class="dropdown-item" href="{{ route('sales.index',['payment_type' => 'Card']) }}">Card Sale</a>
+                                    <a class="dropdown-item" href="{{ route('sales.index',['payment_type' => 'Cash']) }}">Cash Sale</a>
+                                    <a class="dropdown-item" href="{{ route('sales.index',['payment_type' => 'Cheque']) }}">Cheque Sale</a>
+                                </div>
+                            </div>
                     </div>
                     <div class="col-lg-2 mb-3">
                         <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm"
