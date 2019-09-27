@@ -5,9 +5,11 @@ use Auth;
 use App\Country;
 use App\Property;
 use App\Unit;
+use Carbon\Carbon;
 
 /**
- * @Debashish Roy 
+ * Helper functions for RMS
+ * Author @Debashish Roy 
  * */
 class Helper
 {
@@ -41,8 +43,8 @@ class Helper
         }
     }
      /**
-     * count total daily  last voucher number  
-     * @param array $expenses
+     * count total expenses for list of expenses objects
+     * @param Expense $expenses
      * return int $total expense
      */
     public static function calulate_total_expense($expenses)
@@ -70,8 +72,8 @@ class Helper
     }
     
      /**
-     * count total daily  last voucher number  
-     * @param array $expenses
+     * count total expenses for sigle day
+     * @param serialized $expenses
      * return int $total expense
      */
     public static function total_expense_day($expenses)
@@ -138,5 +140,12 @@ class Helper
       
         return $total_days;
     }
-   
+    /**
+     * generate file name with date time & prefix
+     * @param string $prefix 
+    */
+    public static function generate_name($prefix)
+    {
+        return $prefix.'_'.Carbon::now()->format('d-m-Y_h_m_s_A').'.xlsx'; #for csv change .xlsx to .csv
+    }
 }

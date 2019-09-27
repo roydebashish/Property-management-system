@@ -17,6 +17,12 @@ Route::group(['middleware' => 'auth'], function ()
     Route::resource('members','MemberController');
     Route::resource('reports','ReportController');
     Route::resource('profile','ProfileController');
+    #exports
+    Route::group(['prefix' => 'exports'], function () 
+    {
+        Route::get('/sales','ExportController@export_sales')->name('exp_sales');
+        Route::get('/expenses','ExportController@export_expenses')->name('exp_expenses');
+    });
     //Route::resource('ajaxRequests','AjaxRequestController');
 });
 
@@ -33,3 +39,9 @@ Route::get('/property_has_unit/{property_id}','AjaxRequestController@property_ha
 Route::get('/unit_has_sales/{unit_id}','AjaxRequestController@unit_has_sales');
 Route::post('/update_country','CountryController@update');
 Route::post('/update_unit','UnitController@update');
+
+Route::get('/tt', function(){
+     $sales = App\Sale::all();
+    $sales->load('unit.property.country');
+    return $sales;
+});
