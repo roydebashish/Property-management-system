@@ -21,7 +21,7 @@
     <div class="card-header bg-info text-white py-2 ">Property </div>
     <div class="card-body">
         <div class="form-group row mb-0">
-            <div class="col-sm-6 mb-3">
+            <div class="col-sm-12 col-md-3 mb-3">
                 <select class="form-control" name="country_id" id="country_id">
                     <option value="">Country</option>
                     @if(!$countries->isEmpty())
@@ -30,30 +30,24 @@
                         @endforeach
                     @endif
                 </select>
-                @error('country_id')
-                <small class="text-danger">{{ $message }}</small>
-                @enderror
             </div>
-            <div class="col-sm-6 mb-3">
-                <select class="form-control" disabled name="property_id" id="property_id">
+            <div class="col-sm-12 col-md-3 mb-3">
+                <select class="form-control" name="property_id" id="property_id">
                     <option value="">Property</option>
                 </select>
-                @error('property_id')
-                <small class="text-danger">{{ $message }}</small>
-                @enderror
             </div>
-            <div class="col-sm-6 mb-3">
-                <select class="form-control" disabled name="unit_id" id="unit_id">
+            <div class="col-sm-12 col-md-3 mb-3">
+                <select class="form-control" name="unit_id" id="unit_id" required>
                     <option value="">Unit</option>
                 </select>
                 @error('unit_id')
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            <div class="col-sm-6 mb-3">
-                <input type="text" class="form-control" id="expense_date" name="expense_date" placeholder="Expense Month" autocomplete="off" required />
-                @error('unit_id')
-                <small class="text-danger">{{ $message }}</small>
+            <div class="col-sm-12 col-md-3 mb-3">
+                <input type="text" class="form-control" id="expense_date" name="expense_date" placeholder="Expense date" value="{{ old('expense_date') }}" autocomplete="off"  required/>
+                @error('expense_date')
+                    <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
         </div>
@@ -99,6 +93,9 @@
                 Expenses <a href="javascript::void(0)" id="totalAmount" style="font-size:1rem" class="float-right badge badge-secondary font-size-1 text-white">Total: 0</a>
             </div>
             <div class="card-body">
+                @error('vouchers') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                @error('items') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                @error('amounts') <small class="text-danger d-block">{{ $message }}</small> @enderror
                 <table id="exp_items" class="table table-striped">
                     <thead>
                         <tr>
@@ -145,20 +142,32 @@ $(function()
         expense_amount.removeClass('is-invalid');
         expense_type.removeClass('is-invalid');
         expense_type.next('small').text('');
+        voucher.removeClass('is-invalid');
+        voucher.next('small').text('');
         //validate 
         if(expense_amount.val() == '' || expense_type == '')
         {
-            if(expense_amount.val() == ''){
+            if(expense_amount.val() == '')
+            {
                 expense_amount.next('small').text('Enter Amount');
                 expense_amount.addClass(' is-invalid');
-            }else if($.isNumeric(expense_amount.val()) == false){
+            }
+            else if($.isNumeric(expense_amount.val()) == false){
                 expense_amount.next('small').text('Only numbers are allowed');
                 expense_amount.addClass(' is-invalid');
             }
 
-            if(expense_type.val() == '') 
+            if(expense_type.val() == '')
+            { 
                 expense_type.next('small').text('Select Item');
                 expense_type.addClass(' is-invalid');
+            }
+
+            if(voucher.val() == '')
+            {
+                voucher.next('small').text('Enter Voucher Number');
+                voucher.addClass(' is-invalid');
+            }
         }else{
             //append to expense list table
             $('#exp_items').append(

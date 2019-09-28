@@ -45,6 +45,21 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
+        $this->validate($request, [
+            'unit_id' => 'required',
+            'expense_date' => 'required|date_format:Y-m-d',
+            'items' => 'required',
+            'vouchers' => 'required',
+            'amounts' => 'required',
+        ],[
+            'unit_id.required' => 'Select unit',
+            'expense_date.required' => 'Select expense date',
+            'expense_date.date_format' => 'Invalid format. Valid format: 2019-09-27',
+            'items.required' => 'Enter expense item',
+            'vouchers.required' => 'Enter voucher numbers',
+            'amounts.required' => 'Enter expense amounts',
+        ]);
         $data = $request->all();
         $expenses = [];
         $items = $request->input('items');
@@ -61,6 +76,7 @@ class ExpenseController extends Controller
         unset($data['items']);
         unset($data['amounts']);
         unset($data['vouchers']);
+
         Expense::create($data);
 
         return back()->with('success', 'Expense Stored');
