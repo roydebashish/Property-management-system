@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'User Detail Info')
+
 @section('ps_style')
 <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endsection
