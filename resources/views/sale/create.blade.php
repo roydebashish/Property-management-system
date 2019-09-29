@@ -133,7 +133,7 @@ jQuery('document').ready(function(e)
      $('#from_date').datepicker({
         dateFormat:'yy-mm-dd',
         showButtonPanel: true,
-        minDate:0,
+        //minDate:0,
         onSelect: function (date) {
             var date2 = $(this).datepicker('getDate');
             $('#to_date').datepicker('option', 'minDate', date2);
@@ -143,7 +143,7 @@ jQuery('document').ready(function(e)
     $('#to_date').datepicker({
         dateFormat:'yy-mm-dd',
         showButtonPanel: true,
-        minDate: 0
+        //minDate: 0
     });
 
     //get properties

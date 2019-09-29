@@ -26,6 +26,9 @@
             background-repeat: no-repeat;
         }
         .card{background-color:#000000c7}
+        .form-control{background-color: #54515194;}
+        .form-control{color: #e6e7ef;}
+        .form-control:focus{color: #192269;}
     </style>
 </head>
 
