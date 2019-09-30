@@ -26,10 +26,10 @@ Route::group(['middleware' => 'auth'], function ()
     //Route::resource('ajaxRequests','AjaxRequestController');
 });
 
-// disabled registration
+#disabled registration
 Auth::routes(['register' => false]);
 
-//ajax request routes
+#ajax request routes
 Route::get('/properties_by_country/{country_id}','AjaxRequestController@properties');
 Route::get('/get_units_by_property/{property_id}/{is_vacant?}','AjaxRequestController@units');
 Route::get('/get_expense_by_id/{expense_id}','AjaxRequestController@get_expenses_id');
@@ -37,11 +37,13 @@ Route::get('/get_country/{country_id}','AjaxRequestController@get_country');
 Route::get('/country_has_property/{country_id}','AjaxRequestController@country_has_proterty');
 Route::get('/property_has_unit/{property_id}','AjaxRequestController@property_has_unit');
 Route::get('/unit_has_sales/{unit_id}','AjaxRequestController@unit_has_sales');
+Route::get('/check_if_sale_date/{}','AjaxRequestController@check_if_sale_date'); //check if sale date available
 Route::post('/update_country','CountryController@update');
 Route::post('/update_unit','UnitController@update');
 
-Route::get('/tt', function(){
-     $sales = App\Sale::all();
+Route::get('/tt', function()
+{
+    $sales = App\Sale::all();
     $sales->load('unit.property.country');
     return $sales;
 });

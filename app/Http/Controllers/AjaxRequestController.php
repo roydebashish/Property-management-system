@@ -152,4 +152,12 @@ class AjaxRequestController extends Controller
         $data['status'] = $status;
         return response($data, 200);
     }
+    /***
+     * CHECK IF PROPERTY HAS ANY UNITS BELONG TO IT
+     * @param int $country_id
+     * return true  or false
+     */
+    public function check_if_sale_date($unit_id,$from_date, $to_date){
+
+    }
 }

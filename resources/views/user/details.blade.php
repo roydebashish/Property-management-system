@@ -2,10 +2,6 @@
 
 @section('title', 'User Detail Info')
 
-@section('ps_style')
-<link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-2">
@@ -28,17 +24,6 @@
                 <tr>
                     <th>Name</th>
                     <td>{{ $user->name}}</td>
-                    {{-- <td class="text-center">
-                        <a href="{{ route('users.show',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a href="{{ route('users.edit',['id' => $item->id]) }}" class="btn btn-primary btn-circle btn-sm">
-                            <i class="fas fa-pencil-alt"></i>
-                        </a>
-                        <a href="{{ route('users.destroy', ['id' => $item->id]) }}" class="btn btn-danger btn-circle btn-sm">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </td> --}}
                 </tr>
                 <tr>
                     <th>Phone</th>

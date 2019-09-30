@@ -81,11 +81,11 @@
                 <div class="col-sm-6 col-md-4 mb-3">
                     <select class="form-control" name="member_id">
                         <option value="">Client</option>
-                    @if(!$members->isEmpty())
-                        @foreach($members as $member)
-                            <option value="{{$member->id }}" @if(old('member_id')== $member->id ) {{ 'selected' }} @endif>{{ $member->member_name }}</option>
-                        @endforeach
-                    @endif
+                        @if(!$members->isEmpty())
+                            @foreach($members as $member)
+                                <option value="{{$member->id }}" @if(old('member_id')== $member->id ) {{ 'selected' }} @endif>{{ $member->member_name }}</option>
+                            @endforeach
+                        @endif
                     </select>
                     @error('member_id')
                         <span class="invalid-feedback" role="alert">
@@ -116,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer text-right">
             <a href="{{url()->previous()}}" class="btn btn-sm btn-warning">Back</a>
             <button type="submit" class="btn btn-sm btn-primary">Confirm Sale</button>
         </div>
@@ -204,6 +204,28 @@ jQuery('document').ready(function(e)
             }
         });
     });
+    $('#from_date').change(checkIsDateAvailable());
+    $('#to_date').change(checkIsDateAvailable());
+});
+//check if sale from & to dates are available
+function checkIsDateAvailable()
+{
+    var unit_id = $('#unit_id').val();
+    var from_date = $('#from_date').val();
+    var to_date = $('#to_date').val();
+    if(from_date != '' && to_date != '' && $unit_id != '')
+    {
+        $.ajax({
+            method:'GET',
+            url:'/check_if_sale_date/'+unit_id/from_date/to_date,
+            success:function(data){
+                console.log(data);
+            },
+            error:function(xhr,status,error){
+                console.log(error);
+            }
+        });
+    }
 });
 </script>
 @endsection
