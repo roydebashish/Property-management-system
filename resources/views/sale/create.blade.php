@@ -207,25 +207,26 @@ jQuery('document').ready(function(e)
     $('#from_date').change(checkIsDateAvailable());
     $('#to_date').change(checkIsDateAvailable());
 });
+
 //check if sale from & to dates are available
-function checkIsDateAvailable()
-{
-    var unit_id = $('#unit_id').val();
-    var from_date = $('#from_date').val();
-    var to_date = $('#to_date').val();
-    if(from_date != '' && to_date != '' && $unit_id != '')
-    {
-        $.ajax({
-            method:'GET',
-            url:'/check_if_sale_date/'+unit_id/from_date/to_date,
-            success:function(data){
-                console.log(data);
-            },
-            error:function(xhr,status,error){
-                console.log(error);
-            }
-        });
-    }
-});
+// function checkIsDateAvailable()
+// {
+//     var unit_id = $('#unit_id').val();
+//     var from_date = $('#from_date').val();
+//     var to_date = $('#to_date').val();
+//     if(from_date != '' && to_date != '' && $unit_id != '')
+//     {
+//         $.ajax({
+//             method:'GET',
+//             url:'/check_if_sale_date/'+unit_id/from_date/to_date,
+//             success:function(data){
+//                 console.log(data);
+//             },
+//             error:function(xhr,status,error){
+//                 console.log(error);
+//             }
+//         });
+//     }
+// });
 </script>
 @endsection

@@ -39,6 +39,9 @@
                             href="{{ route('expenses.index') }}">Expense</a>
                     </div>
                     <div class="col-lg-2 mb-3">
+                        <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm" href="{{route('exp_monthly_sales_expenses')}}">Monthly sales & expenses</a>
+                    </div>
+                    <div class="col-lg-2 mb-3">
                         <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm"
                             href="{{ route('members.index') }}">Clients</a>
                     </div>

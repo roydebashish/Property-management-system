@@ -3,6 +3,7 @@ Route::group(['middleware' => 'auth'], function ()
 {
     Route::get('users/change-password', 'UserController@change_password')->name('changePassword');
     Route::post('users/update-password', 'UserController@update_password')->name('updatePassword');
+//    Route::post('users/update-password', 'UserController@update_password')->name('updatePassword');
 
     Route::get('/', 'DashboardController@index');
     Route::resource('dashboard', 'DashboardController');
@@ -22,6 +23,7 @@ Route::group(['middleware' => 'auth'], function ()
     {
         Route::get('/sales','ExportController@export_sales')->name('exp_sales');
         Route::get('/expenses','ExportController@export_expenses')->name('exp_expenses');
+        Route::get('/monthlySalesExpenses','ExportController@export_monthly_sales_expenses')->name('exp_monthly_sales_expenses');
     });
     //Route::resource('ajaxRequests','AjaxRequestController');
 });
@@ -43,7 +45,5 @@ Route::post('/update_unit','UnitController@update');
 
 Route::get('/tt', function()
 {
-    $sales = App\Sale::all();
-    $sales->load('unit.property.country');
-    return $sales;
+    echo Carbon\Carbon::now()->year;
 });
