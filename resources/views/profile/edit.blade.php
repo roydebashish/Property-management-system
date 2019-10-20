@@ -1,4 +1,7 @@
 @extends('layouts.master')
+{{-- @section('ps_style')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
+@endsection --}}
 
 @section('content')
 {{-- <div class="d-sm-flex align-items-center justify-content-between mb-2">
@@ -35,7 +38,7 @@
                 @enderror
             </div>
             <div class="col-sm-12 col-md-3 mb-3">
-                <input type="file" class="form-control @error('user_photo') is-invalid @enderror" name="user_photo">
+                <input type="file" class="form-control @error('user_photo') is-invalid @enderror" id="user_photo" name="user_photo">
                 @error('user_photo')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
@@ -48,4 +51,31 @@
     </div>
     </form>
 </div>
+@endsection
+@section('ps_script')
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script> --}}
+{{-- <script type="text/javascript">
+    Dropzone.options.dropzone =
+    {
+        maxFilesize: 12,
+        renameFile: function(file) {
+            var dt = new Date();
+            var time = dt.getTime();
+            return time+file.name;
+        },
+        acceptedFiles: ".jpeg,.jpg,.png",
+        addRemoveLinks: true,
+        timeout: 5000,
+        success: function(file, response) 
+        {
+            console.log(response);
+        },
+        error: function(file, response)
+        {
+            return false;
+        }
+    }; --}}
+
+    //$("#user_photo").dropzone({ url: "/file/post" });
+</script>
 @endsection

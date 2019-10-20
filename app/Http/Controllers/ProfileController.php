@@ -80,13 +80,14 @@ class ProfileController extends Controller
             'email.unique' => 'Email already taken',
             'phone.required' => 'Enter phone number',
             'user_photo.mimes' => 'Allowed files jpg, jpeg & png',
-            'user_photo.dimensions' => 'File size: 150 X 150 px'
+            // 'user_photo.dimensions' => 'File size: 150 X 150 px'
         ]; 
         $this->validate($request,[
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$user->id,
             'phone' => 'required',
-            'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
+            // 'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
+            'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200'
         ], $messages);
         #upload user pic  
         if($request->hasFile('user_photo')){

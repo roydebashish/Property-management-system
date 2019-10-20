@@ -54,7 +54,7 @@ class UserController extends Controller
             'password.same'=> 'Comfirm password does not match',
             'confirm.required' => 'Confirm password',
             'user_photo.mimes' => 'Allowed files jpg, jpeg & png',
-            'user_photo.dimensions' => 'File size: 150 X 150 px'
+            //'user_photo.dimensions' => 'File size: 150 X 150 px'
         ]; 
         $this->validate($request,[
             'name' => 'required',
@@ -63,7 +63,8 @@ class UserController extends Controller
             'user_role' => 'required',
             'password'=> 'required|min:6|same:confirm',
             'confirm' => 'required',
-            'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
+            // 'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
+            'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200'
         ], $messages);
         
         $data = $request->all();
@@ -135,7 +136,7 @@ class UserController extends Controller
             'password.same'=> 'Comfirm password does not match',
             'confirm.required' => 'Confirm password',
             'user_photo.mimes' => 'Allowed files jpg, jpeg & png',
-            'user_photo.dimensions' => 'File size: 150 X 150 px'
+            // 'user_photo.dimensions' => 'File size: 150 X 150 px'
         ]; 
         $this->validate($request,[
             'name' => 'required',
@@ -144,7 +145,8 @@ class UserController extends Controller
             'user_role' => 'required',
             'password'=> 'nullable|min:6|same:confirm',
             'confirm' => 'nullable',
-            'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
+            // 'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
+            'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200'
         ], $messages);
         
         #upload user pic  
