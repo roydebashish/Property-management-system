@@ -40,9 +40,9 @@ class ReportController extends Controller
         #calculate ratio
         $units_in_this_month = $total_unit * Carbon::now()->daysInMonth; #number of units * number of days in current month
         $units_in_this_year = $total_unit * Helper::get_days_passed(); #total units * number of days till now
-        $ratio_today = ($count_units_sold_today > 0) ? round(100 * $count_units_sold_today / $total_unit, 2) : 0;
-        $ratio_this_month = ($count_units_sold_this_month > 0) ? round(100 * $count_units_sold_this_month / $units_in_this_month, 2) : 0;
-        $ratio_this_year = ($count_units_sold_this_month > 0) ? round(100 * $count_units_sold_this_year / $units_in_this_year, 2) : 0;
+        $ratio_today = ($count_units_sold_today > 0 && $total_unit > 0) ? round(100 * $count_units_sold_today / $total_unit, 2) : 0;
+        $ratio_this_month = ($count_units_sold_this_month > 0 && $units_in_this_month > 0) ? round(100 * $count_units_sold_this_month / $units_in_this_month, 2) : 0;
+        $ratio_this_year = ($count_units_sold_this_year > 0  && $units_in_this_year > 0) ? round(100 * $count_units_sold_this_year / $units_in_this_year, 2) : 0;
 
         #sales
         $todays_sale_card = Sale::Total_sales_by_payment_type('Card', 'today');
