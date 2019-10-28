@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware(function($request, $next){
+    //         $request->user()->authorizeRoles(['admin','accounts']);
+    //         return $next($request);
+    //     });
+        
+    // }
     /**
      * Display a listing of the resource.
      *

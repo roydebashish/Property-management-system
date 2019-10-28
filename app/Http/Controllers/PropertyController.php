@@ -14,8 +14,9 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['admin','accounts']);
         $properties =Property::all()->load('country');
         //$properties->load('country');
         return view('property.properties')->with(['properties'=> $properties, 'countries' => Country::all()]);
@@ -39,6 +40,7 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['admin','accounts']);
         $validate = validator::make($request->all(),[
             'country_id' => 'required',
             'property_name' => 'required|max:191'
@@ -88,8 +90,9 @@ class PropertyController extends Controller
      * @param  \App\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function edit(Property $property)
+    public function edit(Request $request, Property $property)
     {
+        $request->user()->authorizeRoles(['admin','accounts']);
         $countries = Country::all();
         return view('property.edit')->with(['property' => $property, 'countries' => $countries]);
     }
@@ -103,6 +106,7 @@ class PropertyController extends Controller
      */
     public function update(Request $request, Property $property)
     {
+        $request->user()->authorizeRoles(['admin','accounts']);
         $this->validate($request, [
             'country_id' => 'required',
             'property_name' => 'required|unique:properties,property_name,'.$property->id
@@ -121,8 +125,9 @@ class PropertyController extends Controller
      * @param  \App\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property $property)
+    public function destroy(Reqeust $request, Property $property)
     {
+        $request->user()->authorizeRoles(['admin','accounts']);
         $property->delete();
         return back()->with('success', "Property deleted");
     }

@@ -13,8 +13,9 @@ class ExpenseTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['admin','accounts']);
         return view('expense.expense_types')->with('expense_types', ExpenseType::all()->sortBy('expense_type'));
     }
 
@@ -95,8 +96,9 @@ class ExpenseTypeController extends Controller
      * @param  \App\ExpenseType  $expenseType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ExpenseType $expenseType)
+    public function destroy(Request $request, ExpenseType $expenseType)
     {
+        $request->user()->authorizeRoles(['admin','accounts']);
         $expenseType->delete();
         return back()->with('success', "Expense head deleted");
     }

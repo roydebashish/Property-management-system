@@ -46,7 +46,7 @@
                         </td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->phone }}</td>
-                        <td>{{ $item->user_role }}</td>
+                        <td>{{ App\Helper::user_roles_as_str($item->roles) }}</td>
                         <td class="text-center">
                             <a href="{{ route('users.show',['id' => $item->id]) }}" class="btn btn-info btn-circle btn-sm">
                                 <i class="fas fa-eye"></i>

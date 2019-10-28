@@ -129,26 +129,32 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-lg-4 col-sm-6 mb-2">
-              <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm" href="{{ route('users.create') }}">Add User</a>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-2">
-              <a class="btn btn-danger btn-user btn-block rounded-0 shadow-sm" href="{{ route('members.create') }}">Add Client</a>
-            </div>
+            @if(!request()->user()->hasRole('user'))
+              <div class="col-lg-4 col-sm-6 mb-2">
+                <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm" href="{{ route('users.create') }}">Add User</a>
+              </div>
+              <div class="col-lg-4 col-sm-6 mb-2">
+                <a class="btn btn-danger btn-user btn-block rounded-0 shadow-sm" href="{{ route('members.create') }}">Add Client</a>
+              </div>
+              <div class="col-lg-4 col-sm-6 mb-2">
+                <a class="btn btn-primary btn-user btn-block rounded-0 shadow-sm" href="{{ route('countries.index') }}">Add Country</a>
+              </div>
+              <div class="col-lg-4 col-sm-6 mb-2">
+                <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm" href="{{ route('property.index') }}">Add Property</a>
+              </div>
+              <div class="col-lg-4 col-sm-6 mb-2">
+                <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm" href="{{ route('units.index') }}">Add Unit</a>
+              </div>
+            @endif
+
             <div class="col-lg-4 col-sm-6 mb-2">
               <a class="btn btn-warning btn-user btn-block rounded-0 shadow-sm" href="{{ route('sales.create') }}">Add Sale</a>
             </div>
-
+            @if(request()->user()->hasRole('user'))
             <div class="col-lg-4 col-sm-6 mb-2">
-              <a class="btn btn-primary btn-user btn-block rounded-0 shadow-sm" href="{{ route('countries.index') }}">Add Country</a>
+              <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm" href="{{ route('expenses.create') }}">Add Expense</a>
             </div>
-            <div class="col-lg-4 col-sm-6 mb-2">
-              <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm" href="{{ route('property.index') }}">Add Property</a>
-            </div>
-            <div class="col-lg-4 col-sm-6 mb-2">
-              <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm" href="{{ route('units.index') }}">Add Unit</a>
-            </div>
-
+            @endif
           </div>
 
         </div>
@@ -170,6 +176,7 @@
             <div class="col-lg-2 mb-2">
               <a class="btn btn-secondary btn-user btn-block rounded-0 shadow-sm" href="{{ route('expenses.index') }}">Expense</a>
             </div>
+            @if(!request()->user()->hasRole('user'))
             <div class="col-lg-2 mb-2">
               <a class="btn btn-success btn-user btn-block rounded-0 shadow-sm" href="{{ route('members.index') }}">Clients</a>
             </div>
@@ -179,6 +186,7 @@
             <div class="col-lg-2 mb-2">
               <a class="btn btn-info btn-user btn-block rounded-0 shadow-sm" href="{{ route('users.index') }}">User</a>
             </div>
+            @endif
           </div>
         </div>
       </div>

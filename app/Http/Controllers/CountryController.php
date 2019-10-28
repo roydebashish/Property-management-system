@@ -36,6 +36,8 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['admin','accounts']);
+        
         $validate = validator::make($request->all(),[
             'country_name' => 'required|unique:countries,country_name'
         ],[
@@ -80,7 +82,7 @@ class CountryController extends Controller
      */
     public function update(Request $request)
     {
-        //return $request->input('country_id');
+        $request->user()->authorizeRoles(['admin','accounts']);
         $validate = validator::make($request->all(),[
             'country_name' => 'required|unique:countries,country_name,'.$request->input('country_id')
         ],[
@@ -118,8 +120,9 @@ class CountryController extends Controller
      * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Country $country)
+    public function destroy(Request $request, Country $country)
     {
+        $request->user()->authorizeRoles(['admin','accounts']);
         $country->delete();
         return back()->with('success', "Country deleted");
     }

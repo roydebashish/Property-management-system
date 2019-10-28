@@ -148,4 +148,17 @@ class Helper
     {
         return $prefix.'_'.Carbon::now()->format('d-m-Y_h_m_s_A').'.xlsx'; #for csv change .xlsx to .csv
     }
+    /**
+     * return user roles as string
+     * @param Role $roles 
+    */
+    public static function user_roles_as_str($roles)
+    {
+        $user_roles = '';
+        if(!$roles->isEmpty()){
+            $roles = $roles->pluck('name')->toArray();
+           $user_roles = implode(',', $roles);
+        }
+        return $user_roles;
+    }
 }

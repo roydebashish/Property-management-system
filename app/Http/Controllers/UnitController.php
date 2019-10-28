@@ -9,12 +9,19 @@ use Illuminate\Support\Facades\Validator;
 
 class UnitController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+            $request->user()->authorizeRoles(['admin','accounts']);
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //$units = Unit::all()->load('property.country'); 
         return view('unit.units')->with(['units' => Unit::all()->load('property.country'), 'properties' => Property::orderBy('property_name','asc')->get()]);
@@ -38,7 +45,6 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         $validate = validator::make($request->all(),[
             'property_id' => 'required|max:191',
             'unit_no' => 'required|max:191'
@@ -106,7 +112,6 @@ class UnitController extends Controller
      */
     public function update(Request $request, Unit $unit)
     {   
-      // dd($request->all());
         $this->validate($request, [
             'property_id' => 'required|max:20',
             'unit_no' => 'required|max:191|unique:units,unit_no,'.$unit->id

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
+use App\User;
+use App\Role;
 use Auth;
 use Hash;
 use File;
@@ -15,11 +16,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::where('user_role', '!=', 'system')
-            ->where('id','<>',Auth::user()->id)
+        $request->user()->authorizeRoles('admin');
+
+        $users = User::where('id','<>',Auth::user()->id)
             ->get();
+        $users->load('roles');
+        //dd($users);
         return view('user.users')->with('users', $users);
     }
 
@@ -28,9 +32,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('user.create');
+        $request->user()->authorizeRoles('admin');
+
+        return view('user.create')->with('roles', Role::all());
     }
 
     /**
@@ -41,30 +47,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        $request->user()->authorizeRoles('admin');
+
         $messages = [
             'name.required' => 'Enter valid name',
             'email.required' => 'Enter email',
             'email.email' => 'Invalid email',
             'email.unique' => 'Email already taken',
             'phone.required' => 'Enter phone number',
+            'phone.unique' => 'Phone number already taken',
             'user_role.required' => 'Select user role',
             'password.required'=> 'Enter password',
             'password.min'=> 'Minimum 6 characters',
             'password.same'=> 'Comfirm password does not match',
             'confirm.required' => 'Confirm password',
-            'user_photo.mimes' => 'Allowed files jpg, jpeg & png',
-            //'user_photo.dimensions' => 'File size: 150 X 150 px'
         ]; 
         $this->validate($request,[
             'name' => 'required',
-            'email' => 'required|unique:users|email',
-            'phone' => 'required',
+            'email' => 'required|unique:users,email|email',
+            'phone' => 'required|unique:users,phone',
             'user_role' => 'required',
             'password'=> 'required|min:6|same:confirm',
             'confirm' => 'required',
-            // 'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
-            'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200'
         ], $messages);
         
         $data = $request->all();
@@ -85,9 +89,9 @@ class UserController extends Controller
             #attach profile url
             $data['user_photo']  = $user_photo;
         }
-
+        $user_role = Role::findOrFail($data['user_role']);
         $user = User::create($data);
-       
+        $user->roles()->attach($user_role);
         return back()->with('success', "New User <b>$user->name</b> Created");
         
     }
@@ -185,8 +189,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request,User $user)
     {
+        $request->user()->authorizeRoles('admin');
         $user->delete();
         return back()->with('success', "User deleted");
     }
