@@ -89,11 +89,12 @@ class UserController extends Controller
             #attach profile url
             $data['user_photo']  = $user_photo;
         }
-        $user_role = Role::findOrFail($data['user_role']);
         $user = User::create($data);
+        #attach user role
+        $user_role = Role::findOrFail($data['user_role']);
         $user->roles()->attach($user_role);
-        return back()->with('success', "New User <b>$user->name</b> Created");
-        
+
+        return back()->with('success', "New User <b>$user->name</b> Created"); 
     }
 
     /**
@@ -105,6 +106,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $user->load('roles');
         return view('user.details')->with('user',$user);
     }
 
@@ -116,7 +118,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.edit')->with('user', $user);
+        $roles = Role::all();
+        $user->load('roles');
+        //dd($user->roles[0]->id);
+        return view('user.edit')->with([
+            'user' => $user,
+            'roles' => $roles
+        ]);
     }
 
     /**
@@ -149,14 +157,13 @@ class UserController extends Controller
             'user_role' => 'required',
             'password'=> 'nullable|min:6|same:confirm',
             'confirm' => 'nullable',
-            // 'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200|dimensions:max_width=150,max_height=150'
             'user_photo' => 'nullable|mimes:jpg,jpeg,png|max:200'
         ], $messages);
         
         #upload user pic  
-        if($request->hasFile('user_photo')){
+        if($request->hasFile('user_photo'))
+        {
             $destinationPath = public_path().'/uploads/user';
-            
             #remove previous file
             if (File::exists(public_path().'/uploads/user/'. $user->user_photo)) {
                 File::delete(public_path().'/uploads/user/'. $user->user_photo);
@@ -174,12 +181,17 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
-        $user->user_role = $request->input('user_role');
         if(!empty($request->input('password'))){
             $user->password = bcrypt($request->input('password'));
         }
-        
+
         $user->save();
+
+        #update user role
+        $user_role = \DB::table('role_user')
+                    ->where('user_id', $user->id)
+                    ->update(['role_id' => $request->input('user_role')]);
+       
        
         return redirect()->route('users.index')->with('success', "New User <b>$user->name</b> Updated");
     }

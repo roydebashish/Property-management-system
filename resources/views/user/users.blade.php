@@ -39,7 +39,7 @@
                     <tr>
                         <td>
                             @if($item->user_photo)
-                            <img src="{{ url('uploads/user/'.$item->user_photo) }}" width="80" class="rounded-circle" />
+                            <img src="{{ url('uploads/user/'.$item->user_photo) }}" width="50" class="rounded-circle" />
                             @else
                                 ----
                             @endif

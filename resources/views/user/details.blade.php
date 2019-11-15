@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <th>Role</th>
-                    <td>{{ ucfirst($user->user_role) }}</td>
+                    <td>{{ App\Helper::user_roles_as_str($user->roles) }}</td>
                 </tr>
                 <tr>
                     <th>Image</th>
