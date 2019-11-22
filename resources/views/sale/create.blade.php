@@ -79,6 +79,14 @@
                     @enderror
                 </div>
                 <div class="col-sm-6 col-md-4 mb-3">
+                <input type="text" class="form-control" id="created_at" name="created_at" value="{{ Carbon\Carbon::today()->format('Y-m-d')}}" placeholder="Sale Date" autocomplete="off" required />
+                    @error('created_at')
+                        <small class="text-danger">{{ $message }}</small>
+                    @else
+                        <small class="text-info">Sale Date</small>
+                    @enderror
+                </div>
+                <div class="col-sm-6 col-md-4 mb-3">
                     <select class="form-control" name="member_id">
                         <option value="">Client</option>
                         @if(!$members->isEmpty())
@@ -129,11 +137,12 @@
 <script>
 jQuery('document').ready(function(e)
  {
+     
     // calendar
      $('#from_date').datepicker({
         dateFormat:'yy-mm-dd',
         showButtonPanel: true,
-        //minDate:0,
+        duration: "slow",
         onSelect: function (date) {
             var date2 = $(this).datepicker('getDate');
             $('#to_date').datepicker('option', 'minDate', date2);
@@ -143,7 +152,13 @@ jQuery('document').ready(function(e)
     $('#to_date').datepicker({
         dateFormat:'yy-mm-dd',
         showButtonPanel: true,
-        //minDate: 0
+         duration: "slow"
+    });
+
+     $('#created_at').datepicker({
+        dateFormat:'yy-mm-dd',
+        showButtonPanel: true,
+        duration: "slow"
     });
 
     //get properties

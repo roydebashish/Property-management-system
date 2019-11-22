@@ -1,4 +1,5 @@
 <?php
+
 Route::group(['middleware' => 'auth'], function () 
 {
     Route::get('users/change-password', 'UserController@change_password')->name('changePassword');
@@ -45,5 +46,7 @@ Route::post('/update_unit','UnitController@update');
 
 Route::get('/tt', function()
 {
-    echo Carbon\Carbon::now()->year;
+    // $current = Carbon::now();
+    // $date = '2019-11-21 '.$current->toTimeString();
+    // var_dump($current->parse($date));
 });

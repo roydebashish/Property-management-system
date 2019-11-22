@@ -17,10 +17,11 @@ class Sale extends Model
         'from_date',
         'to_date',
         'sale_amount',
-        'payment_method'
+        'payment_method',
+        'created_at'
     ];
 
-     /*
+    /*
     *relation between sale to unit
     */
     public function unit()
@@ -61,5 +62,14 @@ class Sale extends Model
         }
 
     }
-
+    /**
+     * format created at date time before saving
+    */
+    public function setCreatedAtAttribute($value)
+    {
+        $current = Carbon::now();
+        $date = $value.' '.$current->toTimeString();
+        //dd($date);
+        $this->attributes['created_at'] =  $current->parse($date);
+    }
 }

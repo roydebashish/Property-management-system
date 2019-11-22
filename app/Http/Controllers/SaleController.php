@@ -152,6 +152,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         Sale::create($request->all());
         #update unit vacancy status
         //Unit::where('id', $request->unit_id)->update(['is_vacant' => 0]);

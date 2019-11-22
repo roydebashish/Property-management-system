@@ -60,7 +60,7 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        dd('show request');
+        var_dump($country->created_at);
     }
 
     /**
