@@ -125,8 +125,9 @@ class PropertyController extends Controller
      * @param  \App\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reqeust $request, Property $property)
+    public function destroy(Request $request, Property $property)
     {
+        //dd($request->all());
         $request->user()->authorizeRoles(['admin','accounts']);
         $property->delete();
         return back()->with('success', "Property deleted");
